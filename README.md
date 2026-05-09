@@ -5,3 +5,12 @@ Pablo, Darío y Mustafá son paleontólogos amigos que se introducen en un templ
 
 ## Documento 
 [Greediers](https://docs.google.com/document/d/1gRcssnVEavPk0e5HhZcbXImaos7NqxCDGjtIbL4E02c/edit?tab=t.5pwbdk3g9ip7)
+
+## Materia
+Programación de Videojuegos II - Primer cuatrimestres 2026 - UNAHUR
+
+## Integrantes
+* Abat, Tomás
+* Arnez, Sebastián
+* Genisetto, Carlos
+* Luján, Carolina
