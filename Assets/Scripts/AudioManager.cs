@@ -5,11 +5,12 @@ using UnityEngine;
 public class AudioManager : MonoBehaviour
 {
     public static AudioManager instance;
-    AudioSource audioSource;
+    public AudioSource cancionMomia;
+    public AudioSource voice1;
     // Start is called before the first frame update
     void Start()
     {
-        audioSource = gameObject.GetComponent<AudioSource>();
+        
     }
 
     // Update is called once per frame
@@ -17,8 +18,12 @@ public class AudioManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Backspace))
         {
-            audioSource.PlayOneShot(audioSource.clip);
-            audioSource.volume = 0.30f;
+            cancionMomia.PlayOneShot(cancionMomia.clip);
+            cancionMomia.volume = 0.30f;
+        }
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            voice1.PlayOneShot(voice1.clip);
         }
     }
 
