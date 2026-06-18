@@ -7,6 +7,7 @@ public class MovementJugador : MonoBehaviour
     [Header("Valores modificables referidas a la física del personaje:")]
     public float speed = 5f;
     public float fuerzaSalto = 10f;
+    private float fuerzaSuperSalto = 20f;
     public Rigidbody2D rbPlayer;
 
     [Header("Valores de lógica de colision con el suelo:")]
@@ -22,16 +23,16 @@ public class MovementJugador : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
         rbPlayer.freezeRotation = true;
 
         rbPlayer.drag = 0;
 
         longitudLineaColision = transform.localScale.x / 1.5f;
 
-        speed = 5f;
+        speed = 15f;
 
-        fuerzaSalto = 5f;
+        fuerzaSalto = 10f;
 
     }
 
@@ -78,23 +79,23 @@ public class MovementJugador : MonoBehaviour
 
     public void SaltarJugadorSi(bool unaCondicion)
     {
-        if(unaCondicion && estaEnElSuelo)
+        if (unaCondicion && estaEnElSuelo)
         {
-	//forma original de salto del player:
+            //forma original de salto del player:
             //var posicionSalto = rbPlayer.transform.up * fuerzaSalto;
-//rbPlayer.AddForce(posicionSalto);
+            //rbPlayer.AddForce(posicionSalto);
 
-	//forma nueva:
-            
+            //forma nueva:
+
             rbPlayer.AddForce(new Vector2(0, fuerzaSalto), ForceMode2D.Impulse);
-            
+
             print("he presionado la tecla de salto y estoy saltando");
         }
     }
 
     public void GirarJugadorSiCorrespondeCon(float unInput)
     {
-        if((estoyPresionandoALaDerechaATravesDe(unInput) && !estoyMirandoALaDerecha()) || (estoyPresionandoALaIzquierdaATravesDe(unInput) && estoyMirandoALaDerecha()))
+        if ((estoyPresionandoALaDerechaATravesDe(unInput) && !estoyMirandoALaDerecha()) || (estoyPresionandoALaIzquierdaATravesDe(unInput) && estoyMirandoALaDerecha()))
         {
             GirarJugador();
         }
@@ -129,4 +130,12 @@ public class MovementJugador : MonoBehaviour
         Gizmos.color = Color.green;
         Gizmos.DrawLine(transform.position, transform.position + Vector3.down * longitudLineaColision);
     }
+
+    //AGREGAR UNA HABILIDAD AL TOCAR UN OBJETO agregado el 17/06
+
+    public void AjustarSalto(bool esPotenciado)
+    {
+        fuerzaSalto = esPotenciado ? fuerzaSuperSalto : fuerzaSalto;
+    }
+
 }

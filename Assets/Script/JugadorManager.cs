@@ -18,18 +18,18 @@ public class JugadorManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     void FixedUpdate()
     {
-       //funciones de movilidad se ejecutarán aquí (se hace desde el fixedUpdate ya que se usa lógica de físicas):
+        //funciones de movilidad se ejecutarán aquí (se hace desde el fixedUpdate ya que se usa lógica de físicas):
 
         movementPlayer.MoverJugadorConVelocidadLineal(inputPlayer.Movement);
 
@@ -41,11 +41,11 @@ public class JugadorManager : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.CompareTag("Trampa"))
-        {
-            print("He perdido tesoro");
-            Morir(); //previsorio, no morira el player.
-        }
+        /*         if(collision.gameObject.CompareTag("Trampa"))
+                {
+                    print("He perdido tesoro");
+                    Morir(); //previsorio, no morira el player.
+                } */
     }
 
     private void Morir()
@@ -58,4 +58,19 @@ public class JugadorManager : MonoBehaviour
         //Insertar lógica de posicionamiento según personaje seleccionado.
     }
 
+    //SISTEMA DE CORRUTINAS agregado el 17/06
+
+    public void ActivarSuperSalto()
+    {
+        StartCoroutine(CorrutinaSuperSalto(10f));
+    }
+
+    private IEnumerator CorrutinaSuperSalto(float duracion)
+    {
+        print("duración de supersalto: " + duracion + "segundos");
+        movementPlayer.AjustarSalto(true);
+        yield return new WaitForSeconds(duracion);
+        movementPlayer.AjustarSalto(false);
+        print("habilidad desactivada.");
+    }
 }
