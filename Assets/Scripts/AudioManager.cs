@@ -46,11 +46,13 @@ public class AudioManager : MonoBehaviour
             return;
         }
         audioFondo.clip = cancionAReproducir;
+        audioFondo.loop = true;
         audioFondo.Play();
     }
     
     public void DetenerMusica()
     {
+        audioFondo.loop = false;
         audioFondo.Stop();
     }
 
