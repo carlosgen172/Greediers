@@ -5,7 +5,8 @@ using UnityEngine;
 public class AudioManager : MonoBehaviour
 {
     public static AudioManager instance;
-    public AudioSource audioSource;
+    public AudioSource audioFondo;
+    public AudioSource audioSFX;
     AudioClip cancionMomia;
     AudioClip voice1;
     void Start()
@@ -13,7 +14,6 @@ public class AudioManager : MonoBehaviour
         if (instance == null){
             instance = this;
         }
-        audioSource = gameObject.GetComponent<AudioSource>();
         cancionMomia = Resources.Load<AudioClip>("CancionMomiaPrueba");
         voice1 = Resources.Load<AudioClip>("Voice1");
     }
@@ -29,21 +29,39 @@ public class AudioManager : MonoBehaviour
         {
             ReproducirSonido(voice1);
         }
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            DetenerMusica();
+        }
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            DetenerSonido();
+        }
     }
 
     public void ReproducirMusica(AudioClip cancionAReproducir)
     {
-        if(audioSource.isPlaying && audioSource.clip == cancionAReproducir)
+        if(audioFondo.isPlaying && audioFondo.clip == cancionAReproducir)
         {
             return;
         }
-        audioSource.clip = cancionAReproducir;
-        audioSource.Play();
+        audioFondo.clip = cancionAReproducir;
+        audioFondo.Play();
+    }
+    
+    public void DetenerMusica()
+    {
+        audioFondo.Stop();
     }
 
     public void ReproducirSonido(AudioClip cancionAReproducir)
     {
-        audioSource.PlayOneShot(cancionAReproducir);
+        audioSFX.PlayOneShot(cancionAReproducir);
+    }
+
+    public void DetenerSonido()
+    {
+        audioSFX.Stop();
     }
 
 }
