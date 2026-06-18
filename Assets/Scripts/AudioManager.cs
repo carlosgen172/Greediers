@@ -9,6 +9,7 @@ public class AudioManager : MonoBehaviour
     public AudioSource audioSFX;
     AudioClip cancionMomia;
     AudioClip voice1;
+    public float volumenCancion;
     void Start()
     {
         if (instance == null){
@@ -23,7 +24,7 @@ public class AudioManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            ReproducirMusica(cancionMomia);
+            ReproducirMusica(cancionMomia, volumenCancion);
         }
         if (Input.GetKeyDown(KeyCode.Backspace))
         {
@@ -39,13 +40,18 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    public void ReproducirMusica(AudioClip cancionAReproducir)
+    public void ReproducirMusica(AudioClip cancionAReproducir, float volumenDeCancion)
     {
         if(audioFondo.isPlaying && audioFondo.clip == cancionAReproducir)
         {
             return;
         }
+        if(volumenDeCancion > 1 && volumenDeCancion <= 100)
+        {
+            volumenDeCancion = volumenDeCancion / 100;
+        }
         audioFondo.clip = cancionAReproducir;
+        audioFondo.volume = volumenDeCancion;
         audioFondo.loop = true;
         audioFondo.Play();
     }
@@ -53,6 +59,7 @@ public class AudioManager : MonoBehaviour
     public void DetenerMusica()
     {
         audioFondo.loop = false;
+        audioFondo.volume = 100;
         audioFondo.Stop();
     }
 
