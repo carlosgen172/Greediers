@@ -12,7 +12,7 @@ public class SalidaController : MonoBehaviour
 
     void Start()
     {
-        if(textoJugadorGanador != null)
+        if (textoJugadorGanador != null)
         {
             textoJugadorGanador.gameObject.SetActive(false);
         }
@@ -25,9 +25,8 @@ public class SalidaController : MonoBehaviour
             // ocultar al jugar en lugar de eliminarlo
             other.gameObject.SetActive(false);
 
-            // puntaje del otro jugador 
-            int puntos = other.GetComponent<JugadorPuntaje>().puntaje;
-            puntajes.Add(other.name, puntos);
+            JugadorPuntaje jugador = other.GetComponent<JugadorPuntaje>();
+            puntajes.Add(jugador.nombreJugador, jugador.puntaje);
 
             jugadoresLlegados++;
 
