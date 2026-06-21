@@ -2,12 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//enumaeración de habilidades
+//fuera de la clase, lo hice así para no tener que hacer otro script
+//y porque así puede ser accesible para otras necesidades
+public enum TipoHabilidad { SuperSalto, DobleVelocidad, DobleTamanio }
 public class JugadorManager : MonoBehaviour
 {
 
     //Componentes
     private MovementJugador movementPlayer;
     public InputManagerJugador inputPlayer;
+
+    public bool habilidadActivada;
 
     void Awake()
     {
@@ -58,8 +64,9 @@ public class JugadorManager : MonoBehaviour
         //Insertar lógica de posicionamiento según personaje seleccionado.
     }
 
-    //SISTEMA DE CORRUTINAS agregado el 17/06
+    //SISTEMA DE CORRUTINAS agregado el 17/06 - 20/06
 
+    // -----------------------------------------SUPER SALTO 
     public void ActivarSuperSalto()
     {
         StartCoroutine(CorrutinaSuperSalto(10f));
@@ -67,10 +74,70 @@ public class JugadorManager : MonoBehaviour
 
     private IEnumerator CorrutinaSuperSalto(float duracion)
     {
+        habilidadActivada = true;
         print("duración de supersalto: " + duracion + "segundos");
         movementPlayer.AjustarSalto(true);
         yield return new WaitForSeconds(duracion);
         movementPlayer.AjustarSalto(false);
-        print("habilidad desactivada.");
+        print("super salto desactivado");
+        habilidadActivada = false;
+    }
+
+    //-----------------------------------------DOBLE VELOCIDAD 
+    public void ActivarDobleVelocidad()
+    {
+        StartCoroutine(CorrutinaDobleVelocidad(10f));
+    }
+
+    private IEnumerator CorrutinaDobleVelocidad(float duracion)
+    {
+        habilidadActivada = true;
+        print("duración de doble velocidad: " + duracion + "segundos");
+        movementPlayer.AjustarVelocidad(2.0f);
+        yield return new WaitForSeconds(duracion);
+        movementPlayer.AjustarVelocidad(1.0f);
+        print("doble velocidad desactivado");
+        habilidadActivada = false;
+    }
+
+    //-----------------------------------------DOBLE TAMANIO  
+    public void ActivarDobleTamanio()
+    {
+        StartCoroutine(CorrutinaDobleTamanio(10f));
+    }
+
+    private IEnumerator CorrutinaDobleTamanio(float duracion)
+    {
+        habilidadActivada = true;
+        print("duración de doble tamanio: " + duracion + "segundos");
+        movementPlayer.AjustarTamanio(2.0f);
+        movementPlayer.AjustarVelocidad(0.5f); //la velocidad va a ser más lenta
+        yield return new WaitForSeconds(duracion);
+        movementPlayer.AjustarTamanio(1.0f);
+        movementPlayer.AjustarVelocidad(1.0f); //se reanuda la velocidad original
+        print("doble tamanio desactivado");
+        habilidadActivada = false;
+    }
+
+    public void ActivarHabilidad()
+    {
+        TipoHabilidad tipo = (TipoHabilidad)Random.Range(0, 3);
+        // si hya habilidad activada, evita tomar otras habilidades
+        if (habilidadActivada) return;
+        // usar switrch para intercambiar entre los tipo de habilidades
+        switch (tipo)
+        {
+            case TipoHabilidad.SuperSalto:
+                ActivarSuperSalto();
+                break;
+
+            case TipoHabilidad.DobleVelocidad:
+                ActivarDobleVelocidad();
+                break;
+
+            case TipoHabilidad.DobleTamanio:
+                ActivarDobleTamanio();
+                break;
+        }
     }
 }

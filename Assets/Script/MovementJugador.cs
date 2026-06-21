@@ -8,6 +8,9 @@ public class MovementJugador : MonoBehaviour
     public float speed = 5f;
     public float fuerzaSalto = 10f;
     private float fuerzaSuperSalto = 20f;
+    private float fuerzaSaltoInicial ;
+    private float speedInicial;
+    private Vector3 tamanioInicial;
     public Rigidbody2D rbPlayer;
 
     [Header("Valores de lógica de colision con el suelo:")]
@@ -33,6 +36,10 @@ public class MovementJugador : MonoBehaviour
         speed = 15f;
 
         fuerzaSalto = 10f;
+
+        fuerzaSaltoInicial = fuerzaSalto;
+        speedInicial = speed;
+        tamanioInicial = transform.localScale;
 
     }
 
@@ -131,11 +138,21 @@ public class MovementJugador : MonoBehaviour
         Gizmos.DrawLine(transform.position, transform.position + Vector3.down * longitudLineaColision);
     }
 
-    //AGREGAR UNA HABILIDAD AL TOCAR UN OBJETO agregado el 17/06
+    //AGREGAR UNA HABILIDAD AL TOCAR UN OBJETO agregado el 17/06 - 20/06
 
     public void AjustarSalto(bool esPotenciado)
     {
-        fuerzaSalto = esPotenciado ? fuerzaSuperSalto : fuerzaSalto;
+        fuerzaSalto = esPotenciado ? fuerzaSuperSalto : fuerzaSaltoInicial;
+    }
+
+    public void AjustarVelocidad(float multiplicado)
+    {
+        speed = speedInicial * multiplicado;
+    }
+
+        public void AjustarTamanio(float multiplicado)
+    {
+        transform.localScale = tamanioInicial * multiplicado;
     }
 
 }

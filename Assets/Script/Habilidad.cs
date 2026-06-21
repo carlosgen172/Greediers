@@ -4,25 +4,25 @@ using UnityEngine;
 
 public class Habilidad : MonoBehaviour
 {
-/* private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.CompareTag("Jugador1"))
+    /* private void OnTriggerEnter2D(Collider2D other)
         {
-            other.GetComponent<JugadorManager>().ActivarSuperSalto();
-            //Destroy(gameObject); 
-        }
-    }
-} */
-
-private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.CompareTag("Jugador1"))
-        {
-            JugadorManager gestor = other.GetComponent<JugadorManager>();
-            if (gestor != null)
+            if (other.CompareTag("Jugador1"))
             {
-                gestor.ActivarSuperSalto(); 
-                //Destroy(gameObject);        
+                other.GetComponent<JugadorManager>().ActivarSuperSalto();
+                //Destroy(gameObject); 
+            }
+        }
+    } */
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Jugador1"))
+        {
+            JugadorManager JGManager = other.GetComponent<JugadorManager>();
+            if (JGManager != null)
+            {
+                JGManager.ActivarHabilidad();
+                //Destroy(gameObject); 
             }
         }
     }
