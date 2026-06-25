@@ -33,17 +33,22 @@ public class JugadorManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (estaSobreElTesoro && Input.GetKey(inputPlayer.teclaInteraccion/*  && Input.GetKey(KeyCode.Q) */))
+        if (estaSobreElTesoro && Input.GetKeyDown(inputPlayer.teclaInteraccion/*  && Input.GetKey(KeyCode.Q) */))
         {
             if (corrutinaTesoro == null)
             {
                 corrutinaTesoro = StartCoroutine(CorrutinaObtenerTesoro());
             }
 
-            else
+            /* else
             {
                 DetenerRecoleccion();
-            }
+            } */
+        }
+
+        if (Input.GetKeyUp(inputPlayer.teclaInteraccion))
+        {
+            DetenerRecoleccion();
         }
     }
 
@@ -169,8 +174,10 @@ public class JugadorManager : MonoBehaviour
         JugadorPuntaje valores = GetComponent<JugadorPuntaje>();
         UIManager ui = FindObjectOfType<UIManager>();
 
+
         while (true) // se rompe cuando la corrutina se detiene
         {
+            yield return new WaitForSeconds(1.5f);
             valores.puntaje += 1;
 
             if (ui != null)
@@ -178,7 +185,6 @@ public class JugadorManager : MonoBehaviour
                 ui.ActualizarPuntaje(valores);
             }
             //print(valores.nombreJugador + "obtuvo " + valores.puntaje);
-            yield return new WaitForSeconds(5.0f);
         }
     }
 }

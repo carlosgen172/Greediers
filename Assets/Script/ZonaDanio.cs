@@ -16,8 +16,10 @@ public class ZonaDanio : MonoBehaviour
                 // prueba para ver si funciona la zona de daño perdiendo lo recolectado
                 if (jugadorPuntaje != null)
                 {
-                    if (jugadorPuntaje.puntaje == 0) return;
-                    jugadorPuntaje.puntaje -= 10;
+                    // comparativa para evitar los números negativos  
+                    jugadorPuntaje.puntaje = Mathf.Max(0, jugadorPuntaje.puntaje - 10);
+
+                    //jugadorPuntaje.puntaje -= 10;
 
                     // actualizacion de la ui (resta de punto si recibe daño)
                     UIManager ui = FindObjectOfType<UIManager>();
