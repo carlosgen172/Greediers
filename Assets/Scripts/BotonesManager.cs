@@ -62,7 +62,7 @@ public class BotonesManager : MonoBehaviour, IPointerDownHandler, IPointerUpHand
         if(nombreBoton == "BotonPlay")
         {
             escenaADirigir = "MenuSeleccionPJ";
-            
+
         } else if(nombreBoton == "BotonSalirAlMenu" || nombreBoton == "BotonVolverAlMenu")
         {
             escenaADirigir = "MenuPrincipal";
@@ -70,6 +70,10 @@ public class BotonesManager : MonoBehaviour, IPointerDownHandler, IPointerUpHand
         } else if(nombreBoton == "BotonOptions")
         {
             escenaADirigir = "MenuOpciones";
+
+        }else if(nombreBoton == "BotonTutorial") 
+        {
+            escenaADirigir = "MenuTutorial";
 
         } else if(nombreBoton == "BotonIrAJugar") //PARA PRUEBA (MODIFICAR CUANDO ESTÉ LISTO EL SISTEMA DE SELECCIÓN DE PJS POR INPUT CONCRETADO)
         {
@@ -114,6 +118,11 @@ public class BotonesManager : MonoBehaviour, IPointerDownHandler, IPointerUpHand
     public void IrAOpciones()
     {
         print("Acabo de presionar el botón de Options");
+        CambiarAEscenaCorrespondiente();
+    }
+
+    public void IrAlTutorial() {
+        print("Acabo de presionar el boton de Tutorial");
         CambiarAEscenaCorrespondiente();
     }
 
