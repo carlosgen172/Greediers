@@ -17,7 +17,7 @@ public class ZonaDanio : MonoBehaviour
                 if (jugadorPuntaje != null)
                 {
                     // comparativa para evitar los números negativos  
-                    jugadorPuntaje.puntaje = Mathf.Max(0, jugadorPuntaje.puntaje - 10);
+                    jugadorPuntaje.puntaje = Mathf.Max(0, jugadorPuntaje.puntaje - 2);
 
                     //jugadorPuntaje.puntaje -= 10;
 

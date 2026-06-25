@@ -177,7 +177,7 @@ public class JugadorManager : MonoBehaviour
 
         while (true) // se rompe cuando la corrutina se detiene
         {
-            yield return new WaitForSeconds(1.5f);
+            yield return new WaitForSeconds(1.0f);
             valores.puntaje += 1;
 
             if (ui != null)
