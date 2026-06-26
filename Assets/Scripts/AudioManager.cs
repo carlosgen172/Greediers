@@ -4,16 +4,29 @@ using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
-    public static AudioManager instance;
+    public static AudioManager Instance;
     public AudioSource audioFondo;
     public AudioSource audioSFX;
     AudioClip cancionMomia;
     AudioClip voice1;
     public float volumenCancion;
+    public float volumenSFX;
+
+
+    void Awake()
+    {
+        
+
+    }
     void Start()
     {
-        if (instance == null){
-            instance = this;
+        if(Instance != null)
+        {
+            Destroy(this);
+        } else
+        {
+            Instance = this;
+            DontDestroyOnLoad(Instance);
         }
         cancionMomia = Resources.Load<AudioClip>("CancionMomiaPrueba");
         voice1 = Resources.Load<AudioClip>("Voice1");
@@ -24,7 +37,7 @@ public class AudioManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            ReproducirMusica(cancionMomia, volumenCancion);
+            ReproducirMusica(cancionMomia);
         }
         if (Input.GetKeyDown(KeyCode.Backspace))
         {
@@ -40,18 +53,14 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    public void ReproducirMusica(AudioClip cancionAReproducir, float volumenDeCancion)
+    public void ReproducirMusica(AudioClip cancionAReproducir)
     {
         if(audioFondo.isPlaying && audioFondo.clip == cancionAReproducir)
         {
             return;
         }
-        if(volumenDeCancion > 1 && volumenDeCancion <= 100)
-        {
-            volumenDeCancion = volumenDeCancion / 100;
-        }
         audioFondo.clip = cancionAReproducir;
-        audioFondo.volume = volumenDeCancion;
+        audioFondo.volume = volumenCancion;
         audioFondo.loop = true;
         audioFondo.Play();
     }
@@ -66,11 +75,16 @@ public class AudioManager : MonoBehaviour
     public void ReproducirSonido(AudioClip cancionAReproducir)
     {
         audioSFX.PlayOneShot(cancionAReproducir);
+        audioSFX.volume = volumenSFX;
     }
 
     public void DetenerSonido()
     {
         audioSFX.Stop();
     }
-
+    public void AsignarVolumen(float volumenDeMusica, float volumenDeSFX)
+    {
+        volumenCancion = volumenDeMusica;
+        volumenSFX = volumenDeSFX;
+    }
 }
