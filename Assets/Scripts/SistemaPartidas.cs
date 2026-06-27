@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class SistemaPartidas : MonoBehaviour
@@ -14,6 +15,7 @@ public class SistemaPartidas : MonoBehaviour
     public float tiempoPartida = 120f;
     public float tiempoEscape = 30f;
     public float tiempoActual;
+    public TMP_Text contadorTiempoPartida;
 
     [Header("Objetos desactivables de la escena (Lógica de funcionalidad de menú de pausa):")]
 
@@ -92,8 +94,11 @@ public class SistemaPartidas : MonoBehaviour
         //Seteo la escala de tiempo a 1:
         Time.timeScale = 1f;
         
-        //Seteo el booleano de inicio a 1:
+        //Seteo el booleano de inicio a true:
         yaInicio = true;
+
+        //Busco el elemento del contador, pero aún no lo inicializo (sólo lo busco una vez):
+        contadorTiempoPartida = GameObject.Find("TimerVisiblePartida").GetComponentInChildren<TextMeshProUGUI>();
         
         //E inicio su timer de recolección:
         IniciarTimerDePartidaRecoleccion();
@@ -105,10 +110,16 @@ public class SistemaPartidas : MonoBehaviour
 
     public void IniciarTimerDePartidaRecoleccion()
     {
+        //El tiempo actual de partida se iguala al tiempo total de partida:
         tiempoActual = tiempoPartida;
         
+        //Actualizo el estado de recolección del nivel a true:
         estaEnFaseDeRecoleccion = true;
 
+        //Seteo el contador en base al tiempo actual:
+        contadorTiempoPartida.text = $"{tiempoActual}";
+
+        //Y envío un mensaje por cosola:
         print("Ha iniciado el tiempo de recolección");
     }
 
@@ -117,6 +128,11 @@ public class SistemaPartidas : MonoBehaviour
         tiempoActual = tiempoEscape;
 
         estaEnFaseDeEscape = true;
+
+        contadorTiempoPartida.text = $"{tiempoActual}";
+
+        //Agregado estético, le cambio ell color de las letras a un tono rojizo:
+        contadorTiempoPartida.color = Color.red;
 
         print("Ha iniciado el tiempo de escape");
     }
@@ -128,6 +144,8 @@ public class SistemaPartidas : MonoBehaviour
         if(!yaInicio) return;
 
         tiempoActual -= Time.deltaTime;
+
+        ActualizarTextoDeTimerEnPantallaEnBaseA_(tiempoActual);
 
         if(estaEnFaseDeRecoleccion)
         {
@@ -163,6 +181,21 @@ public class SistemaPartidas : MonoBehaviour
             FinalizarPartida();
         }
     }
+
+    //Función para la actualización correcta en pantalla del texto del timer en pantalla:
+    public void ActualizarTextoDeTimerEnPantallaEnBaseA_(float tiempoAFormatear)
+        {
+            // Evitamos que salgan números negativos (si es menor a 0, su tiempo será igualado a 0)
+            if (tiempoAFormatear < 0) tiempoAFormatear = 0;
+
+            // Calculamos los minutos y segundos
+            int minutos = Mathf.FloorToInt(tiempoAFormatear / 60f); //retorna el entero más pequeño o igual del valor que se le pase por parámetro
+            int segundos = Mathf.FloorToInt(tiempoAFormatear % 60f);
+
+            // Formateamos el texto para que siempre tenga dos dígitos (Ej: 05:09)
+            contadorTiempoPartida.text = string.Format("{0:00}:{1:00}", minutos, segundos);
+        }
+
 
     //Función para la finalización de partida y comunicación de resultados 
     //a la escena siguiente:
