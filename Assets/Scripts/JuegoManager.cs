@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class JuegoManager : MonoBehaviour
 {
@@ -15,6 +16,11 @@ public class JuegoManager : MonoBehaviour
 
     [Header("Booleanos importantes para actualización y pre-configuración de partida:")]
     public bool fondoActivado = true;
+    Slider sliderSFX;
+    Slider sliderMusica;
+    AudioManager audioManager;
+    float volumenMusica;
+    float volumenSFX;
 
     void Awake()
     {
@@ -26,13 +32,12 @@ public class JuegoManager : MonoBehaviour
             Instance = this;
             DontDestroyOnLoad(Instance);
         }
-
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
     }
 
     // Update is called once per frame
@@ -40,6 +45,8 @@ public class JuegoManager : MonoBehaviour
     {
         //actualiza su nombre a la escena que corresponda:
         ActualizarNombreDeEscenaActual();
+        AsignarVolumen();
+        
     }
 
     //Booleanos:
@@ -77,5 +84,34 @@ public class JuegoManager : MonoBehaviour
         //Esta variable se chequea cuando se inicializa la partida.
         fondoActivado = !fondoActivado; 
     }
+
+    void AsignarVolumen()
+{
+    if (escenaActual == "MenuOpciones")
+    {
+        // 1. Si entramos a la escena pero aún no tenemos la referencia de los sliders, los buscamos
+        if (sliderMusica == null || sliderSFX == null)
+        {
+            GameObject objMusica = GameObject.Find("SliderMusica");
+            GameObject objSFX = GameObject.Find("SliderSFX");
+
+            if (objMusica != null && objSFX != null)
+            {
+                sliderMusica = objMusica.GetComponent<Slider>();
+                sliderSFX = objSFX.GetComponent<Slider>();
+            }
+            else
+            {
+                // Si aún no existen en la escena, salimos para evitar el crash
+                return; 
+            }
+        }
+
+        // 2. Si ya están asignados con éxito, actualizamos el volumen
+        volumenMusica = sliderMusica.value;
+        volumenSFX = sliderSFX.value;
+        AudioManager.Instance.AsignarVolumen(volumenMusica, volumenSFX);
+    }
+}
 
 }

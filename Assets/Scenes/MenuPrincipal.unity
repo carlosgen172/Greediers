@@ -469,8 +469,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9db36ef6fa26b0f4888f902eb747253b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cancionMomia: {fileID: 128340202}
-  voice1: {fileID: 128340205}
+  audioFondo: {fileID: 128340202}
+  audioSFX: {fileID: 128340205}
+  volumenCancion: 0
+  volumenSFX: 0
 --- !u!4 &128340204
 Transform:
   m_ObjectHideFlags: 0
