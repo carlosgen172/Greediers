@@ -1391,6 +1391,7 @@ MonoBehaviour:
   - Jugador_2
   - Jugador_3
   - Jugador_4
+  listaPrincipalJugadores: []
   escenaActual: 
   fondoActivado: 1
 --- !u!224 &1213248511
@@ -2081,7 +2082,7 @@ GameObject:
   - component: {fileID: 1604644515}
   - component: {fileID: 1604644518}
   m_Layer: 5
-  m_Name: BotonSalirAlMenu
+  m_Name: BotonVolverAlMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

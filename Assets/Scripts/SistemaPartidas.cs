@@ -28,11 +28,20 @@ public class SistemaPartidas : MonoBehaviour
     //Botón desactivable:
     [SerializeField] private GameObject botonPausa;
 
+    [SerializeField] private AudioClip musicaFondo;
+
+    //Listas (setear valores dentro del inspector):
+    public List<GameObject> listaPalancas;
+    public List<GameObject> listaTrampasSinElegir;
+
+    public List<GameObject> listaPosicionesSinElegir;
+
     // Start is called before the first frame update
     void Start()
     {
         InicializarValoresPresetados();
         IniciarPartida();
+        AudioManager.Instance.ReproducirMusica(musicaFondo);
     }
 
     // Update is called once per frame
@@ -84,9 +93,12 @@ public class SistemaPartidas : MonoBehaviour
         DesactivarMenuDePausa();
 
         //Seteo los valores tentativos de duración de partida (2 minutos de recolección y 30 segundos de escape):
-        tiempoPartida = 120f;
+        tiempoPartida = 90f;
         
         tiempoEscape = 30f;
+
+        //Seteos extra para la lógica de la elección de trampas en base a palancas
+        //var listaTrampasSinElegirNueva = listaTrampasSinElegir.Any(t => t.TrampaBaseController);
     }
 
     public void IniciarPartida()

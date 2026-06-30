@@ -5,6 +5,8 @@ using UnityEngine.PlayerLoop;
 
 public class Spawn : MonoBehaviour
 {
+
+    [Header("Esquinas a spawnear:")]
     public GameObject esquinaNoreste;
     public GameObject esquinaNoroeste;
     public GameObject esquinaSureste;

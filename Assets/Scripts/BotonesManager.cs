@@ -27,6 +27,11 @@ public class BotonesManager : MonoBehaviour, IPointerDownHandler, IPointerUpHand
         //sea el que defina su funcionalidad.
 
         nombreBoton = gameObject.name;
+
+        SonidoBotonAbajo = Resources.Load<AudioClip>("sfx_roca_1_5");
+
+        SonidoBotonArriba = Resources.Load<AudioClip>("sfx_explosion_2");
+
     }
 
     // Start is called before the first frame update
@@ -79,6 +84,11 @@ public class BotonesManager : MonoBehaviour, IPointerDownHandler, IPointerUpHand
         {
             escenaADirigir = "Nivel";
         }
+
+        if(nombreBoton == "BotonSalirAlMenu" && (JuegoManager.Instance.escenaActual == "Nivel" || JuegoManager.Instance.escenaActual == "MenuResultados"))
+        {
+            AudioManager.Instance.DetenerMusica();
+        }
     }
 
     //Función general para el manejo de cambio de escenas:
@@ -90,18 +100,19 @@ public class BotonesManager : MonoBehaviour, IPointerDownHandler, IPointerUpHand
 
     //Funciones generales para la activación de efectos de sonido y acciones en base a su interacción:
 
-    //Lo ejecuto cuando presiono click:
+    //Función ejecutable cuando el boton es presionado:
     public void OnPointerDown(PointerEventData eventData) //pointerEventData: instancia de elemento referido a los eventos de interfaz, que se genera cada que se cumple esta acción, guardando toda la información relevante al botón.
     {
-        //if(gameObject.name == "Pausa" || gameObject.name == "Play") return;
+        AudioManager.Instance.ReproducirSonido(SonidoBotonAbajo);
+        
         print("se presionó el botón e hizo un sonido");
     }
 
-    // Lo ejecuto cuando suelto el click:
+    //Función ejecutable cuando el boton es soltado:
     public void OnPointerUp(PointerEventData eventData)
     {
-        //if(gameObject.name == "Reinicio" || gameObject.name == "BotonSalir") return;
-        
+        AudioManager.Instance.ReproducirSonido(SonidoBotonArriba);
+
         print("Se soltó el botón e hizo un sonido");
         
         accionAlSoltar?.Invoke();

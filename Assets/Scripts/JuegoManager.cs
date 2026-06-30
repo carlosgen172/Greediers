@@ -11,6 +11,8 @@ public class JuegoManager : MonoBehaviour
     [Header("Lista de jugadores pre-seteados (actualmente strings, cambiarlos a prefabs):")]
     [SerializeField] List<string> listaTagsDeJugadores = new List<string> {"Jugador_1", "Jugador_2", "Jugador_3", "Jugador_4"};
 
+    public List<GameObject> listaPrincipalJugadores = new List<GameObject> {};
+
     [Header("Chequeo de escena actual:")]
     public string escenaActual;
 

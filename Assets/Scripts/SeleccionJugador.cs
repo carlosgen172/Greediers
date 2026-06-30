@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class SeleccionJugador : MonoBehaviour
 {
-    GameManager gameManager;
+    JuegoManager gameManager;
 
     [SerializeField] List<GameObject> listaSeleccionJugadores;
     List<GameObject> listaJugadoresGM; //lista de jugadores que representa la lista del GM
@@ -47,7 +47,7 @@ public class SeleccionJugador : MonoBehaviour
 
     public void Initialization()
     {
-        gameManager = GameManager.Instance;
+        gameManager = JuegoManager.Instance;
 
         indice = 0;
 
