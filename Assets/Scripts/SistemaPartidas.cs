@@ -31,10 +31,10 @@ public class SistemaPartidas : MonoBehaviour
     [SerializeField] private AudioClip musicaFondo;
 
     //Listas (setear valores dentro del inspector):
+    [Header("Listas y valores para lógica de seteo de trampas y palancas:")]
     public List<GameObject> listaPalancas;
     public List<GameObject> listaTrampasSinElegir;
-
-    public List<GameObject> listaPosicionesSinElegir;
+    public int indiceTrampaElegida;
 
     // Start is called before the first frame update
     void Start()
@@ -99,6 +99,17 @@ public class SistemaPartidas : MonoBehaviour
 
         //Seteos extra para la lógica de la elección de trampas en base a palancas
         //var listaTrampasSinElegirNueva = listaTrampasSinElegir.Any(t => t.TrampaBaseController);
+        listaPalancas[0].GetComponent<PalancaController>().InicializarPalancaEnBaseA_(listaTrampasSinElegir);
+        listaTrampasSinElegir.RemoveAt(indiceTrampaElegida);
+
+        listaPalancas[1].GetComponent<PalancaController>().InicializarPalancaEnBaseA_(listaTrampasSinElegir);
+        listaTrampasSinElegir.RemoveAt(indiceTrampaElegida);
+
+        listaPalancas[2].GetComponent<PalancaController>().InicializarPalancaEnBaseA_(listaTrampasSinElegir);
+        listaTrampasSinElegir.RemoveAt(indiceTrampaElegida);
+
+        listaPalancas[3].GetComponent<PalancaController>().InicializarPalancaEnBaseA_(listaTrampasSinElegir);
+        listaTrampasSinElegir.RemoveAt(indiceTrampaElegida);
     }
 
     public void IniciarPartida()

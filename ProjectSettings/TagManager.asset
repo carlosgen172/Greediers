@@ -3,17 +3,25 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Palanca
+  - Plataforma
+  - Monticulo
+  - Venda
+  - Roca
+  - Pinchos
+  - Salida
+  - Limite
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Player
   - Water
   - UI
-  - 
-  - 
-  - 
+  - Plataforma
+  - Interactuables
+  - Limites
   - 
   - 
   - 

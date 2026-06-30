@@ -5,7 +5,6 @@ using UnityEngine;
 public abstract class TrampaBaseController : MonoBehaviour
 {
     protected Rigidbody2D rbTrampa;
-    protected bool haSidoElegido = false;
 
     void Awake()
     {
@@ -16,6 +15,7 @@ public abstract class TrampaBaseController : MonoBehaviour
     protected void Start()
     {
         Inicializar();
+        UbicarTrampa();
         ActivarTrampa();
     }
 
@@ -31,6 +31,9 @@ public abstract class TrampaBaseController : MonoBehaviour
 
         rbTrampa.gravityScale = 0;
     }
+
+    protected abstract void UbicarTrampa();
+
     protected abstract void ActivarTrampa();
 
     protected abstract void DestruirTrampa();

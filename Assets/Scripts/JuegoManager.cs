@@ -11,6 +11,8 @@ public class JuegoManager : MonoBehaviour
     [Header("Lista de jugadores pre-seteados (actualmente strings, cambiarlos a prefabs):")]
     [SerializeField] List<string> listaTagsDeJugadores = new List<string> {"Jugador_1", "Jugador_2", "Jugador_3", "Jugador_4"};
 
+    [SerializeField] List<string> listaNombresDeJugadores = new List<string> {"Jugador_1", "Jugador_2", "Jugador_3", "Jugador_4"};
+
     public List<GameObject> listaPrincipalJugadores = new List<GameObject> {};
 
     [Header("Chequeo de escena actual:")]
@@ -59,6 +61,14 @@ public class JuegoManager : MonoBehaviour
         var tagDeObjetoABuscar = unObjeto.tag;
         
         var seEncuentraEnLaLista = listaTagsDeJugadores.Contains(tagDeObjetoABuscar);
+
+        return seEncuentraEnLaLista;
+    }
+
+    public bool elNombreDelObjeto_SeEncuentraEnLaListaDeNombresDeJugadores(GameObject unObjeto)
+    {
+        var nombreDelObjetoABuscar = unObjeto.name;
+        var seEncuentraEnLaLista = listaNombresDeJugadores.Contains(nombreDelObjetoABuscar);
 
         return seEncuentraEnLaLista;
     }
