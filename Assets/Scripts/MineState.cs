@@ -14,7 +14,7 @@ public class MineState : FSM_Base
     public override void Enter()
     {
         Debug.Log("Estoy en Mine");
-    }
+    } 
 
     public override void Update()
     {
