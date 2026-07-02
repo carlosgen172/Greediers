@@ -2165,6 +2165,12 @@ MonoBehaviour:
   - Jugador_2
   - Jugador_3
   - Jugador_4
+  listaNombresDeJugadores:
+  - Jugador_1
+  - Jugador_2
+  - Jugador_3
+  - Jugador_4
+  listaPrincipalJugadores: []
   escenaActual: 
   fondoActivado: 1
 --- !u!4 &1845249126
