@@ -17,7 +17,7 @@ public class HabilidadController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Jugador1") || other.CompareTag("Jugador2"))
+        if (other.CompareTag("Jugador_1") /* || other.CompareTag("Jugador2") */)
         {
 	    JugadorManager JGManager = other.GetComponent<JugadorManager>();
             if (JGManager != null)

@@ -99,7 +99,7 @@ public class SistemaPartidas : MonoBehaviour
 
         //Seteos extra para la lógica de la elección de trampas en base a palancas
         //var listaTrampasSinElegirNueva = listaTrampasSinElegir.Any(t => t.TrampaBaseController);
-        listaPalancas[0].GetComponent<PalancaController>().InicializarPalancaEnBaseA_(listaTrampasSinElegir);
+        /* listaPalancas[0].GetComponent<PalancaController>().InicializarPalancaEnBaseA_(listaTrampasSinElegir);
         listaTrampasSinElegir.RemoveAt(indiceTrampaElegida);
 
         listaPalancas[1].GetComponent<PalancaController>().InicializarPalancaEnBaseA_(listaTrampasSinElegir);
@@ -109,7 +109,7 @@ public class SistemaPartidas : MonoBehaviour
         listaTrampasSinElegir.RemoveAt(indiceTrampaElegida);
 
         listaPalancas[3].GetComponent<PalancaController>().InicializarPalancaEnBaseA_(listaTrampasSinElegir);
-        listaTrampasSinElegir.RemoveAt(indiceTrampaElegida);
+        listaTrampasSinElegir.RemoveAt(indiceTrampaElegida); */
     }
 
     public void IniciarPartida()

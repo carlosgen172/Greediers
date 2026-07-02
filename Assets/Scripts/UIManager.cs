@@ -22,20 +22,20 @@ public class UIManager : MonoBehaviour
     {
 
         textoJugador1.text = "0";
-        textoJugador2.text = "0";
+        //textoJugador2.text = "0";
     }
 
     public void ActualizarPuntaje(PuntajeJugadorController jugadorPuntaje)
     {
-        if (jugadorPuntaje.CompareTag("Jugador1"))
+        if (jugadorPuntaje.CompareTag("Jugador_1"/* "Jugador1" */))
         {
             textoJugador1.text = jugadorPuntaje.nombreJugador + ": " + jugadorPuntaje.puntaje;
         }
 
-        if (jugadorPuntaje.CompareTag("Jugador2"))
+/*         if (jugadorPuntaje.CompareTag("Jugador2"))
         {
             textoJugador2.text = jugadorPuntaje.nombreJugador + ": " + jugadorPuntaje.puntaje;
-        }
+        } */
 
     }
     /*         foreach (var jugador in listaDeJugadores)

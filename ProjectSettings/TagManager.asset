@@ -12,6 +12,7 @@ TagManager:
   - Pinchos
   - Salida
   - Limite
+  - Jugador_1
   layers:
   - Default
   - TransparentFX

@@ -8,7 +8,7 @@ public class MovementJugador : MonoBehaviour
     public float speed = 5f;
     public float fuerzaSalto = 10f;
     private float fuerzaSuperSalto = 20f;
-    private float fuerzaSaltoInicial ;
+    private float fuerzaSaltoInicial;
     private float speedInicial;
     private Vector3 tamanioInicial;
     public Rigidbody2D rbPlayer;
@@ -18,25 +18,28 @@ public class MovementJugador : MonoBehaviour
     public float longitudLineaColision;
 
     public bool estaEnElSuelo;
+    public InputManager inputManager;
+
 
     void Awake()
     {
         rbPlayer = GetComponent<Rigidbody2D>();
+        inputManager = GetComponent<InputManager>();
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        
+
         rbPlayer.freezeRotation = true;
 
         rbPlayer.drag = 0;
 
         longitudLineaColision = transform.localScale.x / 1.5f;
 
-        speed = 15f;
+        speed = 3f;
 
-        fuerzaSalto = 10f;
+        fuerzaSalto = 3f;
 
     }
 
@@ -46,6 +49,12 @@ public class MovementJugador : MonoBehaviour
         //Se actualizan los valores de colisión con el suelo al dibujar una línea hacia abajo del jugador, que, en caso de colisionar con una capa pasada por parámetro (vincular la capa desde el inspector), indicará que ya se encuentra en el suelo (si su valor es nulo, significa que aún sigue en el aire:
         RaycastHit2D hit2D = Physics2D.Raycast(transform.position, Vector2.down, longitudLineaColision, capaPlataformas);
         estaEnElSuelo = hit2D.collider != null;
+    }
+
+    void FixedUpdate()
+    {
+        float movimiento = inputManager.Movement;
+        rbPlayer.velocity = new Vector2(movimiento * speed, rbPlayer.velocity.y);
     }
 
     private bool estoyMirandoALaDerecha()
@@ -83,19 +92,19 @@ public class MovementJugador : MonoBehaviour
 
     public void SaltarJugadorSi(bool unaCondicion)
     {
-        if(unaCondicion && estaEnElSuelo)
+        if (unaCondicion && estaEnElSuelo)
         {
-        
+
             rbPlayer.AddForce(new Vector2(0, fuerzaSalto), ForceMode2D.Impulse);
-            
+
             print("he presionado la tecla de salto y estoy saltando");
-        
+
         }
     }
 
     public void GirarJugadorSiCorrespondeCon(float unInput)
     {
-        if((estoyPresionandoALaDerechaATravesDe(unInput) && !estoyMirandoALaDerecha()) || (estoyPresionandoALaIzquierdaATravesDe(unInput) && estoyMirandoALaDerecha()))
+        if ((estoyPresionandoALaDerechaATravesDe(unInput) && !estoyMirandoALaDerecha()) || (estoyPresionandoALaIzquierdaATravesDe(unInput) && estoyMirandoALaDerecha()))
         {
             GirarJugador();
         }
@@ -143,7 +152,7 @@ public class MovementJugador : MonoBehaviour
         speed = speedInicial * multiplicado;
     }
 
-        public void AjustarTamanio(float multiplicado)
+    public void AjustarTamanio(float multiplicado)
     {
         transform.localScale = tamanioInicial * multiplicado;
     }

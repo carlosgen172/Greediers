@@ -41,13 +41,13 @@ public class TrampaPinchosController : TrampaBaseController
     //Ubicación:
 
     protected override void UbicarTrampa() {
-        if(gameObject.name == "Roca_1")
+/*         if(gameObject.name == "Roca_1")
         {
             gameObject.transform.position = potencialUbicacion1.transform.position;
         } else
         {
             gameObject.transform.position = potencialUbicacion2.transform.position;
-        }
+        } */
 
     }
 

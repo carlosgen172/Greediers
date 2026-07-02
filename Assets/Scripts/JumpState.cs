@@ -14,15 +14,21 @@ public class JumpState : FSM_Base
     public override void Enter()
     {
         Debug.Log("Estoy en Jump");
+        MovementJugador movimiento = fsm.GetComponent<MovementJugador>();
+        movimiento.SaltarJugadorSi(true);
     }
 
     public override void Update()
     {
-        
+        MovementJugador movimiento = fsm.GetComponent<MovementJugador>();
+        if (movimiento.estaEnElSuelo)
+        {
+            fsm.ChangeState(fsm.IdleState);
+        }
     }
 
     public override void Exit()
     {
-        
+
     }
 }

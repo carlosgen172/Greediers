@@ -7,15 +7,15 @@ public class PalancaController : MonoBehaviour
     [Header("Booleanos:")]
     [SerializeField] private bool activeUnaTrampa = false;
     [SerializeField] private bool hayUnJugadorCerca = false;
-    [SerializeField]private bool seInicioElTimer = false;
+    [SerializeField] private bool seInicioElTimer = false;
 
     [Header("Trampas disponibles:")]
     [SerializeField] private List<GameObject> listraTrampasDisponiblesAElegir;
-    
+
     [Header("Trampa elegida y su posición preliminar:")]
     [SerializeField] private GameObject trampaActual;
     [SerializeField] private Vector2 posicionSpawnTrampa;
-    
+
     [Header("Variables para la lógica de cooldown de la trampa:")]
     private float tiempoActual;
     private float tiempoCooldown = 5.0f;
@@ -28,7 +28,7 @@ public class PalancaController : MonoBehaviour
     void Start()
     {
         //Seteo el sistema de partidas en base al actual (en caso de que no funcione, poner esta función en el awake):
-        sistemaPartidaActual = GameObject.Find("ControladorParidas").GetComponent<SistemaPartidas>();
+        sistemaPartidaActual = GameObject.Find("ControladorPartida").GetComponent<SistemaPartidas>();
     }
 
     // Update is called once per frame
@@ -38,7 +38,7 @@ public class PalancaController : MonoBehaviour
     }
 
     //Booleanos:
-    
+
     bool seConcretoElTiempoDeCooldown()
     {
         return tiempoActual <= 0;
@@ -53,7 +53,7 @@ public class PalancaController : MonoBehaviour
 
     private void SeleccionarTrampaInicialAleatoriamente()
     {
-        if(listraTrampasDisponiblesAElegir.Count == 0) return;
+        if (listraTrampasDisponiblesAElegir.Count == 0) return;
 
         //var indexAleatorio = Random.Range(0, listaTrampasPotenciales.Count);
         var indexAleatorio = Random.Range(0, listraTrampasDisponiblesAElegir.Count);
@@ -86,7 +86,7 @@ public class PalancaController : MonoBehaviour
 
     public void InicializarPalancaEnBaseA_(List<GameObject> unaListaDeTrampas)
     {
-        if(unaListaDeTrampas.Count <= 0) return;
+        if (unaListaDeTrampas.Count <= 0) return;
 
         PresetearListasDeTrampas();
         SeleccionarTrampaInicialAleatoriamente();
@@ -94,16 +94,18 @@ public class PalancaController : MonoBehaviour
 
     //Triggers para la comprensión de colisión del jugador con la palanca:
 
-    private void OnTriggerEnter2D(Collider2D other) {
-        if(JuegoManager.Instance.elNombreDelObjeto_SeEncuentraEnLaListaDeNombresDeJugadores(other.gameObject))
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (JuegoManager.Instance.elNombreDelObjeto_SeEncuentraEnLaListaDeNombresDeJugadores(other.gameObject))
         {
             hayUnJugadorCerca = true;
             print("Hay un jugador que puede activar la trampa");
         }
     }
 
-    private void OnTriggerExit2D(Collider2D other) {
-        if(JuegoManager.Instance.elNombreDelObjeto_SeEncuentraEnLaListaDeNombresDeJugadores(other.gameObject))
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (JuegoManager.Instance.elNombreDelObjeto_SeEncuentraEnLaListaDeNombresDeJugadores(other.gameObject))
         {
             hayUnJugadorCerca = false;
             print("El jugador ya no se encuentra cerca del interruptor.");
@@ -116,7 +118,7 @@ public class PalancaController : MonoBehaviour
         if (activeUnaTrampa || !hayUnJugadorCerca) return;
 
         print("Acabo de activar la trampa de forma segura");
-        
+
         activeUnaTrampa = true;
 
         Instantiate(trampaActual, posicionSpawnTrampa, Quaternion.identity);
@@ -128,7 +130,7 @@ public class PalancaController : MonoBehaviour
 
     void iniciarTimerCooldownInterruptor()
     {
-        if(!activeUnaTrampa) return;
+        if (!activeUnaTrampa) return;
 
         tiempoActual = tiempoCooldown;
 
@@ -137,11 +139,11 @@ public class PalancaController : MonoBehaviour
 
     void actualizarTimerCooldownInterruptor()
     {
-        if(!seInicioElTimer) return; //si no se inició el timer nunca, no hace nada.
+        if (!seInicioElTimer) return; //si no se inició el timer nunca, no hace nada.
 
         tiempoActual -= Time.deltaTime;
 
-        if(seConcretoElTiempoDeCooldown())
+        if (seConcretoElTiempoDeCooldown())
         {
             activeUnaTrampa = false;
             //print("Ahora puedo activar de nuevo la trampa");
