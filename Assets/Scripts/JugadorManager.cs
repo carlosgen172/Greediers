@@ -28,11 +28,24 @@ public class JugadorManager : MonoBehaviour
     [Header("Booleano para la lógica de la momia:")]
     public bool esMomia = false;
 
+    [Header("Prefabs/GameObjects necesarios para lógicas complementarias")]
+    public GameObject shootPoint; //Setearla como prefab
+
+    [Header("Provisorios:")]
+    public bool estaEnJuego = false; //Por si el jugador se crea antes de su seteo de controles.
+    public string jugadorSeleccionado; //String que le podría llegar a pasar el sistema de seleccion y spawn de pjs al jugador.
+    //Potencial forma de guardar los spritesheets posibles del pj:
+    //public spriteSheets spritesheetsProvisorio_1;
+    //public spriteSheet spritesheetProvisorio_2;
+    //public spriteSheets spritesheetsProvisorio_3;
+    //public spriteSheet spritesheetProvisorio_4;
+
     void Awake()
     {
         movementPlayer = GetComponent<MovementJugador>();
         inputPlayer = GetComponent<InputManager>();
         animacionesJugador = GetComponent<AnimationManager>();
+
         
         tagJugador = gameObject.tag;
     }
