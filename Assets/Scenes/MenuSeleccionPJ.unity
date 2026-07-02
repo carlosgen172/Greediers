@@ -345,7 +345,7 @@ GameObject:
   - component: {fileID: 385222319}
   - component: {fileID: 385222318}
   m_Layer: 5
-  m_Name: JugadorSeleccionado
+  m_Name: TextoTercerJP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -391,7 +391,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: JP3
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1499,7 +1499,7 @@ GameObject:
   - component: {fileID: 934816674}
   - component: {fileID: 934816673}
   m_Layer: 5
-  m_Name: JugadorSeleccionado
+  m_Name: TextoCuartoJP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1545,7 +1545,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: JP4
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1823,11 +1823,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bbf504ed90db914bbeccb3cbbd75af6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  listaTagsDeJugadores:
+  objetoSeleccionJugador: {fileID: 2110241712}
+  listaNombresDeJugadores:
   - Jugador_1
   - Jugador_2
   - Jugador_3
   - Jugador_4
+  listaPrincipalJugadores:
+  - {fileID: 130150610}
+  - {fileID: 1519068034}
+  - {fileID: 544047229}
+  - {fileID: 699025260}
   escenaActual: 
   fondoActivado: 1
 --- !u!4 &1304840403
@@ -2060,7 +2066,7 @@ GameObject:
   - component: {fileID: 1499664580}
   - component: {fileID: 1499664579}
   m_Layer: 5
-  m_Name: JugadorSeleccionado
+  m_Name: TextoSegundoJP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2106,7 +2112,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: JP2
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2330,7 +2336,7 @@ GameObject:
   - component: {fileID: 1544767701}
   - component: {fileID: 1544767700}
   m_Layer: 5
-  m_Name: JugadorSeleccionado
+  m_Name: TextoPrimerJP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2376,7 +2382,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: JP1
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -3124,6 +3130,65 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2060950297}
   m_CullTransparentMesh: 1
+--- !u!1 &2110241712
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2110241714}
+  - component: {fileID: 2110241713}
+  m_Layer: 0
+  m_Name: ControladorSeleccionJugador
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2110241713
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2110241712}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7402cd856ab3cc46856ec0e78ab72bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SeleccionJugadores: []
+  listaTextosJugadores:
+  - {fileID: 1544767700}
+  - {fileID: 1499664579}
+  - {fileID: 385222318}
+  - {fileID: 934816673}
+  ImagenesPersonajes:
+  - {fileID: 2060950300}
+  - {fileID: 2054611545}
+  - {fileID: 795947622}
+  - {fileID: 1213034359}
+  primerInputSeleccionado: 0
+  segundoInputSeleccionado: 0
+  tercerInputSeleccionado: 0
+  cuartoInputSeleccionado: 0
+--- !u!4 &2110241714
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2110241712}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -5.249022, y: -1.3448324, z: 1.0525755}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2133571627
 GameObject:
   m_ObjectHideFlags: 0

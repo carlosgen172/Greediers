@@ -8,12 +8,13 @@ public class JuegoManager : MonoBehaviour
 {
     public static JuegoManager Instance;
 
+    GameObject objetoSeleccionJugador;
+
     [Header("Lista de jugadores pre-seteados (actualmente strings, cambiarlos a prefabs):")]
-    [SerializeField] List<string> listaTagsDeJugadores = new List<string> {"Jugador_1", "Jugador_2", "Jugador_3", "Jugador_4"};
 
     [SerializeField] List<string> listaNombresDeJugadores = new List<string> {"Jugador_1", "Jugador_2", "Jugador_3", "Jugador_4"};
 
-    public List<GameObject> listaPrincipalJugadores = new List<GameObject> {};
+    public List<GameObject> listaPrincipalJugadores;
 
     [Header("Chequeo de escena actual:")]
     public string escenaActual;
@@ -42,6 +43,20 @@ public class JuegoManager : MonoBehaviour
     void Start()
     {
         audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
+        objetoSeleccionJugador = GameObject.Find("ControladorSeleccionJugador");
+
+        InicializarSeleccionJugador();
+    }
+
+    bool InicializarSeleccionJugador()
+    {
+        if (objetoSeleccionJugador == null)
+        {
+            return false;
+        }
+
+        objetoSeleccionJugador.GetComponent<SeleccionJugador>().Initialization();
+        return true;
     }
 
     // Update is called once per frame
@@ -56,15 +71,6 @@ public class JuegoManager : MonoBehaviour
     //Booleanos:
 
     //Función Booleana para la verificación de tag de jugador dentro de lista:
-    public bool elTagDelObjeto_SeEncuentraEnLaListaDeTagsDeJugadores(GameObject unObjeto)
-    {
-        var tagDeObjetoABuscar = unObjeto.tag;
-        
-        var seEncuentraEnLaLista = listaTagsDeJugadores.Contains(tagDeObjetoABuscar);
-
-        return seEncuentraEnLaLista;
-    }
-
     public bool elNombreDelObjeto_SeEncuentraEnLaListaDeNombresDeJugadores(GameObject unObjeto)
     {
         var nombreDelObjetoABuscar = unObjeto.name;
