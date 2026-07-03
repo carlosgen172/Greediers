@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,10 +8,21 @@ public class SeleccionJugador : MonoBehaviour
 {
     JuegoManager gameManager;
 
-    [SerializeField] List<GameObject> listaSeleccionJugadores;
-    List<GameObject> listaJugadoresGM; //lista de jugadores que representa la lista del GM
+    [SerializeField] List<GameObject> SeleccionJugadores;
+    List<GameObject> listaJugadoresGM = new List<GameObject> {}; //lista de jugadores que representa la lista del GM
+
+
+    // deben asignarse desde el INSPECTOR
+    // -----------------------------------------------------------------------------------------------
+    [SerializeField] List<TextMeshProUGUI> listaTextosJugadores;
+    [SerializeField] List<Image> ImagenesPersonajes;
+    // -----------------------------------------------------------------------------------------------
+
+
+    List<Sprite> ImagenesPersonajesSeleccionados = new List<Sprite> {};
 
     GameObject jugadorSeleccionado; //se usa para saber que jugador de la lista fue seleccionado
+
 
 
     //se guardan los inputs preseteados en variables de tipo bool
@@ -20,11 +32,13 @@ public class SeleccionJugador : MonoBehaviour
     bool teclaCuartoJugador;
 
 
+
     //se verifica que los personajes hayan sido activados por los jugadores
     bool primerPJActivado;
     bool segundoPJActivado;
     bool tercerPJActivado;
     bool cuartoPJActivado;
+
 
 
     //se verifica que los inputs de los jugadores ya fueron seleccionados para el personaje correspondiente
@@ -33,14 +47,21 @@ public class SeleccionJugador : MonoBehaviour
     public bool tercerInputSeleccionado;
     public bool cuartoInputSeleccionado;
 
-    
-    int indice; //este índice funciona para actualizar el personaje que pueden seleccionar los jugadores
 
+
+    int indice; //este índice funciona para actualizar el personaje que pueden seleccionar los jugadores
+    int indiceTexto; //sirve para actualizar los textos de los jugadores una vez seleccionados
+    int indiceImagen; //sirve para actualizar las imagenes de los personajes una vez seleccionados
 
 
     void Awake()
     {
-
+        ImagenesPersonajesSeleccionados.AddRange(new List<Sprite> {
+            Resources.Load<Sprite>("pablo_seleccion_pj_greediers_selec_finalisimo"),
+            Resources.Load<Sprite>("dario_seleccion_pj_greediers_corregido_selec"),
+            Resources.Load<Sprite>("mustafa_seleccion_pj_greediers_corregido_selec"),
+            Resources.Load<Sprite>("miguel_seleccion_pj_greediers_corregido_selec")
+        });
     }
 
 
@@ -50,10 +71,11 @@ public class SeleccionJugador : MonoBehaviour
         gameManager = JuegoManager.Instance;
 
         indice = 0;
+        indiceTexto = 0;
+        indiceImagen = 0;
 
         listaJugadoresGM = gameManager.listaPrincipalJugadores;
         jugadorSeleccionado = listaJugadoresGM[indice];
-
         primerPJActivado = false;
         segundoPJActivado = false;
         tercerPJActivado = false;
@@ -76,13 +98,19 @@ public class SeleccionJugador : MonoBehaviour
 
     void Update()
     {
+        ConfiguracionDeTeclas();
+        ActivacionDePersonaje();
+    }
+
+
+
+    private void ConfiguracionDeTeclas()
+    {
         //se pueden reconfigurar, las puse por poner basicamente
         teclaPrimerJugador = Input.GetKeyDown(KeyCode.Y);
         teclaSegundoJugador = Input.GetKeyDown(KeyCode.U);
         teclaTercerJugador = Input.GetKeyDown(KeyCode.I);
         teclaCuartoJugador = Input.GetKeyDown(KeyCode.O);
-
-        ActivacionDePersonaje();
     }
 
 
@@ -115,31 +143,71 @@ public class SeleccionJugador : MonoBehaviour
         {
             AgregarJugadorAListaDeSeleccion();
             primerInputSeleccionado = true;
-            Debug.Log("primer input seleccionado: " + primerInputSeleccionado);
+            CambioDeTextoParaJugador_("JP1");
+            CambioDeImagenDePersonaje();
             return true;
         }
         else if (teclaSegundoJugador && !segundoInputSeleccionado)
         {
             AgregarJugadorAListaDeSeleccion();
             segundoInputSeleccionado = true;
-            Debug.Log("segundo input seleccionado: " + segundoInputSeleccionado);
+            CambioDeTextoParaJugador_("JP2");
+            CambioDeImagenDePersonaje();
             return true;
         }
         else if (teclaTercerJugador && !tercerInputSeleccionado)
         {
             AgregarJugadorAListaDeSeleccion();
             tercerInputSeleccionado = true;
-            Debug.Log("tercer input seleccionado: " + tercerInputSeleccionado);
+            CambioDeTextoParaJugador_("JP3");
+            CambioDeImagenDePersonaje();
             return true;
         }
         else if (teclaCuartoJugador && !cuartoInputSeleccionado)
         {
             AgregarJugadorAListaDeSeleccion();
             cuartoInputSeleccionado = true;
-            Debug.Log("cuarto input seleccionado: " + cuartoInputSeleccionado);
+            CambioDeTextoParaJugador_("JP4");
+            CambioDeImagenDePersonaje();
             return true;
         }
         return false;
+    }
+
+
+    //modifica el texto encima de los personajes dependiendo el input del jugador
+    private void CambioDeTextoParaJugador_(string nroJugador)
+    {
+        if (indiceTexto < listaTextosJugadores.Count)
+        {
+            listaTextosJugadores[indiceTexto].text = nroJugador;
+            indiceTexto++;
+        }
+    }
+
+    //modifica la imagen del personaje seleccionado
+    private void CambioDeImagenDePersonaje()
+    {
+        if (indiceImagen < ImagenesPersonajes.Count)
+        {
+            if (indiceImagen == 0)
+            {
+                ImagenesPersonajes[indiceImagen].sprite = ImagenesPersonajesSeleccionados[0];
+            }
+            else if (indiceImagen == 1)
+            {
+                ImagenesPersonajes[indiceImagen].sprite = ImagenesPersonajesSeleccionados[1];
+            }
+            else if (indiceImagen == 2)
+            {
+                ImagenesPersonajes[indiceImagen].sprite = ImagenesPersonajesSeleccionados[2];
+            }
+            else if (indiceImagen == 3)
+            {
+                ImagenesPersonajes[indiceImagen].sprite = ImagenesPersonajesSeleccionados[3];
+            }
+            indiceImagen++;
+        }
     }
 
     //agrega un jugador de la lista de jugadores del GM a la lista de selección del menú
@@ -159,9 +227,10 @@ public class SeleccionJugador : MonoBehaviour
 
     private void AgregarJugador_AListaDeSeleccionSiPuede(GameObject player)
     {
-        if (listaSeleccionJugadores.Count < listaJugadoresGM.Count)
+        if (SeleccionJugadores.Count < listaJugadoresGM.Count)
         {
-            listaSeleccionJugadores.Add(player);
+            SeleccionJugadores.Add(player);
         }
     }
+
 }
