@@ -11,10 +11,17 @@ public class Venda : MonoBehaviour
     //public GameObject direccionDisparo;
     private Rigidbody2D rbBala;
     private float impulsoDisparo;
+    private GameObject disparador;
+    private List<string> listaTagsObjetosColisionables = new List<string> {"Plataforma", "Roca", "Pinchos", "Jugador"};
+
+    //Valor de tesoro a quitar:
+    private int tesoroAQuitar;
 
     void Awake()
     {
         rbBala = GetComponent<Rigidbody2D>();
+
+        tesoroAQuitar = 10;
     }
     // Start is called before the first frame update
     void Start()
@@ -35,6 +42,8 @@ public class Venda : MonoBehaviour
 
     public void DestruirLuegoDeTiempoDeterminado()
     {
+        if(this == null) return;
+        
         Destroy(this.gameObject, tiempoVida);
     }
 
@@ -62,14 +71,47 @@ public class Venda : MonoBehaviour
 
     */
 
-    public void RecibirDireccionDeDisparoEnBaseA_(GameObject unaDireccion)
+    public void RecibirDireccionDeDisparoEnBaseA_(GameObject unDisparador)
     {
-        //Iguala el impulso de disparo en base a la escala local de x (que puede ser 1 o -1)
-        impulsoDisparo = unaDireccion.transform.localScale.x;
+        //Recibe al objeto que efectuó el disparo, lo iguala al valor privado:
+        disparador = unDisparador;
+        //E iguala el impulso de disparo en base a la escala local de x del disparador(que puede ser 1 o -1)
+        impulsoDisparo = disparador.transform.localScale.x;
     }
 
     public void MoverConstantementeHaciaDireccionIndicada()
     {
         rbBala.AddForce(new Vector2(0, velocidadDisparo * impulsoDisparo), ForceMode2D.Impulse);
+    }
+
+    public void OnTriggerEnter2D(Collider2D collision) //probar con oncollision si falla
+    {
+        if(collision == null) return;
+
+        if (elObjetoAlQueColisioneEsUnObstaculoColisionable(collision.gameObject))
+        {
+            if(collision.gameObject.TryGetComponent<PuntajeJugadorController>(out PuntajeJugadorController _puntaje) && !elObjetoAlQueColisioneSoyYo(collision.gameObject))
+            {
+                _puntaje.PerderTesoro(tesoroAQuitar);
+            }
+
+            Destroy(gameObject);
+        }
+    }
+
+    public bool elObjetoAlQueColisioneSoyYo(GameObject objetoColisionado)
+    {
+        return objetoColisionado.name == disparador.name;
+    }
+
+    public bool elObjetoAlQueColisioneEsUnJugador(GameObject unObjetoColisionado)
+    {
+        return unObjetoColisionado.CompareTag("jugador");
+    }
+
+    public bool elObjetoAlQueColisioneEsUnObstaculoColisionable(GameObject unObjetoColisionado)
+    {
+        //return unObjetoColisionado.CompareTag("Plataformas") || unObjetoColisionado.CompareTag("Pinchos") || unObjetoColisionado.CompareTag("Roca");
+        return JuegoManager.Instance.elElemento_SeEncuentraEnLaListaDeElementos_(unObjetoColisionado.tag, listaTagsObjetosColisionables);
     }
 }

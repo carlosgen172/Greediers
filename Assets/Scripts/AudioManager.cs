@@ -12,6 +12,9 @@ public class AudioManager : MonoBehaviour
     public float volumenCancion;
     public float volumenSFX;
 
+    //Falta incluir versión corregida del manager de música (y audios respectivos a cada situación)
+    // Ej: el gameManager seguramente tendrá una función para la música del menú en alguna función 
+    // de inicialización.
 
     void Awake()
     {

@@ -40,6 +40,15 @@ public class JugadorManager : MonoBehaviour
     //public spriteSheets spritesheetsProvisorio_3;
     //public spriteSheet spritesheetProvisorio_4;
 
+    [Header("SFX del pj:")]
+    [SerializeField] private AudioClip sfx_salto;
+    [SerializeField] private AudioClip sfx_disparo;
+    [SerializeField] private AudioClip sfx_minar;
+    [SerializeField] private AudioClip sfx_habilidad_simple;
+    [SerializeField] private AudioClip sfx_habilidad_momia;
+    [SerializeField] private AudioClip sfx_danio;
+
+
     void Awake()
     {
         movementPlayer = GetComponent<MovementJugador>();
@@ -131,12 +140,6 @@ public class JugadorManager : MonoBehaviour
         {
             palancaCercana = null;
         }
-    }
-
-
-    private void Morir()
-    {
-        Destroy(gameObject);
     }
 
     private void Inicializar()

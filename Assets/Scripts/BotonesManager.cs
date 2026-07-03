@@ -85,10 +85,6 @@ public class BotonesManager : MonoBehaviour, IPointerDownHandler, IPointerUpHand
             escenaADirigir = "Nivel";
         }
 
-        if(nombreBoton == "BotonSalirAlMenu" && (JuegoManager.Instance.escenaActual == "Nivel" || JuegoManager.Instance.escenaActual == "MenuResultados"))
-        {
-            AudioManager.Instance.DetenerMusica();
-        }
     }
 
     //Función general para el manejo de cambio de escenas:
@@ -182,6 +178,14 @@ public class BotonesManager : MonoBehaviour, IPointerDownHandler, IPointerUpHand
     public void SalirAlMenuPrincipal()
     {
         print("Acabo de presionar el boton para salir al menu principal.");
+
+        //En caso de que el botón y las escena sean las respectivas, detiene también la música del juego.
+
+        if(nombreBoton == "BotonSalirAlMenu" && (JuegoManager.Instance.escenaActual == "Nivel" || JuegoManager.Instance.escenaActual == "MenuResultados"))
+        {
+            AudioManager.Instance.DetenerMusica();
+        }
+
         CambiarAEscenaCorrespondiente();
     }
 

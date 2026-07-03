@@ -18,6 +18,8 @@ public class ShootingManager : MonoBehaviour
     void Awake()
     {
         jugador = GetComponent<JugadorManager>();
+
+        prefabVendasPlayer = Resources.Load<GameObject>("Venda_Momia");
     }
 
     void Update()
@@ -69,7 +71,7 @@ public class ShootingManager : MonoBehaviour
         {
             var vendaActual = Instantiate(prefabVendasPlayer, jugador.shootPoint.transform.position, jugador.shootPoint.transform.rotation);
             var vendaActualFuncional = vendaActual.GetComponent<Venda>();
-            vendaActualFuncional.RecibirDireccionDeDisparoEnBaseA_(jugador.shootPoint);
+            vendaActualFuncional.RecibirDireccionDeDisparoEnBaseA_(jugador.gameObject);
         }
     }
 

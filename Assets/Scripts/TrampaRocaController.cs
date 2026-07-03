@@ -9,18 +9,27 @@ public class TrampaRocaController : TrampaBaseController
     public GameObject potencialUbicacion1;
     public GameObject potencialUbicacion2;
 
+    public bool yaColisione = false;
+
+    public float tiempoVida = 2.0f;
+
     //Inicialización de trampa (En TRAMPABASE):
 
     //Ubicación de la trampa:
     protected override void UbicarTrampa() {
-/*         if(gameObject.name == "Roca_1")
+        //Seteo sus potenciales ubicaciones:
+        potencialUbicacion1 = GameObject.Find("PosPotencialSpawnPinchos_1");
+        potencialUbicacion2 = GameObject.Find("PosPotencialSpawnPinchos_2");
+
+        //Y lo ubico en escena:
+        if(gameObject.name == "Pinchos_1")
         {
             gameObject.transform.position = potencialUbicacion1.transform.position;
         } else
         {
             gameObject.transform.position = potencialUbicacion2.transform.position;
-        } */
-        
+        }
+
     }
 
     //Activación de trampa:
@@ -40,11 +49,14 @@ public class TrampaRocaController : TrampaBaseController
     //Función de collision para la colisión del jugador con la trampa;
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(JuegoManager.Instance.elNombreDelObjeto_SeEncuentraEnLaListaDeNombresDeJugadores(collision.gameObject) || collision.gameObject.CompareTag("Plataformas"))
+        if(yaColisione) return;
+
+        //if(JuegoManager.Instance.elNombreDelObjeto_SeEncuentraEnLaListaDeNombresDeJugadores(collision.gameObject) || collision.gameObject.CompareTag("Plataformas"))
+        if(collision.gameObject.TryGetComponent<PuntajeJugadorController>(out PuntajeJugadorController jugadorPuntaje))
         {
-            //collision.gameObject.GetComponent<JugadorManager>().SufrirDanio(); //DESCOMENTAR AL CREAR AL JUGADOR.
+            yaColisione = true;
             var invulnerabilidad = collision.gameObject.GetComponent<SistemaInvulnerabilidad>();
-            var jugadorPuntaje = collision.gameObject.GetComponent<PuntajeJugadorController>();
+            //var jugadorPuntaje = collision.gameObject.GetComponent<PuntajeJugadorController>();
 
             if (invulnerabilidad != null && !invulnerabilidad.esInvulnerable)
 
@@ -74,5 +86,17 @@ public class TrampaRocaController : TrampaBaseController
             DestruirTrampa();
         }
 
+        if(collision.gameObject.CompareTag("Plataforma"))
+        {
+            yaColisione = true;
+            DestruirTrampaConTiempo();
+        }
+
     }
+
+    public void DestruirTrampaConTiempo()
+    {
+        Destroy(gameObject, tiempoVida);
+    }
+
 }

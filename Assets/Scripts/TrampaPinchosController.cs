@@ -6,8 +6,8 @@ public class TrampaPinchosController : TrampaBaseController
 {
     //Variables del objeto:
 
-    [Header("Posicion a mover el objeto en y:")]
-    [SerializeField] private float posicionASumarEnY;
+    //[Header("Posicion a mover el objeto en y:")]
+    //[SerializeField] private float posicionASumarEnY;
 
     [Header("Lógica para el tiempo de vida de la trampa:")]
     private float tiempoActualTrampa;
@@ -41,13 +41,18 @@ public class TrampaPinchosController : TrampaBaseController
     //Ubicación:
 
     protected override void UbicarTrampa() {
-/*         if(gameObject.name == "Roca_1")
+        //Seteo sus potenciales ubicaciones:
+        potencialUbicacion1 = GameObject.Find("PosPotencialSpawnRoca_1");
+        potencialUbicacion2 = GameObject.Find("PosPotencialSpawnRoca_2");
+
+        //Y lo ubico en escena:
+        if(gameObject.name == "Roca_1")
         {
             gameObject.transform.position = potencialUbicacion1.transform.position;
         } else
         {
             gameObject.transform.position = potencialUbicacion2.transform.position;
-        } */
+        }
 
     }
 
@@ -55,7 +60,7 @@ public class TrampaPinchosController : TrampaBaseController
 
     protected override void ActivarTrampa()
     {
-        gameObject.transform.position = new Vector3(transform.position.x, this.gameObject.transform.position.y + posicionASumarEnY, this.transform.position.z);
+        //gameObject.transform.position = new Vector3(transform.position.x, this.gameObject.transform.position.y + posicionASumarEnY, this.transform.position.z); //DESCARTADO.
 
         IniciarTimerDeDesactivacionDeTrampa();
 
@@ -87,7 +92,7 @@ public class TrampaPinchosController : TrampaBaseController
         {
             //rbTrampaPinchos.AddForce(new Vector2(0, -fuerzaAparicionPinchos), ForceMode2D.Force);
             //gameObject.transform.Translate(new Vector2(0, this.gameObject.transform.position.y - fuerzaAparicionPinchos));
-            gameObject.transform.position = new Vector3(transform.position.x, this.gameObject.transform.position.y - posicionASumarEnY, this.transform.position.z);
+            //gameObject.transform.position = new Vector3(transform.position.x, this.gameObject.transform.position.y - posicionASumarEnY, this.transform.position.z); //DESCARTADO
 
             DestruirTrampa();
         }
@@ -100,7 +105,7 @@ public class TrampaPinchosController : TrampaBaseController
         if(JuegoManager.Instance.elNombreDelObjeto_SeEncuentraEnLaListaDeNombresDeJugadores(collision.gameObject))
         {
             print($"Acabo de hacer daño al jugador: {collision.gameObject.tag}");
-            //collision.gameObject.GetComponent<JugadorManager>().Morir(); //DESCOMENTAR AL CREAR AL JUGADOR.
+
             var invulnerabilidad = collision.gameObject.GetComponent<SistemaInvulnerabilidad>();
             var jugadorPuntaje = collision.gameObject.GetComponent<PuntajeJugadorController>();
 
