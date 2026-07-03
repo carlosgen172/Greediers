@@ -32,7 +32,7 @@ public class SistemaInvulnerabilidad : MonoBehaviour
         SpriteRenderer sprite = GetComponent<SpriteRenderer>();
 
         // parpadea el personaje cambiando la transparencia
-        float tiempoFinal = Time.time + duracionInvulnerabilidad;
+        float tiempoFinal = Time.time + duracionInvulnerabilidad; //chequear su correcta funcionalidad, time.deltaTime podría ir mejor que el time que analiza todo el tiempo de partida.
         while (Time.time < tiempoFinal)
         {
             sprite.enabled = !sprite.enabled; // efecto en el sprite
@@ -51,4 +51,7 @@ public class SistemaInvulnerabilidad : MonoBehaviour
         // fuerza en la dirección contraria del que recibe el daño
         rb.AddForce(direccion.normalized * fuerzaDeEmpuje, ForceMode2D.Impulse);
     }
+
+    //Realizar otra función de invulnerabilidad o usar condicional para consultar si es que el pj ha sido herido o tiene el poder de la momia.
+
 }

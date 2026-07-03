@@ -20,14 +20,15 @@ public class SalidaController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Jugador1") || other.CompareTag("Jugador2"))
+        //if (other.CompareTag("Jugador1") || other.CompareTag("Jugador2"))
+        if(other.CompareTag("jugador")) //todos los jugadores tendrán el mismo tag.
         {
             // ocultar al jugar en lugar de eliminarlo
             other.gameObject.SetActive(false);
 
             // puntaje del otro jugador 
             PuntajeJugadorController jugador = other.GetComponent<PuntajeJugadorController>();
-            puntajes.Add(jugador.nombreJugador, jugador.puntaje);
+            puntajes.Add(jugador.nombreJugador, jugador.puntaje); //Corregirlo por función que guarde en una lista de jugadores dentro del GameManager.
 
             jugadoresLlegados++;
 
@@ -52,7 +53,7 @@ public class SalidaController : MonoBehaviour
             }
         }
 
-        if (textoJugadorGanador != null)
+        if (textoJugadorGanador != null) //Esta lógica debe estar aislada en en el script que decida 
         {
 
             textoJugadorGanador.gameObject.SetActive(true);
@@ -60,6 +61,12 @@ public class SalidaController : MonoBehaviour
 
             print("el ganador es " + ganador + " con " + maxPuntaje + " puntos");
         }
+    }
+
+    public bool hanSalidoTodosLosJugadores()
+    {
+        //En caso de que la cantidad de jugadores llegados sea la misma que la cantidad total de los mismos, devolverá true: 
+        return jugadoresLlegados == JuegoManager.Instance.listaPrincipalJugadores.Count;
     }
 
 }

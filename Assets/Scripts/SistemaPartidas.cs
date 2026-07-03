@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SistemaPartidas : MonoBehaviour
 {
@@ -28,13 +29,41 @@ public class SistemaPartidas : MonoBehaviour
     //Botón desactivable:
     [SerializeField] private GameObject botonPausa;
 
-    [SerializeField] private AudioClip musicaFondo;
-
-    //Listas (setear valores dentro del inspector):
+    //Listas (setear valores dentro del inspector) y en código, si se quiere:
     [Header("Listas y valores para lógica de seteo de trampas y palancas:")]
     public List<GameObject> listaPalancas;
     public List<GameObject> listaTrampasSinElegir;
     public int indiceTrampaElegida;
+
+    [Header("Salida del nivel:")]
+    public GameObject salidaDelNivel;
+
+    [Header("Música y efectos de sonido:")]
+
+    [Header("Músicas del nivel:")]
+
+    [SerializeField] private AudioClip musicaFondo;
+    [SerializeField] private AudioClip musicaNivelNormal;
+    [SerializeField] private AudioClip musicaNivelSegundosFinales;
+
+    [Header("Efectos de sonido del nivel:")]
+    public AudioClip efectoSonidoDerrumbe;
+
+    void Awake()
+    {
+        /*
+        musicaNivelNormal = Resources.Load();
+        musicaNivelSegundosFinales = Resources.Load();
+        */
+        efectoSonidoDerrumbe = Resources.Load<AudioClip>("sfx_terremoto");
+        
+        var palanca1 = Resources.Load<GameObject>("Palanca_1");
+        var palanca2 = Resources.Load<GameObject>("Palanca_2");
+        var palanca3 = Resources.Load<GameObject>("Palanca_3");
+        var palanca4 = Resources.Load<GameObject>("Palanca_4");
+        
+        listaPalancas = new List<GameObject> {palanca1, palanca2, palanca3, palanca4};
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -50,6 +79,11 @@ public class SistemaPartidas : MonoBehaviour
         //Si ya inició/ya finalizó la partida, no hara nada más este código.
         if(!yaInicio || yaFinalizo) return;
 
+        if(laPartidaTerminoAntes())
+        {
+            FinalizarPartida();
+        }
+
         ActualizarTimerCorrespondiente();
     }
 
@@ -64,7 +98,8 @@ public class SistemaPartidas : MonoBehaviour
     {
         //condicional activado cuando todos los jugadores salgan 
         //del escenario antes del tiempo acordado.
-        return true; //cambiarlo por condición que corresponda.
+
+        return estaEnFaseDeEscape && salidaDelNivel.GetComponent<SalidaController>().hanSalidoTodosLosJugadores(); //cambiarlo por condición que corresponda.
     }
 
     //Funciones para la preconfiguración e incio de partida:
@@ -79,6 +114,8 @@ public class SistemaPartidas : MonoBehaviour
         menuPausa = GameObject.Find("MenuPausa");
 
         botonPausa = GameObject.Find("BotonPausa");
+
+        salidaDelNivel = GameObject.Find("Salida");
         
         //fondoNivel = Resources.Load<GameObject>("Fondo_1");
         
@@ -139,6 +176,9 @@ public class SistemaPartidas : MonoBehaviour
         //Actualizo el estado de recolección del nivel a true:
         estaEnFaseDeRecoleccion = true;
 
+        //Se activa la salida para los jugadores que ya quieran salir del nivel:
+        ActivarSalida();
+
         //Seteo el contador en base al tiempo actual:
         contadorTiempoPartida.text = $"{tiempoActual}";
 
@@ -153,6 +193,8 @@ public class SistemaPartidas : MonoBehaviour
         estaEnFaseDeEscape = true;
 
         contadorTiempoPartida.text = $"{tiempoActual}";
+
+        AudioManager.Instance.ReproducirSonido(efectoSonidoDerrumbe);
 
         //Agregado estético, le cambio ell color de las letras a un tono rojizo:
         contadorTiempoPartida.color = Color.red;
@@ -207,17 +249,17 @@ public class SistemaPartidas : MonoBehaviour
 
     //Función para la actualización correcta en pantalla del texto del timer en pantalla:
     public void ActualizarTextoDeTimerEnPantallaEnBaseA_(float tiempoAFormatear)
-        {
-            // Evitamos que salgan números negativos (si es menor a 0, su tiempo será igualado a 0)
-            if (tiempoAFormatear < 0) tiempoAFormatear = 0;
+    {
+        // Evitamos que salgan números negativos (si es menor a 0, su tiempo será igualado a 0)
+        if (tiempoAFormatear < 0) tiempoAFormatear = 0;
 
-            // Calculamos los minutos y segundos
-            int minutos = Mathf.FloorToInt(tiempoAFormatear / 60f); //retorna el entero más pequeño o igual del valor que se le pase por parámetro
-            int segundos = Mathf.FloorToInt(tiempoAFormatear % 60f);
+        // Calculamos los minutos y segundos
+        int minutos = Mathf.FloorToInt(tiempoAFormatear / 60f); //retorna el entero más pequeño o igual del valor que se le pase por parámetro
+        int segundos = Mathf.FloorToInt(tiempoAFormatear % 60f);
 
-            // Formateamos el texto para que siempre tenga dos dígitos (Ej: 05:09)
-            contadorTiempoPartida.text = string.Format("{0:00}:{1:00}", minutos, segundos);
-        }
+        // Formateamos el texto para que siempre tenga dos dígitos (Ej: 05:09)
+        contadorTiempoPartida.text = string.Format("{0:00}:{1:00}", minutos, segundos);
+    }
 
 
     //Función para la finalización de partida y comunicación de resultados 
@@ -228,9 +270,20 @@ public class SistemaPartidas : MonoBehaviour
         Time.timeScale = 0f;
 
         yaFinalizo = true;
-        
-        //SistemaVictoria.ComunicarResultados();
-        //SistemaVictoria.MostrarResultados();
+
+        //salidaDelNivel.ComunicarResultadosAlGameManager(); //puede ser resultados directamente o los gameObjects y luego sus resultados.
+
+        SceneManager.LoadScene("MenuResulados");
+    }
+
+    public void ActivarSalida()
+    {
+        salidaDelNivel.SetActive(true);
+    }
+
+    public void DesactivarSalida()
+    {
+        salidaDelNivel.SetActive(false);
     }
 
     //Funciones para la correcta responsividad y funcionalidad de los elementos 

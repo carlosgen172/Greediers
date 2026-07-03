@@ -22,6 +22,13 @@ public class Spawn : MonoBehaviour
 
     int indice;
 
+    //El spawneo del sprite del personaje dependerá de donde spawnee 
+    // (ejemplo: No será la misma dirección de vista del pj que spawneo a la izq 
+    // que el que spawneo a la izq, ver de usar función de giro de pj incluido 
+    // en el movementJugador comparándolo quizás con los prefabs de las posiciones, 
+    // dependiendo que prefab ha sido elegido, el "flip" que realizará el pj. 
+    // Se puede usar función de "Inicializar()" dentro del JugadorManager)
+
 
     //inicializa las variables para dejar la función eleccionDePosicion() listo para su funcionamiento
     public void Initialization()
