@@ -144,7 +144,7 @@ public class JugadorManager : MonoBehaviour
 
     private void Inicializar()
     {
-        //Insertar lógica de posicionamiento según personaje seleccionado.
+        //Insertar lógica de posicionamiento (y giro en caso de ser necesario) según personaje seleccionado.
     }
 
     //SISTEMA DE CORRUTINAS agregado el 20/06
@@ -232,7 +232,7 @@ public class JugadorManager : MonoBehaviour
         }
     }
 
-    private IEnumerator CorrutinaObtenerTesoro()
+    private IEnumerator CorrutinaObtenerTesoro() //Corregir para que funcione con un tiempo determinado en base a la vida del montículo que fue colisionado. (Si el montículo tiene 5 de vida, entonces sólo podrá tener 5 hits)
     {
         PuntajeJugadorController jugadorPuntaje = GetComponent<PuntajeJugadorController>();
         UIManager ui = FindObjectOfType<UIManager>();

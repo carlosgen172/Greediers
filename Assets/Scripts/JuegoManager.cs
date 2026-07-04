@@ -26,9 +26,10 @@ public class JuegoManager : MonoBehaviour
 
     [Header("Booleanos importantes para actualización y pre-configuración de partida:")]
     public bool fondoActivado = true;
+
+    [Header("Valores para lógica de sliders y comunicación para el sonido del nivel:")]
     Slider sliderSFX;
     Slider sliderMusica;
-    AudioManager audioManager;
     float volumenMusica;
     float volumenSFX;
 
@@ -63,16 +64,13 @@ public class JuegoManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //Innecesario, ya usando singleton podes llamar a la instancia del manager:
-        //audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
-
         if(escenaActual == "MenuPrincipal")
         {
             AudioManager.Instance.ReproducirMusica(musicaDeMenu);
         }
 
-        //No debería consultar si es que se encuentra en la escena de 
-        // "Seleccion de Jugador" antes de tratar de realizar la función de la misma
+        //¿No debería consultar si es que se encuentra en la escena de 
+        // "Seleccion de Jugador" antes de tratar de realizar la función de la misma?
         objetoSeleccionJugador = GameObject.Find("ControladorSeleccionJugador");
 
         InicializarSeleccionJugador();
@@ -119,6 +117,11 @@ public class JuegoManager : MonoBehaviour
 
         return unaListaDeElementos.Contains(unElemento);
 
+    }
+
+    public bool elEntero_EsMayorQue_YmenorQue_(int unEnteroAVerificar, int valorMaximo, int valorMinimo)
+    {
+        return (unEnteroAVerificar > valorMaximo) && (unEnteroAVerificar < valorMinimo);
     }
 
     //Funciones generales:

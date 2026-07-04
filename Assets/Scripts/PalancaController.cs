@@ -10,7 +10,7 @@ public class PalancaController : MonoBehaviour
     [SerializeField] private bool seInicioElTimer = false;
 
     [Header("Trampas disponibles:")]
-    [SerializeField] private List<GameObject> listraTrampasDisponiblesAElegir;
+    [SerializeField] private List<GameObject> listaTrampasDisponiblesAElegir;
 
     [Header("Trampa elegida y su posición preliminar:")]
     [SerializeField] private GameObject trampaActual;
@@ -46,22 +46,28 @@ public class PalancaController : MonoBehaviour
 
     //Funciones para el seteo y preconfiguración de la trampa que activará el interruptor:
 
-    private void PresetearListasDeTrampas()
+    public void InicializarPalancaEnBaseASuLista() //No se llama en su start para inicializarlas correctamente una por una dentro de la partida
     {
-        listraTrampasDisponiblesAElegir = sistemaPartidaActual.listaTrampasSinElegir;
+        PresetearListaDeTrampas();
+        SeleccionarTrampaInicialAleatoriamente();
+    }
+
+    private void PresetearListaDeTrampas()
+    {
+        listaTrampasDisponiblesAElegir = sistemaPartidaActual.listaTrampasSinElegir;
     }
 
     private void SeleccionarTrampaInicialAleatoriamente()
     {
-        if (listraTrampasDisponiblesAElegir.Count == 0) return;
+        if (listaTrampasDisponiblesAElegir.Count == 0) return;
 
         //var indexAleatorio = Random.Range(0, listaTrampasPotenciales.Count);
-        var indexAleatorio = Random.Range(0, listraTrampasDisponiblesAElegir.Count);
+        var indexAleatorio = Random.Range(0, listaTrampasDisponiblesAElegir.Count);
 
         //trampaActual = listaTrampasPotenciales[indexAleatorio];
-        trampaActual = listraTrampasDisponiblesAElegir[indexAleatorio];
+        trampaActual = listaTrampasDisponiblesAElegir[indexAleatorio];
 
-        //Cambio el valor de indice de trampa del sistema de partidas por el que se elijió aquí:
+        //Cambio el valor de indice de trampa del sistema de partidas por el que se eligió aquí:
         sistemaPartidaActual.indiceTrampaElegida = indexAleatorio;
 
         //Debug para saber si se eligió corectamente:
@@ -70,26 +76,6 @@ public class PalancaController : MonoBehaviour
         //Y seteamos su posición a una preliminar:
         posicionSpawnTrampa = gameObject.transform.position;
 
-        /*
-
-        if(trampaActual.name == "TrampaRoca")
-        {
-            posicionSpawnTrampa = new Vector2(3.12f, 4.22f); //Cambiarlo por la
-        } else
-        {
-            posicionSpawnTrampa = new Vector2(0.1748f, -4.68f);
-        }
-
-        */
-
-    }
-
-    public void InicializarPalancaEnBaseA_(List<GameObject> unaListaDeTrampas)
-    {
-        if (unaListaDeTrampas.Count <= 0) return;
-
-        PresetearListasDeTrampas();
-        SeleccionarTrampaInicialAleatoriamente();
     }
 
     //Triggers para la comprensión de colisión del jugador con la palanca:
@@ -146,7 +132,6 @@ public class PalancaController : MonoBehaviour
         if (seConcretoElTiempoDeCooldown())
         {
             activeUnaTrampa = false;
-            //print("Ahora puedo activar de nuevo la trampa");
         }
     }
 

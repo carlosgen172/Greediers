@@ -42,7 +42,7 @@ public class SistemaPartidas : MonoBehaviour
 
     [Header("Músicas del nivel:")]
 
-    [SerializeField] private AudioClip musicaFondo;
+    //[SerializeField] private AudioClip musicaFondo; //descartable, es la misma que "musicaNivelNormal".
     [SerializeField] private AudioClip musicaNivelNormal;
     [SerializeField] private AudioClip musicaNivelSegundosFinales;
 
@@ -51,18 +51,19 @@ public class SistemaPartidas : MonoBehaviour
 
     void Awake()
     {
-        /*
-        musicaNivelNormal = Resources.Load();
-        musicaNivelSegundosFinales = Resources.Load();
+        musicaNivelNormal = Resources.Load<AudioClip>("CancionMomiaPrueba"); //cambiar por la que corresponda.
+        /* DESCOMENTAR AL INCLUIR LA MÚSICA RESPECTIVA DEL NIVEL.
+            musicaNivelSegundosFinales = Resources.Load();
         */
+
         efectoSonidoDerrumbe = Resources.Load<AudioClip>("sfx_terremoto");
+
+        var roca1 = Resources.Load<GameObject>("Roca_1");
+        var roca2 = Resources.Load<GameObject>("Roca_2");
+        var pinchos1 = Resources.Load<GameObject>("Pinchos_1");
+        var pinchos2 = Resources.Load<GameObject>("Pinchos_2");
         
-        var palanca1 = Resources.Load<GameObject>("Palanca_1");
-        var palanca2 = Resources.Load<GameObject>("Palanca_2");
-        var palanca3 = Resources.Load<GameObject>("Palanca_3");
-        var palanca4 = Resources.Load<GameObject>("Palanca_4");
-        
-        listaPalancas = new List<GameObject> {palanca1, palanca2, palanca3, palanca4};
+        listaTrampasSinElegir = new List<GameObject> {roca1, roca2, pinchos1, pinchos2};
     }
 
     // Start is called before the first frame update
@@ -70,7 +71,7 @@ public class SistemaPartidas : MonoBehaviour
     {
         InicializarValoresPresetados();
         IniciarPartida();
-        AudioManager.Instance.ReproducirMusica(musicaFondo);
+        AudioManager.Instance.ReproducirMusica(musicaNivelNormal);
     }
 
     // Update is called once per frame
@@ -116,6 +117,13 @@ public class SistemaPartidas : MonoBehaviour
         botonPausa = GameObject.Find("BotonPausa");
 
         salidaDelNivel = GameObject.Find("Salida");
+
+        var palanca1 = GameObject.Find("Palanca_1");
+        var palanca2 = GameObject.Find("Palanca_2");
+        var palanca3 = GameObject.Find("Palanca_3");
+        var palanca4 = GameObject.Find("Palanca_4");
+        
+        listaPalancas = new List<GameObject> {palanca1, palanca2, palanca3, palanca4};
         
         //fondoNivel = Resources.Load<GameObject>("Fondo_1");
         
@@ -130,23 +138,24 @@ public class SistemaPartidas : MonoBehaviour
         DesactivarMenuDePausa();
 
         //Seteo los valores tentativos de duración de partida (2 minutos de recolección y 30 segundos de escape):
+        
         tiempoPartida = 90f;
         
         tiempoEscape = 30f;
 
-        //Seteos extra para la lógica de la elección de trampas en base a palancas
-        //var listaTrampasSinElegirNueva = listaTrampasSinElegir.Any(t => t.TrampaBaseController);
-        /* listaPalancas[0].GetComponent<PalancaController>().InicializarPalancaEnBaseA_(listaTrampasSinElegir);
+        //Seteos extra para la lógica de la elección de trampas en base a palancas:
+
+        listaPalancas[0].GetComponent<PalancaController>().InicializarPalancaEnBaseASuLista();
         listaTrampasSinElegir.RemoveAt(indiceTrampaElegida);
 
-        listaPalancas[1].GetComponent<PalancaController>().InicializarPalancaEnBaseA_(listaTrampasSinElegir);
+        listaPalancas[1].GetComponent<PalancaController>().InicializarPalancaEnBaseASuLista();
         listaTrampasSinElegir.RemoveAt(indiceTrampaElegida);
 
-        listaPalancas[2].GetComponent<PalancaController>().InicializarPalancaEnBaseA_(listaTrampasSinElegir);
+        listaPalancas[2].GetComponent<PalancaController>().InicializarPalancaEnBaseASuLista();
         listaTrampasSinElegir.RemoveAt(indiceTrampaElegida);
 
-        listaPalancas[3].GetComponent<PalancaController>().InicializarPalancaEnBaseA_(listaTrampasSinElegir);
-        listaTrampasSinElegir.RemoveAt(indiceTrampaElegida); */
+        listaPalancas[3].GetComponent<PalancaController>().InicializarPalancaEnBaseASuLista();
+        listaTrampasSinElegir.RemoveAt(indiceTrampaElegida); 
     }
 
     public void IniciarPartida()
