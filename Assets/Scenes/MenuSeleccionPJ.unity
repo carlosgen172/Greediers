@@ -1823,12 +1823,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bbf504ed90db914bbeccb3cbbd75af6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objetoSeleccionJugador: {fileID: 2110241712}
   listaNombresDeJugadores:
   - Jugador_1
   - Jugador_2
   - Jugador_3
   - Jugador_4
+  listaJugadoresTotales: []
   listaPrincipalJugadores:
   - {fileID: 130150610}
   - {fileID: 1519068034}
@@ -1836,6 +1836,7 @@ MonoBehaviour:
   - {fileID: 699025260}
   escenaActual: 
   fondoActivado: 1
+  musicaDeMenu: {fileID: 0}
 --- !u!4 &1304840403
 Transform:
   m_ObjectHideFlags: 0

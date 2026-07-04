@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
 
 public class SeleccionJugador : MonoBehaviour
 {
@@ -107,10 +108,10 @@ public class SeleccionJugador : MonoBehaviour
     private void ConfiguracionDeTeclas()
     {
         //se pueden reconfigurar, las puse por poner basicamente
-        teclaPrimerJugador = Input.GetKeyDown(KeyCode.Y);
-        teclaSegundoJugador = Input.GetKeyDown(KeyCode.U);
-        teclaTercerJugador = Input.GetKeyDown(KeyCode.I);
-        teclaCuartoJugador = Input.GetKeyDown(KeyCode.O);
+        teclaPrimerJugador = Keyboard.current.zKey.wasPressedThisFrame;
+        teclaSegundoJugador = Keyboard.current.commaKey.wasPressedThisFrame;
+        teclaTercerJugador = Gamepad.current.buttonSouth.wasPressedThisFrame;
+        teclaCuartoJugador = Gamepad.current.buttonSouth.wasPressedThisFrame;
     }
 
 
