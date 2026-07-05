@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 //enumaeración de habilidades
 //fuera de la clase, lo hice así para no tener que hacer otro script
@@ -12,7 +13,7 @@ public class JugadorManager : MonoBehaviour
 
     //Componentes
     [Header("Subsistemas del jugador:")]
-    private MovementJugador movementPlayer;
+    public MovementJugador movementPlayer;
     public InputManager inputPlayer;
     public AnimationManager animacionesJugador;
 
@@ -48,6 +49,9 @@ public class JugadorManager : MonoBehaviour
     [SerializeField] private AudioClip sfx_habilidad_momia;
     [SerializeField] private AudioClip sfx_danio;
 
+    [Header("Referencia Al Input Action:")]
+    public InputActionReference interactuar;
+
 
     void Awake()
     {
@@ -76,7 +80,7 @@ public class JugadorManager : MonoBehaviour
 
         //Interacción con el tesoro:
 
-        if (estaSobreElTesoro && Input.GetKey(inputPlayer.teclaInteraccion/*  && Input.GetKey(KeyCode.Q) */))
+        if (estaSobreElTesoro && interactuar.action.triggered)
         {
             if (corrutinaTesoro == null)
             {

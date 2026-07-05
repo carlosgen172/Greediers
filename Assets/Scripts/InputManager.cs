@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class InputManager : MonoBehaviour
 {
@@ -13,6 +14,9 @@ public class InputManager : MonoBehaviour
 
     public bool seEstaMoviendo = false;
     public bool estaQuieto = false;
+    Rigidbody2D rbPlayer;
+    public InputActionReference movimiento;
+    public InputActionReference interaccion;
 
     /*
 
@@ -36,27 +40,18 @@ public class InputManager : MonoBehaviour
 
     */
 
-    // -------------------------- PROVISORIO PARA LA PRUEB A DE DOS PERSONAJES
 
-    [Header("Configuración de teclas")]
-    public KeyCode teclaIzquierda = KeyCode.A;
-    public KeyCode teclaDerecha = KeyCode.D;
-    public KeyCode teclaSalto = KeyCode.Space;
-    public KeyCode teclaInteraccion = KeyCode.Q;
-
+    void Awake()
+    {
+        rbPlayer = GetComponent<Rigidbody2D>();
+    }
     void Update()
     {
-        // Calculamos el movimiento manualmente según las teclas asignadas
-        float mov = 0;
-        if (Input.GetKey(teclaIzquierda)) mov -= 1;
-        if (Input.GetKey(teclaDerecha)) mov += 1;
-        Movement = mov;
-
-        estaQuieto = mov == 0;
+        estaQuieto = rbPlayer.velocity == new Vector2(0,0);
         seEstaMoviendo = !estaQuieto;
 
-        JumpPressed = Input.GetKeyDown(teclaSalto);
-        InteractPressed = Input.GetKeyDown(teclaInteraccion);
+        JumpPressed = movimiento.action.triggered;
+        InteractPressed = interaccion.action.triggered;
     }
 
 }
