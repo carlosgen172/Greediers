@@ -4,8 +4,9 @@ using Unity.VisualScripting;
 using UnityEngine;
 
 public class TesoroController : MonoBehaviour
+
 {
-    private void OnTriggerEnter2D(Collider2D other) 
+    private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("jugador"))
         {
@@ -17,7 +18,7 @@ public class TesoroController : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit2D(Collider2D other) 
+    private void OnTriggerExit2D(Collider2D other)
     {
         if (other.CompareTag("jugador"))
         {

@@ -22,10 +22,10 @@ public class SistemaPartidas : MonoBehaviour
 
     //Fondo Desactivabe:
     [SerializeField] private GameObject fondoNivel;
-    
+
     //Grupo de objetos del menú de pausa:
     [SerializeField] private GameObject menuPausa;
-    
+
     //Botón desactivable:
     [SerializeField] private GameObject botonPausa;
 
@@ -49,6 +49,8 @@ public class SistemaPartidas : MonoBehaviour
     [Header("Efectos de sonido del nivel:")]
     public AudioClip efectoSonidoDerrumbe;
 
+    public List<GameObject> todosLosMonticulos; 
+
     void Awake()
     {
         musicaNivelNormal = Resources.Load<AudioClip>("CancionMomiaPrueba"); //cambiar por la que corresponda.
@@ -62,8 +64,8 @@ public class SistemaPartidas : MonoBehaviour
         var roca2 = Resources.Load<GameObject>("Roca_2");
         var pinchos1 = Resources.Load<GameObject>("Pinchos_1");
         var pinchos2 = Resources.Load<GameObject>("Pinchos_2");
-        
-        listaTrampasSinElegir = new List<GameObject> {roca1, roca2, pinchos1, pinchos2};
+
+        listaTrampasSinElegir = new List<GameObject> { roca1, roca2, pinchos1, pinchos2 };
     }
 
     // Start is called before the first frame update
@@ -78,9 +80,9 @@ public class SistemaPartidas : MonoBehaviour
     void Update()
     {
         //Si ya inició/ya finalizó la partida, no hara nada más este código.
-        if(!yaInicio || yaFinalizo) return;
+        if (!yaInicio || yaFinalizo) return;
 
-        if(laPartidaTerminoAntes())
+        if (laPartidaTerminoAntes())
         {
             FinalizarPartida();
         }
@@ -109,7 +111,7 @@ public class SistemaPartidas : MonoBehaviour
     {
         //Acá iría la lógica que pasaría a los jugadores seteados dentro del menu de seleccion de pjs.
         //y también se guardarían los cambios para inicializar el juego:
-        
+
         fondoNivel = GameObject.Find("FondoNivel");
 
         menuPausa = GameObject.Find("MenuPausa");
@@ -122,15 +124,16 @@ public class SistemaPartidas : MonoBehaviour
         var palanca2 = GameObject.Find("Palanca_2");
         var palanca3 = GameObject.Find("Palanca_3");
         var palanca4 = GameObject.Find("Palanca_4");
-        
-        listaPalancas = new List<GameObject> {palanca1, palanca2, palanca3, palanca4};
-        
+
+        listaPalancas = new List<GameObject> { palanca1, palanca2, palanca3, palanca4 };
+
         //fondoNivel = Resources.Load<GameObject>("Fondo_1");
-        
-        if(JuegoManager.Instance.fondoActivado)
+
+        if (JuegoManager.Instance.fondoActivado)
         {
             ActivarFondo();
-        } else
+        }
+        else
         {
             DesactivarFondo();
         }
@@ -138,9 +141,9 @@ public class SistemaPartidas : MonoBehaviour
         DesactivarMenuDePausa();
 
         //Seteo los valores tentativos de duración de partida (2 minutos de recolección y 30 segundos de escape):
-        
+
         tiempoPartida = 90f;
-        
+
         tiempoEscape = 30f;
 
         //Seteos extra para la lógica de la elección de trampas en base a palancas:
@@ -155,20 +158,24 @@ public class SistemaPartidas : MonoBehaviour
         listaTrampasSinElegir.RemoveAt(indiceTrampaElegida);
 
         listaPalancas[3].GetComponent<PalancaController>().InicializarPalancaEnBaseASuLista();
-        listaTrampasSinElegir.RemoveAt(indiceTrampaElegida); 
+        listaTrampasSinElegir.RemoveAt(indiceTrampaElegida);
+    
+        //Seteo de los montículos en la escena
+        GameObject[] monticulosEncontrados = GameObject.FindGameObjectsWithTag("Monticulo");
+        todosLosMonticulos = new List<GameObject>(monticulosEncontrados);
     }
 
     public void IniciarPartida()
     {
         //Seteo la escala de tiempo a 1:
         Time.timeScale = 1f;
-        
+
         //Seteo el booleano de inicio a true:
         yaInicio = true;
 
         //Busco el elemento del contador, pero aún no lo inicializo (sólo lo busco una vez):
         contadorTiempoPartida = GameObject.Find("TimerVisiblePartida").GetComponentInChildren<TextMeshProUGUI>();
-        
+
         //E inicio su timer de recolección:
         IniciarTimerDePartidaRecoleccion();
     }
@@ -181,7 +188,7 @@ public class SistemaPartidas : MonoBehaviour
     {
         //El tiempo actual de partida se iguala al tiempo total de partida:
         tiempoActual = tiempoPartida;
-        
+
         //Actualizo el estado de recolección del nivel a true:
         estaEnFaseDeRecoleccion = true;
 
@@ -215,17 +222,18 @@ public class SistemaPartidas : MonoBehaviour
 
     public void ActualizarTimerCorrespondiente()
     {
-        if(!yaInicio) return;
+        if (!yaInicio) return;
 
         tiempoActual -= Time.deltaTime;
 
         ActualizarTextoDeTimerEnPantallaEnBaseA_(tiempoActual);
 
-        if(estaEnFaseDeRecoleccion)
+        if (estaEnFaseDeRecoleccion)
         {
             ActualizarTimerDeRecoleccion();
 
-        } else if (estaEnFaseDeEscape)
+        }
+        else if (estaEnFaseDeEscape)
         {
             ActualizarTimerDeEscape();
         }
@@ -233,9 +241,9 @@ public class SistemaPartidas : MonoBehaviour
 
     public void ActualizarTimerDeRecoleccion()
     {
-        if(!estaEnFaseDeRecoleccion) return;
+        if (!estaEnFaseDeRecoleccion) return;
 
-        if(SeTerminoElTiempo())
+        if (SeTerminoElTiempo())
         {
             print("Se terminó el tiempo de recolección, hora de escapar!");
             estaEnFaseDeRecoleccion = false;
@@ -246,9 +254,9 @@ public class SistemaPartidas : MonoBehaviour
 
     public void ActualizarTimerDeEscape()
     {
-        if(!estaEnFaseDeEscape) return;
+        if (!estaEnFaseDeEscape) return;
 
-        if(SeTerminoElTiempo())
+        if (SeTerminoElTiempo())
         {
             print("Se acaba de terminar el tiempo de escape.");
             estaEnFaseDeEscape = false;
@@ -310,7 +318,7 @@ public class SistemaPartidas : MonoBehaviour
 
     public void PausarJuego()
     {
-        if(!yaInicio || yaFinalizo) return;
+        if (!yaInicio || yaFinalizo) return;
 
         Time.timeScale = 0f;
 
@@ -333,7 +341,7 @@ public class SistemaPartidas : MonoBehaviour
 
     public void ReanudarJuego()
     {
-        if(!yaInicio || yaFinalizo) return;
+        if (!yaInicio || yaFinalizo) return;
 
         Time.timeScale = 1f;
 

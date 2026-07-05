@@ -20,6 +20,7 @@ public class JugadorManager : MonoBehaviour
     public bool habilidadActivada;
     public bool estaSobreElTesoro;
     private Coroutine corrutinaTesoro;
+    private MonticuloController monticulo;
 
     [Header("Tag de jugador:")]
     public string tagJugador;
@@ -59,21 +60,21 @@ public class JugadorManager : MonoBehaviour
         inputPlayer = GetComponent<InputManager>();
         animacionesJugador = GetComponent<AnimationManager>();
 
-        
+
         tagJugador = gameObject.tag;
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
         //Interacción con la palanca:
-        if(inputPlayer.InteractPressed && palancaCercana != null)
+        if (inputPlayer.InteractPressed && palancaCercana != null)
         {
             palancaCercana.IntentarActivarInterruptor();
         }
@@ -84,19 +85,19 @@ public class JugadorManager : MonoBehaviour
         {
             if (corrutinaTesoro == null)
             {
-                corrutinaTesoro = StartCoroutine(CorrutinaObtenerTesoro());
+                corrutinaTesoro = StartCoroutine(CorrutinaObtenerTesoro(monticulo));
             }
 
             else
             {
                 DetenerRecoleccion();
             }
-        }   
+        }
     }
 
     void FixedUpdate()
     {
-       //funciones de movilidad se ejecutarán aquí (se hace desde el fixedUpdate ya que se usa lógica de físicas):
+        //funciones de movilidad se ejecutarán aquí (se hace desde el fixedUpdate ya que se usa lógica de físicas):
 
         /*
 
@@ -112,16 +113,16 @@ public class JugadorManager : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.CompareTag("Palanca"))
+        if (collision.gameObject.CompareTag("Palanca"))
         {
-            palancaCercana = collision.gameObject.GetComponent<PalancaController>(); 
+            palancaCercana = collision.gameObject.GetComponent<PalancaController>();
         }
     }
 
     private void OnCollisionExit2D(Collision2D collision)
     {
 
-        if(collision.gameObject.CompareTag("Palanca"))
+        if (collision.gameObject.CompareTag("Palanca"))
         {
             palancaCercana = null;
         }
@@ -136,6 +137,13 @@ public class JugadorManager : MonoBehaviour
         {
             palancaCercana = other.GetComponent<PalancaController>();
         }
+        // el jugador derecta el montículo 
+        if (other.CompareTag("Monticulo"))
+        {
+            monticulo = other.GetComponent<MonticuloController>();
+            estaSobreElTesoro = true;
+            print("el monticulo fue detectado: " + monticulo.name);
+        }
     }
 
     private void OnTriggerExit2D(Collider2D other)
@@ -144,7 +152,17 @@ public class JugadorManager : MonoBehaviour
         {
             palancaCercana = null;
         }
+
+        // el jugador derecta el montículo 
+        if (other.CompareTag("Monticulo"))
+        {
+            monticulo = null;
+            estaSobreElTesoro = false;
+            DetenerRecoleccion();
+        }
     }
+
+
 
     private void Inicializar()
     {
@@ -169,7 +187,7 @@ public class JugadorManager : MonoBehaviour
         habilidadActivada = false;
     }
 
-     //-----------------------------------------DOBLE VELOCIDAD 
+    //-----------------------------------------DOBLE VELOCIDAD 
     public void ActivarDobleVelocidad()
     {
         StartCoroutine(CorrutinaDobleVelocidad(10f));
@@ -227,7 +245,7 @@ public class JugadorManager : MonoBehaviour
         }
     }
 
-	public void DetenerRecoleccion()
+    public void DetenerRecoleccion()
     {
         if (corrutinaTesoro != null)
         {
@@ -236,27 +254,31 @@ public class JugadorManager : MonoBehaviour
         }
     }
 
-    private IEnumerator CorrutinaObtenerTesoro() //Corregir para que funcione con un tiempo determinado en base a la vida del montículo que fue colisionado. (Si el montículo tiene 5 de vida, entonces sólo podrá tener 5 hits)
+    private IEnumerator CorrutinaObtenerTesoro(MonticuloController monticulo)
     {
         PuntajeJugadorController jugadorPuntaje = GetComponent<PuntajeJugadorController>();
         UIManager ui = FindObjectOfType<UIManager>();
 
-        while (true) // se rompe cuando la corrutina se detiene
+        while (monticulo != null && monticulo.saludMonticulo > 0)
         {
-	    // comparativa para evitar los números negativos  
-            jugadorPuntaje.puntaje = Mathf.Max(0, jugadorPuntaje.puntaje - 10);
-
-            //jugadorPuntaje.puntaje -= 10;
+            yield return new WaitForSeconds(2.0f);
+            monticulo.saludMonticulo -= 1;
             jugadorPuntaje.puntaje += 1;
+            print("PUNTAJE JUGADOR: " + jugadorPuntaje.puntaje);
+            print("VIDA MONTICULO: " + monticulo.saludMonticulo);
+
 
             if (ui != null)
             {
                 ui.ActualizarPuntaje(jugadorPuntaje);
             }
-            //print(valores.nombreJugador + "obtuvo " + valores.puntaje);
-            yield return new WaitForSeconds(5.0f);
-        }
-    }
 
+            if (monticulo.saludMonticulo <= 0)
+            {
+                monticulo.DestruirMonticulo();
+            }
+        }
+
+    }
 }
 
