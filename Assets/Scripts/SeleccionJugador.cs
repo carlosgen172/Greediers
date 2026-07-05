@@ -21,6 +21,7 @@ public class SeleccionJugador : MonoBehaviour
 
 
     List<Sprite> ImagenesPersonajesSeleccionados = new List<Sprite> { };
+    List<PlayerInput> listaDePlayerInputs = new List<PlayerInput> { };
 
     GameObject jugadorSeleccionado; //se usa para saber que jugador de la lista fue seleccionado
 
@@ -39,6 +40,7 @@ public class SeleccionJugador : MonoBehaviour
     int indice; //este índice funciona para actualizar el personaje que pueden seleccionar los jugadores
     int indiceTexto; //sirve para actualizar los textos de los jugadores una vez seleccionados
     int indiceImagen; //sirve para actualizar las imagenes de los personajes una vez seleccionados
+    int indicePlayerInput;
 
 
     void Awake()
@@ -60,8 +62,9 @@ public class SeleccionJugador : MonoBehaviour
         indice = 0;
         indiceTexto = 0;
         indiceImagen = 0;
+        indicePlayerInput = 0;
 
-        listaJugadoresGM = gameManager.listaPrincipalJugadores;
+        listaJugadoresGM = gameManager.listaJugadoresTotales;
         jugadorSeleccionado = listaJugadoresGM[indice];
 
         primerPersonaje = false;
@@ -73,6 +76,12 @@ public class SeleccionJugador : MonoBehaviour
         segundoInputSeleccionado = false;
         tercerInputSeleccionado = false;
         cuartoInputSeleccionado = false;
+        for (int i = 0; i < listaJugadoresGM.Count; i++)
+        {
+            PlayerInput playerInput;
+            playerInput = listaJugadoresGM[i].GetComponent<PlayerInput>();
+            listaDePlayerInputs.Add(playerInput);
+        }
     }
 
 
@@ -97,15 +106,27 @@ public class SeleccionJugador : MonoBehaviour
 
     private void ConfiguracionDeTeclas()
     {
-        if(Keyboard.current != null)
+        teclaPrimerJugador = false;
+        teclaSegundoJugador = false;
+        teclaTercerJugador = false;
+        teclaCuartoJugador = false;
+
+        if (Keyboard.current != null)
         {
             teclaPrimerJugador = Keyboard.current.zKey.wasPressedThisFrame;
             teclaSegundoJugador = Keyboard.current.commaKey.wasPressedThisFrame;
         }
-        if(Gamepad.current != null)
+
+        var gamepads = Gamepad.all;
+
+        if (gamepads.Count > 0)
         {
-            teclaTercerJugador = Gamepad.current.buttonSouth.wasPressedThisFrame;
-            teclaCuartoJugador = Gamepad.current.buttonSouth.wasPressedThisFrame;
+            teclaTercerJugador = gamepads[0].buttonSouth.wasPressedThisFrame;
+        }
+
+        if (gamepads.Count > 1)
+        {
+            teclaCuartoJugador = gamepads[1].buttonSouth.wasPressedThisFrame;
         }
     }
 
@@ -114,9 +135,7 @@ public class SeleccionJugador : MonoBehaviour
     //activa un personaje y determina qué jugador lo usará dependiendo el input que se activó
     private void ActivacionDePersonaje_(ref bool unPersonaje)
     {
-        if (!ActivacionDeInput()) return; //si no se activó ningún input NO se podrá activar NINGÚN personaje
-
-        if (!unPersonaje)
+        if (!unPersonaje && ActivacionDeInput())
         {
             unPersonaje = true;
             CambioDeImagenDePersonaje();
@@ -127,15 +146,15 @@ public class SeleccionJugador : MonoBehaviour
     //activa uno de los inputs disponibles para los jugadores dependiendo la tecla que fué presionada
     private bool ActivacionDeInput()
     {
-        return ActivacionDeInputParaJugador_(teclaPrimerJugador, ref primerInputSeleccionado, "JP1") ||
-            ActivacionDeInputParaJugador_(teclaSegundoJugador, ref segundoInputSeleccionado, "JP2") ||
-            ActivacionDeInputParaJugador_(teclaTercerJugador, ref tercerInputSeleccionado, "JP3") ||
-            ActivacionDeInputParaJugador_(teclaCuartoJugador, ref cuartoInputSeleccionado, "JP4");
+        return ActivacionDeInputParaJugador(teclaPrimerJugador, ref primerInputSeleccionado, "JP1") ||
+            ActivacionDeInputParaJugador(teclaSegundoJugador, ref segundoInputSeleccionado, "JP2") ||
+            ActivacionDeInputParaJugador(teclaTercerJugador, ref tercerInputSeleccionado, "JP3") ||
+            ActivacionDeInputParaJugador(teclaCuartoJugador, ref cuartoInputSeleccionado, "JP4");
     }
 
 
     //activa el input para el jugador unJugador dependiendo la tecla que fué presionada
-    private bool ActivacionDeInputParaJugador_(bool teclaDeUnJugador, ref bool inputDeUnJugador, string textoUnJugador)
+    private bool ActivacionDeInputParaJugador(bool teclaDeUnJugador, ref bool inputDeUnJugador, string textoUnJugador)
     {
         if (teclaDeUnJugador && !inputDeUnJugador)
         {

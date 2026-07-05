@@ -52,6 +52,7 @@ public class JugadorManager : MonoBehaviour
 
     [Header("Referencia Al Input Action:")]
     public InputActionReference interactuar;
+    [SerializeField] SistemaPartidas sistemaPartidaActual;
 
 
     void Awake()
@@ -73,7 +74,7 @@ public class JugadorManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        sistemaPartidaActual = GameObject.Find("ControladorPartida").GetComponent<SistemaPartidas>();
     }
 
     // Update is called once per frame
@@ -170,9 +171,9 @@ public class JugadorManager : MonoBehaviour
     
 
 
-    private void Inicializar()
+    public void Inicializar()
     {
-        //Insertar lógica de posicionamiento (y giro en caso de ser necesario) según personaje seleccionado.
+        
     }
 
     //SISTEMA DE CORRUTINAS agregado el 20/06

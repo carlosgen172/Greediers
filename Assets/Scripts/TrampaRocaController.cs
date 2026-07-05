@@ -51,7 +51,7 @@ public class TrampaRocaController : TrampaBaseController
     {
         
 
-        if(JuegoManager.Instance.elNombreDelObjeto_SeEncuentraEnLaListaDeNombresDeJugadores(collision.gameObject))
+        if(collision.gameObject.CompareTag("jugador"))
         //if(collision.gameObject.TryGetComponent<PuntajeJugadorController>(out PuntajeJugadorController jugadorPuntaje))
         {
             yaColisione = true;

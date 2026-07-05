@@ -22,7 +22,7 @@ public class AudioManager : MonoBehaviour
             DontDestroyOnLoad(Instance);
         }
         volumenCancion = 0.5f;
-        volumenSFX = 0.5f;
+        volumenSFX = 0.2f;
     }
 
     void Update()

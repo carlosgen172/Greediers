@@ -157,6 +157,17 @@
                 },
                 {
                     "name": "",
+                    "id": "80985001-29a1-430a-ab2e-0cce9ace16fa",
+                    "path": "<Gamepad>/leftStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Mando2",
+                    "action": "Mover",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "f68608a7-b7ed-4350-95da-11fcbbf18aa9",
                     "path": "<Keyboard>/z",
                     "interactions": "",
@@ -184,6 +195,17 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Mando",
+                    "action": "Saltar",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e61ab7b4-cbe6-4693-9f6c-a6f588d1b74a",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Mando2",
                     "action": "Saltar",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -220,6 +242,17 @@
                     "action": "Interaccion",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9c692c70-4a5a-4ffd-8591-e1e5a96b23c2",
+                    "path": "<Gamepad>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Mando2",
+                    "action": "Interaccion",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }
@@ -250,6 +283,17 @@
         {
             "name": "Mando",
             "bindingGroup": "Mando",
+            "devices": [
+                {
+                    "devicePath": "<Gamepad>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        },
+        {
+            "name": "Mando2",
+            "bindingGroup": "Mando2",
             "devices": [
                 {
                     "devicePath": "<Gamepad>",

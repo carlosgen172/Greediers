@@ -11,7 +11,7 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI textoJugador2;
     public TextMeshProUGUI textoJugador3;
     public TextMeshProUGUI textoJugador4;
-    
+
     /* 
         [Serializable]
         public class JugadorTexto
@@ -21,9 +21,16 @@ public class UIManager : MonoBehaviour
 
         } */
 
-    void Start()
+    void Awake()
     {
         InicializarTextosDePuntuacion();
+    }
+    void Start()
+    {
+        textoJugador1.text = "0";
+        textoJugador2.text = "0";
+        textoJugador3.text = "0";
+        textoJugador4.text = "0";
     }
 
     public void ActualizarPuntaje(PuntajeJugadorController jugadorPuntaje)
@@ -68,24 +75,11 @@ public class UIManager : MonoBehaviour
 
     public void InicializarTextosDePuntuacion()
     {
-        var jugador_1 = GameObject.Find("Jugador_1");
-        textoJugador1 = jugador_1.GetComponentInChildren<TextMeshProUGUI>();
-        textoJugador1.text = "0";
-
-        /* DESCOMENTAR CUANDO SE CREEN BIEN TODOS LOS PERSONAJES.
-
-        var jugador_2 = GameObject.Find("Jugador_2");
-        textoJugador2 = jugador_2.GetComponentInChildren<TextMeshProUGUI>();
-        textoJugador2.text = "0";
-
-        var jugador_3 = GameObject.Find("Jugador_3");
-        textoJugador3 = jugador_3.GetComponentInChildren<TextMeshProUGUI>();
-        textoJugador3.text = "0";
-
-        var jugador_4 = GameObject.Find("Jugador_4");
-        textoJugador4 = jugador_4.GetComponentInChildren<TextMeshProUGUI>();
-        textoJugador4.text = "0";
-        */
+        textoJugador1 = GameObject.Find("textoPuntuacion1").GetComponent<TextMeshProUGUI>();
+        textoJugador2 = GameObject.Find("textoPuntuacion2").GetComponent<TextMeshProUGUI>();
+        textoJugador3 = GameObject.Find("textoPuntuacion3").GetComponent<TextMeshProUGUI>();
+        textoJugador4 = GameObject.Find("textoPuntuacion4").GetComponent<TextMeshProUGUI>();
+        
     }
 
 }

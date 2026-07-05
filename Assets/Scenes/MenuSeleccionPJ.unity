@@ -1829,11 +1829,7 @@ MonoBehaviour:
   - Jugador_3
   - Jugador_4
   listaJugadoresTotales: []
-  listaPrincipalJugadores:
-  - {fileID: 130150610}
-  - {fileID: 1519068034}
-  - {fileID: 544047229}
-  - {fileID: 699025260}
+  jugadoresQueLlegaron: []
   escenaActual: 
   fondoActivado: 1
   musicaDeMenu: {fileID: 0}

@@ -49,13 +49,15 @@ public class SistemaPartidas : MonoBehaviour
     [Header("Efectos de sonido del nivel:")]
     public AudioClip efectoSonidoDerrumbe;
 
-    public List<GameObject> todosLosMonticulos; 
+    public List<GameObject> todosLosMonticulos;
+    public Spawn spawn;
 
     void Awake()
     {
         musicaNivelNormal = Resources.Load<AudioClip>("MusicaJuego"); //cambiar por la que corresponda.
         musicaNivelSegundosFinales = Resources.Load<AudioClip>("30Seconds");
         efectoSonidoDerrumbe = Resources.Load<AudioClip>("sfx_terremoto");
+        spawn = GetComponent<Spawn>();
 
         var roca1 = Resources.Load<GameObject>("Roca_1");
         var roca2 = Resources.Load<GameObject>("Roca_2");
@@ -63,6 +65,7 @@ public class SistemaPartidas : MonoBehaviour
         var pinchos2 = Resources.Load<GameObject>("Pinchos_2");
 
         listaTrampasSinElegir = new List<GameObject> { roca1, roca2, pinchos1, pinchos2 };
+        
     }
 
     // Start is called before the first frame update
@@ -71,6 +74,12 @@ public class SistemaPartidas : MonoBehaviour
         InicializarValoresPresetados();
         IniciarPartida();
         AudioManager.Instance.ReproducirMusica(musicaNivelNormal);
+        spawn.Initialization();
+        for (int i = 0; i < JuegoManager.Instance.listaJugadoresTotales.Count; i++)
+        {
+            var jugadorActual = Instantiate(JuegoManager.Instance.listaJugadoresTotales[i], new Vector2(0,0), Quaternion.identity);
+            jugadorActual.transform.position = spawn.eleccionDePosicion();
+        }
     }
 
     // Update is called once per frame
@@ -124,7 +133,8 @@ public class SistemaPartidas : MonoBehaviour
 
         listaPalancas = new List<GameObject> { palanca1, palanca2, palanca3, palanca4 };
 
-        //fondoNivel = Resources.Load<GameObject>("Fondo_1");
+
+        
 
         if (JuegoManager.Instance.fondoActivado)
         {
@@ -157,7 +167,7 @@ public class SistemaPartidas : MonoBehaviour
 
         listaPalancas[3].GetComponent<PalancaController>().InicializarPalancaEnBaseASuLista();
         listaTrampasSinElegir.RemoveAt(indiceTrampaElegida);
-    
+
         //Seteo de los montículos en la escena
         GameObject[] monticulosEncontrados = GameObject.FindGameObjectsWithTag("Monticulo");
         todosLosMonticulos = new List<GameObject>(monticulosEncontrados);

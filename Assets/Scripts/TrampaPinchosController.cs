@@ -103,7 +103,7 @@ public class TrampaPinchosController : TrampaBaseController
     
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(JuegoManager.Instance.elNombreDelObjeto_SeEncuentraEnLaListaDeNombresDeJugadores(collision.gameObject))
+        if(collision.gameObject.CompareTag("jugador"))
         {
             print($"Acabo de hacer daño al jugador: {collision.gameObject.tag}");
 

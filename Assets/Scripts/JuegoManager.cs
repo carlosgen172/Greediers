@@ -17,9 +17,9 @@ public class JuegoManager : MonoBehaviour
     //Vincular a todos los objetos de tipo jugador dentro de la lista, esta sera la misma que los va a presetear en el escenario y los comparará para saber si todos lograron escapar.
     public List<GameObject> listaJugadoresTotales; 
 
-    //Lista de todos los jugadores que lograron escapar, esta misma se espera que el exit/sistemaPartidas les pase la información de la misma, de ahí esta lista será usada para las funciones dl ssitema de victoria (mensaje final)
+    
 
-    public List<GameObject> listaPrincipalJugadores;
+
 
     // lista para usar en la tabla de puntuaciones
     public List<PuntajeJugadorController> jugadoresQueLlegaron = new List<PuntajeJugadorController>();
@@ -30,11 +30,7 @@ public class JuegoManager : MonoBehaviour
     [Header("Booleanos importantes para actualización y pre-configuración de partida:")]
     public bool fondoActivado = true;
 
-    [Header("Valores para lógica de sliders y comunicación para el sonido del nivel:")]
-    Slider sliderSFX;
-    Slider sliderMusica;
-    float volumenMusica;
-    float volumenSFX;
+    
 
     [Header("Música del menú:")]
     [SerializeField] private AudioClip musicaDeMenu;
@@ -99,15 +95,6 @@ public class JuegoManager : MonoBehaviour
     }
 
     //Booleanos:
-
-    //Función Booleana para la verificación de nombre de jugador dentro de lista:
-    public bool elNombreDelObjeto_SeEncuentraEnLaListaDeNombresDeJugadores(GameObject unObjeto)
-    {
-        var nombreDelObjetoABuscar = unObjeto.name;
-        var seEncuentraEnLaLista = listaNombresDeJugadores.Contains(nombreDelObjetoABuscar);
-
-        return seEncuentraEnLaLista;
-    }
 
     //Se puede cambiar la función booleana de arriba por esta nueva y más flexible:
     public bool elElemento_SeEncuentraEnLaListaDeElementos_<T>(T unElemento, List<T> unaListaDeElementos)

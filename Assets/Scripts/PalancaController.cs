@@ -82,7 +82,7 @@ public class PalancaController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (JuegoManager.Instance.elNombreDelObjeto_SeEncuentraEnLaListaDeNombresDeJugadores(other.gameObject))
+        if (other.gameObject.CompareTag("jugador"))
         {
             hayUnJugadorCerca = true;
             print("Hay un jugador que puede activar la trampa");
@@ -91,7 +91,7 @@ public class PalancaController : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (JuegoManager.Instance.elNombreDelObjeto_SeEncuentraEnLaListaDeNombresDeJugadores(other.gameObject))
+        if (other.gameObject.CompareTag("jugador"))
         {
             hayUnJugadorCerca = false;
             print("El jugador ya no se encuentra cerca del interruptor.");
