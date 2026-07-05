@@ -12,7 +12,7 @@ public class SalidaController : MonoBehaviour
 
     void Start()
     {
-        if(textoJugadorGanador != null)
+        if (textoJugadorGanador != null)
         {
             textoJugadorGanador.gameObject.SetActive(false);
         }
@@ -20,48 +20,70 @@ public class SalidaController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        //if (other.CompareTag("Jugador1") || other.CompareTag("Jugador2"))
-        if(other.CompareTag("jugador")) //todos los jugadores tendrán el mismo tag.
+        if (other.CompareTag("jugador"))
         {
-            // ocultar al jugar en lugar de eliminarlo
-            other.gameObject.SetActive(false);
 
-            // puntaje del otro jugador 
             PuntajeJugadorController jugador = other.GetComponent<PuntajeJugadorController>();
-            puntajes.Add(jugador.nombreJugador, jugador.puntaje); //Corregirlo por función que guarde en una lista de jugadores dentro del GameManager.
 
+            if (!JuegoManager.Instance.jugadoresQueLlegaron.Contains(jugador))
+            {
+                JuegoManager.Instance.jugadoresQueLlegaron.Add(jugador);
+            }
+
+            other.gameObject.SetActive(false);
             jugadoresLlegados++;
 
-            if (jugadoresLlegados == 2)
+            if (jugadoresLlegados >= JuegoManager.Instance.jugadoresQueLlegaron.Count)
             {
-                DecidirGanador();
+                JuegoManager.Instance.CambiarALaEscenaDeLosResultados();
             }
         }
     }
 
-    void DecidirGanador()
-    {
-        string ganador = "";
-        int maxPuntaje = -1;
-
-        foreach (var valor in puntajes)
+    /*     private void OnTriggerEnter2D(Collider2D other)
         {
-            if (valor.Value > maxPuntaje)
+            //if (other.CompareTag("Jugador1") || other.CompareTag("Jugador2"))
+            if(other.CompareTag("jugador")) //todos los jugadores tendrán el mismo tag.
             {
-                maxPuntaje = valor.Value;
-                ganador = valor.Key;
+                // ocultar al jugar en lugar de eliminarlo
+                other.gameObject.SetActive(false);
+
+                // puntaje del otro jugador 
+                PuntajeJugadorController jugador = other.GetComponent<PuntajeJugadorController>();
+                puntajes.Add(jugador.nombreJugador, jugador.puntaje); //Corregirlo por función que guarde en una lista de jugadores dentro del GameManager.
+
+                jugadoresLlegados++;
+
+                if (jugadoresLlegados == 2)
+                {
+                    DecidirGanador();
+                } 
             }
-        }
+        } */
 
-        if (textoJugadorGanador != null) //Esta lógica debe estar aislada en en el script que decida 
+    /*     void DecidirGanador()
         {
+            string ganador = "";
+            int maxPuntaje = -1;
 
-            textoJugadorGanador.gameObject.SetActive(true);
-            textoJugadorGanador.text = "el ganador es " + ganador + " con " + maxPuntaje + " puntos";
+            foreach (var valor in puntajes)
+            {
+                if (valor.Value > maxPuntaje)
+                {
+                    maxPuntaje = valor.Value;
+                    ganador = valor.Key;
+                }
+            }
 
-            print("el ganador es " + ganador + " con " + maxPuntaje + " puntos");
-        }
-    }
+            if (textoJugadorGanador != null) //Esta lógica debe estar aislada en en el script que decida 
+            {
+
+                textoJugadorGanador.gameObject.SetActive(true);
+                textoJugadorGanador.text = "el ganador es " + ganador + " con " + maxPuntaje + " puntos";
+
+                print("el ganador es " + ganador + " con " + maxPuntaje + " puntos");
+            }
+        } */
 
     public bool hanSalidoTodosLosJugadores()
     {

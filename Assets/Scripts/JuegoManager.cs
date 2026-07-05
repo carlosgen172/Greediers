@@ -21,6 +21,9 @@ public class JuegoManager : MonoBehaviour
 
     public List<GameObject> listaPrincipalJugadores;
 
+    // lista para usar en la tabla de puntuaciones
+    public List<PuntajeJugadorController> jugadoresQueLlegaron = new List<PuntajeJugadorController>();
+
     [Header("Chequeo de escena actual:")]
     public string escenaActual;
 
