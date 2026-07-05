@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 1747843057886520175}
   m_Layer: 7
   m_Name: Pinchos_2
-  m_TagString: Pinchos
+  m_TagString: Pinchos_2
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

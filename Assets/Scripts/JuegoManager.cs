@@ -15,7 +15,7 @@ public class JuegoManager : MonoBehaviour
     [SerializeField] List<string> listaNombresDeJugadores = new List<string> {"Jugador_1", "Jugador_2", "Jugador_3", "Jugador_4"};
     
     //Vincular a todos los objetos de tipo jugador dentro de la lista, esta sera la misma que los va a presetear en el escenario y los comparará para saber si todos lograron escapar.
-    [SerializeField] List<GameObject> listaJugadoresTotales; 
+    public List<GameObject> listaJugadoresTotales; 
 
     //Lista de todos los jugadores que lograron escapar, esta misma se espera que el exit/sistemaPartidas les pase la información de la misma, de ahí esta lista será usada para las funciones dl ssitema de victoria (mensaje final)
 
@@ -50,7 +50,7 @@ public class JuegoManager : MonoBehaviour
             DontDestroyOnLoad(Instance);
         }
 
-        //musicaDeMenu = Resources.Load("MusicaMenuFondo"); 
+        musicaDeMenu = Resources.Load<AudioClip>("MenuPrincipal"); 
 
 
         //Preseteo de jugadores en lista general (son los prefabs):
@@ -67,10 +67,7 @@ public class JuegoManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if(escenaActual == "MenuPrincipal")
-        {
-            AudioManager.Instance.ReproducirMusica(musicaDeMenu);
-        }
+        
 
         //¿No debería consultar si es que se encuentra en la escena de 
         // "Seleccion de Jugador" antes de tratar de realizar la función de la misma?
@@ -95,8 +92,10 @@ public class JuegoManager : MonoBehaviour
     {
         //actualiza su nombre a la escena que corresponda:
         ActualizarNombreDeEscenaActual();
-        AsignarVolumen();
-        
+        if(escenaActual == "MenuPrincipal" && !AudioManager.Instance.audioFondo.isPlaying)
+        {
+            AudioManager.Instance.ReproducirMusica(musicaDeMenu);
+        }
     }
 
     //Booleanos:
@@ -150,34 +149,4 @@ public class JuegoManager : MonoBehaviour
         //Esta variable se chequea cuando se inicializa la partida.
         fondoActivado = !fondoActivado; 
     }
-
-    void AsignarVolumen()
-{
-    if (escenaActual == "MenuOpciones")
-    {
-        // 1. Si entramos a la escena pero aún no tenemos la referencia de los sliders, los buscamos
-        if (sliderMusica == null || sliderSFX == null)
-        {
-            GameObject objMusica = GameObject.Find("SliderMusica");
-            GameObject objSFX = GameObject.Find("SliderSFX");
-
-            if (objMusica != null && objSFX != null)
-            {
-                sliderMusica = objMusica.GetComponent<Slider>();
-                sliderSFX = objSFX.GetComponent<Slider>();
-            }
-            else
-            {
-                // Si aún no existen en la escena, salimos para evitar el crash
-                return; 
-            }
-        }
-
-        // 2. Si ya están asignados con éxito, actualizamos el volumen
-        volumenMusica = sliderMusica.value;
-        volumenSFX = sliderSFX.value;
-        AudioManager.Instance.AsignarVolumen(volumenMusica, volumenSFX);
-    }
-}
-
 }

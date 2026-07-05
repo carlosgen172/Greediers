@@ -53,11 +53,8 @@ public class SistemaPartidas : MonoBehaviour
 
     void Awake()
     {
-        musicaNivelNormal = Resources.Load<AudioClip>("CancionMomiaPrueba"); //cambiar por la que corresponda.
-        /* DESCOMENTAR AL INCLUIR LA MÚSICA RESPECTIVA DEL NIVEL.
-            musicaNivelSegundosFinales = Resources.Load();
-        */
-
+        musicaNivelNormal = Resources.Load<AudioClip>("MusicaJuego"); //cambiar por la que corresponda.
+        musicaNivelSegundosFinales = Resources.Load<AudioClip>("30Seconds");
         efectoSonidoDerrumbe = Resources.Load<AudioClip>("sfx_terremoto");
 
         var roca1 = Resources.Load<GameObject>("Roca_1");
@@ -139,6 +136,7 @@ public class SistemaPartidas : MonoBehaviour
         }
 
         DesactivarMenuDePausa();
+        DesactivarSalida();
 
         //Seteo los valores tentativos de duración de partida (2 minutos de recolección y 30 segundos de escape):
 
@@ -192,9 +190,6 @@ public class SistemaPartidas : MonoBehaviour
         //Actualizo el estado de recolección del nivel a true:
         estaEnFaseDeRecoleccion = true;
 
-        //Se activa la salida para los jugadores que ya quieran salir del nivel:
-        ActivarSalida();
-
         //Seteo el contador en base al tiempo actual:
         contadorTiempoPartida.text = $"{tiempoActual}";
 
@@ -211,6 +206,10 @@ public class SistemaPartidas : MonoBehaviour
         contadorTiempoPartida.text = $"{tiempoActual}";
 
         AudioManager.Instance.ReproducirSonido(efectoSonidoDerrumbe);
+        AudioManager.Instance.DetenerMusica();
+        AudioManager.Instance.ReproducirMusica(musicaNivelSegundosFinales);
+
+        ActivarSalida();
 
         //Agregado estético, le cambio ell color de las letras a un tono rojizo:
         contadorTiempoPartida.color = Color.red;
@@ -290,7 +289,7 @@ public class SistemaPartidas : MonoBehaviour
 
         //salidaDelNivel.ComunicarResultadosAlGameManager(); //puede ser resultados directamente o los gameObjects y luego sus resultados.
 
-        SceneManager.LoadScene("MenuResulados");
+        SceneManager.LoadScene("MenuResultados");
     }
 
     public void ActivarSalida()

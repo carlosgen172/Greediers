@@ -21,12 +21,14 @@ public class MovementJugador : MonoBehaviour
 
     public bool estaEnElSuelo;
     public InputAction moveAction;
+    private JugadorManager jugadorManager;
 
 
 
     void Awake()
     {
         rbPlayer = GetComponent<Rigidbody2D>();
+        jugadorManager = GetComponent<JugadorManager>();
         
     }
 
@@ -97,7 +99,7 @@ public class MovementJugador : MonoBehaviour
         {
 
             rbPlayer.velocity = new Vector2(rbPlayer.velocity.x, fuerzaSalto);
-
+            AudioManager.Instance.ReproducirSonido(jugadorManager.sfx_salto);
             print("he presionado la tecla de salto y estoy saltando");
 
         }

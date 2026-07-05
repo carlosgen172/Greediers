@@ -107,11 +107,16 @@ public class SeleccionJugador : MonoBehaviour
 
     private void ConfiguracionDeTeclas()
     {
-        //se pueden reconfigurar, las puse por poner basicamente
-        teclaPrimerJugador = Keyboard.current.zKey.wasPressedThisFrame;
-        teclaSegundoJugador = Keyboard.current.commaKey.wasPressedThisFrame;
-        teclaTercerJugador = Gamepad.current.buttonSouth.wasPressedThisFrame;
-        teclaCuartoJugador = Gamepad.current.buttonSouth.wasPressedThisFrame;
+        if(Keyboard.current != null)
+        {
+            teclaPrimerJugador = Keyboard.current.zKey.wasPressedThisFrame;
+            teclaSegundoJugador = Keyboard.current.commaKey.wasPressedThisFrame;
+        }
+        if(Gamepad.current != null)
+        {
+            teclaTercerJugador = Gamepad.current.buttonSouth.wasPressedThisFrame;
+            teclaCuartoJugador = Gamepad.current.buttonSouth.wasPressedThisFrame;
+        }
     }
 
 

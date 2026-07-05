@@ -43,12 +43,12 @@ public class JugadorManager : MonoBehaviour
     //public spriteSheet spritesheetProvisorio_4;
 
     [Header("SFX del pj:")]
-    [SerializeField] private AudioClip sfx_salto;
-    [SerializeField] private AudioClip sfx_disparo;
-    [SerializeField] private AudioClip sfx_minar;
-    [SerializeField] private AudioClip sfx_habilidad_simple;
-    [SerializeField] private AudioClip sfx_habilidad_momia;
-    [SerializeField] private AudioClip sfx_danio;
+    public AudioClip sfx_salto;
+    public AudioClip sfx_disparo;
+    public AudioClip sfx_minar;
+    public AudioClip sfx_habilidad_simple;
+    public AudioClip sfx_habilidad_momia;
+    public AudioClip sfx_danio;
 
     [Header("Referencia Al Input Action:")]
     public InputActionReference interactuar;
@@ -62,6 +62,12 @@ public class JugadorManager : MonoBehaviour
 
 
         tagJugador = gameObject.tag;
+        sfx_salto = Resources.Load<AudioClip>("salto-cartoon");
+        sfx_danio = Resources.Load<AudioClip>("Damage");
+        sfx_disparo = Resources.Load<AudioClip>("DisparoVendas");
+        sfx_habilidad_momia = Resources.Load<AudioClip>("PowerUpMomia");
+        sfx_habilidad_simple = Resources.Load<AudioClip>("PowerUpNormal");
+        sfx_minar = Resources.Load<AudioClip>("Excavar");
     }
 
     // Start is called before the first frame update
@@ -161,7 +167,7 @@ public class JugadorManager : MonoBehaviour
             DetenerRecoleccion();
         }
     }
-
+    
 
 
     private void Inicializar()
@@ -261,11 +267,10 @@ public class JugadorManager : MonoBehaviour
 
         while (monticulo != null && monticulo.saludMonticulo > 0)
         {
-            yield return new WaitForSeconds(2.0f);
+            yield return new WaitForSeconds(1.5f);
+            AudioManager.Instance.ReproducirSonido(sfx_minar);
             monticulo.saludMonticulo -= 1;
             jugadorPuntaje.puntaje += 1;
-            print("PUNTAJE JUGADOR: " + jugadorPuntaje.puntaje);
-            print("VIDA MONTICULO: " + monticulo.saludMonticulo);
 
 
             if (ui != null)

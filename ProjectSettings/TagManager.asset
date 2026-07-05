@@ -8,13 +8,15 @@ TagManager:
   - Plataforma
   - Monticulo
   - Venda
-  - Roca
-  - Pinchos
   - Salida
   - Limite
   - Jugador_1
   - Jugador
   - jugador
+  - Pinchos_1
+  - Pinchos_2
+  - Roca_1
+  - Roca_2
   layers:
   - Default
   - TransparentFX
