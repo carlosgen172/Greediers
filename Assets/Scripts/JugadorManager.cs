@@ -27,6 +27,8 @@ public class JugadorManager : MonoBehaviour
 
     private PalancaController palancaCercana;
 
+    public static bool hayAlgunaMomiaEnJuego = false;
+
     [Header("Booleano para la lógica de la momia:")]
     public bool esMomia = false;
 
@@ -261,9 +263,18 @@ public class JugadorManager : MonoBehaviour
             case TipoHabilidad.DobleTamanio:
                 ActivarDobleTamanio();
                 break;
+
             case TipoHabilidad.Momia:
                 ActivarHabilidadMomia();
                 break;
+        }
+
+        // para que no haya dos momias a la vez
+        if(tipo == TipoHabilidad.Momia && hayAlgunaMomiaEnJuego)
+        {
+            // para que busque otra habilidad si hay momia en juego 
+            ActivarHabilidad();
+            return;
         }
     }
 
@@ -310,6 +321,7 @@ public class JugadorManager : MonoBehaviour
     {
         esMomia = true;
         habilidadActivada = true;
+        hayAlgunaMomiaEnJuego = true;
 
         print("soy una momia");
 
@@ -330,13 +342,14 @@ public class JugadorManager : MonoBehaviour
 
         esMomia = false;
         habilidadActivada = false;
+        hayAlgunaMomiaEnJuego = false;
 
         print("ya no soy una momia");
     }
 
     public void ActivarHabilidadMomia()
     {
-        StartCoroutine(CorrutinaMomia(10f));
+        StartCoroutine(CorrutinaMomia(5f));
     }
 }
 

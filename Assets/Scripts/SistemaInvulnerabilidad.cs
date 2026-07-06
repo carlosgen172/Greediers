@@ -28,6 +28,14 @@ public class SistemaInvulnerabilidad : MonoBehaviour
 
     public void ActivarInvulnerabilidad(Vector2 direccionDanio)
     {
+
+        // probar cuando es momia
+        if (jugadorManager != null && jugadorManager.esMomia)
+        {
+            print("MOMIA INVULNERABLE");
+            return;
+        }
+
         if (esInvulnerable) return;
 
         StartCoroutine(CorrutinaInvulnerabilidad());
