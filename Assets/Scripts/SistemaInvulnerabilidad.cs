@@ -12,15 +12,20 @@ public class SistemaInvulnerabilidad : MonoBehaviour
     public bool esInvulnerable = false;
     private Rigidbody2D rb;
 
+    private JugadorManager jugadorManager;
+
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        jugadorManager = GetComponent<JugadorManager>();
     }
+
     void Start()
     {
         duracionInvulnerabilidad = 3f;
         fuerzaDeEmpuje = 5f;
     }
+
     public void ActivarInvulnerabilidad(Vector2 direccionDanio)
     {
         if (esInvulnerable) return;
@@ -58,5 +63,4 @@ public class SistemaInvulnerabilidad : MonoBehaviour
     }
 
     //Realizar otra función de invulnerabilidad o usar condicional para consultar si es que el pj ha sido herido o tiene el poder de la momia.
-
 }

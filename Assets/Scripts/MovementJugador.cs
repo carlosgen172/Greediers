@@ -29,7 +29,11 @@ public class MovementJugador : MonoBehaviour
     {
         rbPlayer = GetComponent<Rigidbody2D>();
         jugadorManager = GetComponent<JugadorManager>();
-        
+
+        speedInicial = speed;
+        tamanioInicial = transform.localScale;
+        fuerzaSaltoInicial = fuerzaSalto;
+
     }
 
     // Start is called before the first frame update
@@ -109,20 +113,20 @@ public class MovementJugador : MonoBehaviour
     void OnDisable() { moveAction.Disable(); }
 
     public void GirarJugadorSiCorresponde()
-{
-    // Si el jugador presiona hacia la derecha (valor positivo)
-    if (direccionDeMovimiento.x > 0)
     {
-        print("Giro a la derecha");
-        GirarALaDerecha();
+        // Si el jugador presiona hacia la derecha (valor positivo)
+        if (direccionDeMovimiento.x > 0)
+        {
+            print("Giro a la derecha");
+            GirarALaDerecha();
+        }
+        // Si el jugador presiona hacia la izquierda (valor negativo)
+        else if (direccionDeMovimiento.x < 0)
+        {
+            print("Giro a la izquierda");
+            GirarALaIzquierda();
+        }
     }
-    // Si el jugador presiona hacia la izquierda (valor negativo)
-    else if (direccionDeMovimiento.x < 0)
-    {
-        print("Giro a la izquierda");
-        GirarALaIzquierda();
-    }
-}
 
     private void GirarJugador()
     {
@@ -171,7 +175,7 @@ public class MovementJugador : MonoBehaviour
 
     public void AjustarSalto(bool esPotenciado)
     {
-        fuerzaSalto = esPotenciado ? fuerzaSuperSalto : fuerzaSalto;
+        fuerzaSalto = esPotenciado ? fuerzaSuperSalto : fuerzaSaltoInicial;
     }
 
     public void AjustarVelocidad(float multiplicado)
@@ -183,5 +187,4 @@ public class MovementJugador : MonoBehaviour
     {
         transform.localScale = tamanioInicial * multiplicado;
     }
-
 }

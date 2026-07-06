@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 //enumaeración de habilidades
 //fuera de la clase, lo hice así para no tener que hacer otro script
 //y porque así puede ser accesible para otras necesidades
-public enum TipoHabilidad { SuperSalto, DobleVelocidad, DobleTamanio }
+public enum TipoHabilidad { SuperSalto, DobleVelocidad, DobleTamanio, Momia }
 
 public class JugadorManager : MonoBehaviour
 {
@@ -55,13 +55,18 @@ public class JugadorManager : MonoBehaviour
     private InputAction interactuarAction;
     [SerializeField] SistemaPartidas sistemaPartidaActual;
 
+    //para el cambio de sprite de la momia
+    public SpriteRenderer spriteRenderer;
+    public Sprite spriteMomia;
+    private Sprite spriteOriginal;
+
 
     void Awake()
     {
         movementPlayer = GetComponent<MovementJugador>();
         inputPlayer = GetComponent<InputManager>();
         animacionesJugador = GetComponent<AnimationManager>();
-
+        spriteRenderer = GetComponent<SpriteRenderer>();
 
         tagJugador = gameObject.tag;
         sfx_salto = Resources.Load<AudioClip>("salto-cartoon");
@@ -78,7 +83,7 @@ public class JugadorManager : MonoBehaviour
     {
         if (context.started)
         {
-            if(estaSobreElTesoro && corrutinaTesoro == null)
+            if (estaSobreElTesoro && corrutinaTesoro == null)
             {
                 corrutinaTesoro = StartCoroutine(CorrutinaObtenerTesoro(monticulo));
             }
@@ -106,7 +111,7 @@ public class JugadorManager : MonoBehaviour
 
         //Interacción con el tesoro:
 
-        
+
     }
 
     void FixedUpdate()
@@ -175,19 +180,19 @@ public class JugadorManager : MonoBehaviour
             DetenerRecoleccion();
         }
     }
-    
+
 
 
     public void Inicializar()
     {
-        
+
     }
 
     //SISTEMA DE CORRUTINAS agregado el 20/06
 
     public void ActivarSuperSalto()
     {
-        StartCoroutine(CorrutinaSuperSalto(10f));
+        StartCoroutine(CorrutinaSuperSalto(5f));
     }
 
     private IEnumerator CorrutinaSuperSalto(float duracion)
@@ -204,7 +209,7 @@ public class JugadorManager : MonoBehaviour
     //-----------------------------------------DOBLE VELOCIDAD 
     public void ActivarDobleVelocidad()
     {
-        StartCoroutine(CorrutinaDobleVelocidad(10f));
+        StartCoroutine(CorrutinaDobleVelocidad(5f));
     }
 
     private IEnumerator CorrutinaDobleVelocidad(float duracion)
@@ -221,7 +226,7 @@ public class JugadorManager : MonoBehaviour
     //-----------------------------------------DOBLE TAMANIO  
     public void ActivarDobleTamanio()
     {
-        StartCoroutine(CorrutinaDobleTamanio(10f));
+        StartCoroutine(CorrutinaDobleTamanio(5f));
     }
 
     private IEnumerator CorrutinaDobleTamanio(float duracion)
@@ -239,7 +244,7 @@ public class JugadorManager : MonoBehaviour
 
     public void ActivarHabilidad()
     {
-        TipoHabilidad tipo = (TipoHabilidad)Random.Range(0, 3);
+        TipoHabilidad tipo = (TipoHabilidad)Random.Range(0, 4);
         // si hya habilidad activada, evita tomar otras habilidades
         if (habilidadActivada) return;
         // usar switrch para intercambiar entre los tipo de habilidades
@@ -255,6 +260,9 @@ public class JugadorManager : MonoBehaviour
 
             case TipoHabilidad.DobleTamanio:
                 ActivarDobleTamanio();
+                break;
+            case TipoHabilidad.Momia:
+                ActivarHabilidadMomia();
                 break;
         }
     }
@@ -288,10 +296,47 @@ public class JugadorManager : MonoBehaviour
 
             if (monticulo.saludMonticulo <= 0)
             {
+                int otorgarHabilidad = Random.Range(0, 2);
+                if (otorgarHabilidad == 1 && !habilidadActivada)
+                {
+                    ActivarHabilidad();
+                }
                 monticulo.DestruirMonticulo();
             }
         }
+    }
 
+    private IEnumerator CorrutinaMomia(float duracionMomia)
+    {
+        esMomia = true;
+        habilidadActivada = true;
+
+        print("soy una momia");
+
+        // de prueba
+        spriteMomia = Resources.Load<Sprite>("MomiaPrueba");
+
+        spriteOriginal = spriteRenderer.sprite;
+        spriteRenderer.sprite = spriteMomia;
+
+        movementPlayer.AjustarTamanio(2.0f);
+        movementPlayer.AjustarVelocidad(0.5f);
+
+        yield return new WaitForSeconds(duracionMomia);
+
+        spriteRenderer.sprite = spriteOriginal;
+        movementPlayer.AjustarTamanio(1.0f);
+        movementPlayer.AjustarVelocidad(1.0f);
+
+        esMomia = false;
+        habilidadActivada = false;
+
+        print("ya no soy una momia");
+    }
+
+    public void ActivarHabilidadMomia()
+    {
+        StartCoroutine(CorrutinaMomia(10f));
     }
 }
 
