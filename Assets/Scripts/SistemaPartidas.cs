@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
 
 public class SistemaPartidas : MonoBehaviour
 {
@@ -51,6 +52,8 @@ public class SistemaPartidas : MonoBehaviour
 
     public List<GameObject> todosLosMonticulos;
     public Spawn spawn;
+    public UIManager uiManager;
+    PlayerInputManager playerInputManager;
 
     void Awake()
     {
@@ -65,6 +68,8 @@ public class SistemaPartidas : MonoBehaviour
         var pinchos2 = Resources.Load<GameObject>("Pinchos_2");
 
         listaTrampasSinElegir = new List<GameObject> { roca1, roca2, pinchos1, pinchos2 };
+        uiManager = GameObject.Find("ControladorUI").GetComponent<UIManager>();
+        playerInputManager = GetComponent<PlayerInputManager>();
         
     }
 
@@ -78,8 +83,15 @@ public class SistemaPartidas : MonoBehaviour
         for (int i = 0; i < JuegoManager.Instance.listaJugadoresTotales.Count; i++)
         {
             var jugadorActual = Instantiate(JuegoManager.Instance.listaJugadoresTotales[i], new Vector2(0,0), Quaternion.identity);
+            jugadorActual.name = "Jugador_" + (i + 1);
+            if(jugadorActual.name == "Jugador_2")
+            {
+                jugadorActual.GetComponent<PlayerInput>().SwitchCurrentControlScheme("Teclado Derecho", Keyboard.current);
+            }
             jugadorActual.transform.position = spawn.eleccionDePosicion();
         }
+        uiManager.InicializarTextosDePuntuacion();
+        
     }
 
     // Update is called once per frame

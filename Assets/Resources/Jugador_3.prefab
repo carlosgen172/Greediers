@@ -278,7 +278,7 @@ MonoBehaviour:
   sfx_habilidad_simple: {fileID: 0}
   sfx_habilidad_momia: {fileID: 0}
   sfx_danio: {fileID: 0}
-  interactuar: {fileID: 0}
+  interactuar: {fileID: 6677082379896660183, guid: 39ee64ab27c65004e9e7479e5e2cb832, type: 3}
   sistemaPartidaActual: {fileID: 0}
 --- !u!114 &5990345328960404072
 MonoBehaviour:

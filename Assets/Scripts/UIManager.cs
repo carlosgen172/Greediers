@@ -23,14 +23,11 @@ public class UIManager : MonoBehaviour
 
     void Awake()
     {
-        InicializarTextosDePuntuacion();
+
     }
     void Start()
     {
-        textoJugador1.text = "0";
-        textoJugador2.text = "0";
-        textoJugador3.text = "0";
-        textoJugador4.text = "0";
+        
     }
 
     public void ActualizarPuntaje(PuntajeJugadorController jugadorPuntaje)
@@ -79,7 +76,10 @@ public class UIManager : MonoBehaviour
         textoJugador2 = GameObject.Find("textoPuntuacion2").GetComponent<TextMeshProUGUI>();
         textoJugador3 = GameObject.Find("textoPuntuacion3").GetComponent<TextMeshProUGUI>();
         textoJugador4 = GameObject.Find("textoPuntuacion4").GetComponent<TextMeshProUGUI>();
-        
+        textoJugador1.text = "0";
+        textoJugador2.text = "0";
+        textoJugador3.text = "0";
+        textoJugador4.text = "0";
     }
 
 }
