@@ -113,8 +113,8 @@ public class SeleccionJugador : MonoBehaviour
 
         if (Keyboard.current != null)
         {
-            teclaPrimerJugador = Keyboard.current.zKey.wasPressedThisFrame;
-            teclaSegundoJugador = Keyboard.current.commaKey.wasPressedThisFrame;
+            teclaPrimerJugador = Keyboard.current.wKey.wasPressedThisFrame;
+            teclaSegundoJugador = Keyboard.current.upArrowKey.wasPressedThisFrame;
         }
 
         var gamepads = Gamepad.all;

@@ -51,7 +51,8 @@ public class JugadorManager : MonoBehaviour
     public AudioClip sfx_danio;
 
     [Header("Referencia Al Input Action:")]
-    public InputActionReference interactuar;
+    private PlayerInput playerInput;
+    private InputAction interactuarAction;
     [SerializeField] SistemaPartidas sistemaPartidaActual;
 
 
@@ -69,6 +70,23 @@ public class JugadorManager : MonoBehaviour
         sfx_habilidad_momia = Resources.Load<AudioClip>("PowerUpMomia");
         sfx_habilidad_simple = Resources.Load<AudioClip>("PowerUpNormal");
         sfx_minar = Resources.Load<AudioClip>("Excavar");
+        playerInput = GetComponent<PlayerInput>();
+        interactuarAction = playerInput.actions["Interaccion"];
+    }
+
+    public void RecibirInputInteraccion(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            if(estaSobreElTesoro && corrutinaTesoro == null)
+            {
+                corrutinaTesoro = StartCoroutine(CorrutinaObtenerTesoro(monticulo));
+            }
+        }
+        else if (context.canceled)
+        {
+            DetenerRecoleccion();
+        }
     }
 
     // Start is called before the first frame update
@@ -88,18 +106,7 @@ public class JugadorManager : MonoBehaviour
 
         //Interacción con el tesoro:
 
-        if (estaSobreElTesoro && interactuar.action.triggered)
-        {
-            if (corrutinaTesoro == null)
-            {
-                corrutinaTesoro = StartCoroutine(CorrutinaObtenerTesoro(monticulo));
-            }
-
-            else
-            {
-                DetenerRecoleccion();
-            }
-        }
+        
     }
 
     void FixedUpdate()

@@ -46,28 +46,6 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "up",
-                    "id": "3d2fef5c-79c5-4fcc-851c-601b9924bfa9",
-                    "path": "<Keyboard>/w",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Teclado Izquierdo",
-                    "action": "Mover",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "down",
-                    "id": "de2712c7-dcff-4365-999c-688ea34f8d51",
-                    "path": "<Keyboard>/s",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Teclado Izquierdo",
-                    "action": "Mover",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
                     "name": "left",
                     "id": "9b82e183-43b3-4fd5-8803-8da8f8248f8f",
                     "path": "<Keyboard>/a",
@@ -99,28 +77,6 @@
                     "action": "Mover",
                     "isComposite": true,
                     "isPartOfComposite": false
-                },
-                {
-                    "name": "up",
-                    "id": "cf0032e1-edcd-47cd-8a8d-3a9e78b288ae",
-                    "path": "<Keyboard>/upArrow",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Teclado Derecho",
-                    "action": "Mover",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "down",
-                    "id": "d39254b8-5862-4be7-83f6-67ed4223ff83",
-                    "path": "<Keyboard>/downArrow",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Teclado Derecho",
-                    "action": "Mover",
-                    "isComposite": false,
-                    "isPartOfComposite": true
                 },
                 {
                     "name": "left",
@@ -169,7 +125,7 @@
                 {
                     "name": "",
                     "id": "f68608a7-b7ed-4350-95da-11fcbbf18aa9",
-                    "path": "<Keyboard>/z",
+                    "path": "<Keyboard>/w",
                     "interactions": "",
                     "processors": "",
                     "groups": "Teclado Izquierdo",
@@ -180,7 +136,7 @@
                 {
                     "name": "",
                     "id": "11e86112-16ab-448a-990f-2a2780e8c999",
-                    "path": "<Keyboard>/comma",
+                    "path": "<Keyboard>/upArrow",
                     "interactions": "",
                     "processors": "",
                     "groups": "Teclado Derecho",

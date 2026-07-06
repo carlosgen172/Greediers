@@ -278,7 +278,6 @@ MonoBehaviour:
   sfx_habilidad_simple: {fileID: 0}
   sfx_habilidad_momia: {fileID: 0}
   sfx_danio: {fileID: 0}
-  interactuar: {fileID: 6677082379896660183, guid: 39ee64ab27c65004e9e7479e5e2cb832, type: 3}
   sistemaPartidaActual: {fileID: 0}
 --- !u!114 &5990345328960404072
 MonoBehaviour:
@@ -301,7 +300,7 @@ MonoBehaviour:
   longitudLineaColision: 0
   estaEnElSuelo: 0
   moveAction:
-    m_Name: 
+    m_Name: Move
     m_Type: 0
     m_ExpectedControlType: 
     m_Id: b21095b9-fad4-4cb0-b86b-7d9179ab0059
@@ -453,7 +452,19 @@ MonoBehaviour:
     m_ActionId: e703bdf1-3ccb-475f-8f22-a8fa4e615d3e
     m_ActionName: Jugador/Saltar[/Keyboard/z,/Keyboard/comma,/XInputControllerWindows/buttonSouth]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5990345328960404073}
+        m_TargetAssemblyTypeName: JugadorManager, Assembly-CSharp
+        m_MethodName: RecibirInputInteraccion
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: fc8f1dd1-14e3-4ef1-9df9-41482e227d9a
     m_ActionName: Jugador/Interaccion[/Keyboard/q,/Keyboard/period,/XInputControllerWindows/buttonWest]
   m_NeverAutoSwitchControlSchemes: 0
