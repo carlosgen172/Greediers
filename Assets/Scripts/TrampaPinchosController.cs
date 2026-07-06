@@ -42,14 +42,14 @@ public class TrampaPinchosController : TrampaBaseController
 
     protected override void UbicarTrampa() {
         //Seteo sus potenciales ubicaciones:
-        potencialUbicacion1 = GameObject.Find("PosPotencialSpawnRoca_1");
-        potencialUbicacion2 = GameObject.Find("PosPotencialSpawnRoca_2");
+        potencialUbicacion1 = GameObject.Find("PosPotencialSpawnPinchos_1");
+        potencialUbicacion2 = GameObject.Find("PosPotencialSpawnPinchos_2");
 
         //Y lo ubico en escena:
-        if(gameObject.name == "Roca_1")
+        if(gameObject.tag == "Pinchos_1")
         {
             gameObject.transform.position = potencialUbicacion1.transform.position;
-        } else
+        } else if(gameObject.tag == "Pinchos_2")
         {
             gameObject.transform.position = potencialUbicacion2.transform.position;
         }
@@ -77,6 +77,7 @@ public class TrampaPinchosController : TrampaBaseController
 
     private void IniciarTimerDeDesactivacionDeTrampa()
     {
+        tiempoVidaTrampa = 3f;
         tiempoActualTrampa = tiempoVidaTrampa;
 
         seActivoLaTrampaPorPinchos = true;
@@ -102,12 +103,13 @@ public class TrampaPinchosController : TrampaBaseController
     
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(JuegoManager.Instance.elNombreDelObjeto_SeEncuentraEnLaListaDeNombresDeJugadores(collision.gameObject))
+        if(collision.gameObject.CompareTag("jugador"))
         {
             print($"Acabo de hacer daño al jugador: {collision.gameObject.tag}");
 
             var invulnerabilidad = collision.gameObject.GetComponent<SistemaInvulnerabilidad>();
             var jugadorPuntaje = collision.gameObject.GetComponent<PuntajeJugadorController>();
+            var jugadorController = collision.gameObject.GetComponent<JugadorManager>();
 
             if (invulnerabilidad != null && !invulnerabilidad.esInvulnerable)
 
@@ -115,7 +117,8 @@ public class TrampaPinchosController : TrampaBaseController
                 if (jugadorPuntaje != null)
                 {
                     // comparativa para evitar los números negativos  
-                    jugadorPuntaje.puntaje = Mathf.Max(0, jugadorPuntaje.puntaje - 10);
+                    jugadorPuntaje.puntaje = Mathf.Max(0, jugadorPuntaje.puntaje - 5);
+                    AudioManager.Instance.ReproducirSonido(jugadorController.sfx_danio);
 
                     //jugadorPuntaje.puntaje -= 10;
 

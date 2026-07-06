@@ -1,26 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 public class AudioManager : MonoBehaviour
 {
     public static AudioManager Instance;
     public AudioSource audioFondo;
     public AudioSource audioSFX;
-    AudioClip cancionMomia;
-    AudioClip voice1;
     public float volumenCancion;
     public float volumenSFX;
-
-    //Falta incluir versión corregida del manager de música (y audios respectivos a cada situación)
-    // Ej: el gameManager seguramente tendrá una función para la música del menú en alguna función 
-    // de inicialización.
-
-    void Awake()
-    {
-        
-
-    }
     void Start()
     {
         if(Instance != null)
@@ -31,33 +21,25 @@ public class AudioManager : MonoBehaviour
             Instance = this;
             DontDestroyOnLoad(Instance);
         }
-        cancionMomia = Resources.Load<AudioClip>("CancionMomiaPrueba");
-        voice1 = Resources.Load<AudioClip>("Voice1");
+        volumenCancion = 0.5f;
+        volumenSFX = 0.2f;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            ReproducirMusica(cancionMomia);
-        }
-        if (Input.GetKeyDown(KeyCode.Backspace))
-        {
-            ReproducirSonido(voice1);
-        }
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            DetenerMusica();
-        }
-        if (Input.GetKeyDown(KeyCode.D))
-        {
-            DetenerSonido();
-        }
+        audioFondo.volume = volumenCancion;
+        audioSFX.volume = volumenSFX;
     }
+
+
 
     public void ReproducirMusica(AudioClip cancionAReproducir)
     {
+        if(cancionAReproducir == null)
+        {
+            print ("No se encontró la música");
+            return;
+        }
         if(audioFondo.isPlaying && audioFondo.clip == cancionAReproducir)
         {
             return;
@@ -75,9 +57,14 @@ public class AudioManager : MonoBehaviour
         audioFondo.Stop();
     }
 
-    public void ReproducirSonido(AudioClip cancionAReproducir)
+    public void ReproducirSonido(AudioClip sonidoAReproducir)
     {
-        audioSFX.PlayOneShot(cancionAReproducir);
+        if(sonidoAReproducir == null)
+        {
+            print("Sonido no encontrado");
+            return;
+        }
+        audioSFX.PlayOneShot(sonidoAReproducir);
         audioSFX.volume = volumenSFX;
     }
 

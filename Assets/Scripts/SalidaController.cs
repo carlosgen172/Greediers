@@ -33,10 +33,7 @@ public class SalidaController : MonoBehaviour
             other.gameObject.SetActive(false);
             jugadoresLlegados++;
 
-            if (jugadoresLlegados >= JuegoManager.Instance.jugadoresQueLlegaron.Count)
-            {
-                JuegoManager.Instance.CambiarALaEscenaDeLosResultados();
-            }
+            
         }
     }
 
@@ -88,7 +85,7 @@ public class SalidaController : MonoBehaviour
     public bool hanSalidoTodosLosJugadores()
     {
         //En caso de que la cantidad de jugadores llegados sea la misma que la cantidad total de los mismos, devolverá true: 
-        return jugadoresLlegados == JuegoManager.Instance.listaPrincipalJugadores.Count;
+        return jugadoresLlegados == JuegoManager.Instance.listaJugadoresTotales.Count;
     }
 
 }

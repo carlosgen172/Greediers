@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
 
 public class SistemaPartidas : MonoBehaviour
 {
@@ -49,16 +50,17 @@ public class SistemaPartidas : MonoBehaviour
     [Header("Efectos de sonido del nivel:")]
     public AudioClip efectoSonidoDerrumbe;
 
-    public List<GameObject> todosLosMonticulos; 
+    public List<GameObject> todosLosMonticulos;
+    public Spawn spawn;
+    public UIManager uiManager;
+    PlayerInputManager playerInputManager;
 
     void Awake()
     {
-        musicaNivelNormal = Resources.Load<AudioClip>("CancionMomiaPrueba"); //cambiar por la que corresponda.
-        /* DESCOMENTAR AL INCLUIR LA MÚSICA RESPECTIVA DEL NIVEL.
-            musicaNivelSegundosFinales = Resources.Load();
-        */
-
+        musicaNivelNormal = Resources.Load<AudioClip>("MusicaJuego"); //cambiar por la que corresponda.
+        musicaNivelSegundosFinales = Resources.Load<AudioClip>("30Seconds");
         efectoSonidoDerrumbe = Resources.Load<AudioClip>("sfx_terremoto");
+        spawn = GetComponent<Spawn>();
 
         var roca1 = Resources.Load<GameObject>("Roca_1");
         var roca2 = Resources.Load<GameObject>("Roca_2");
@@ -66,6 +68,9 @@ public class SistemaPartidas : MonoBehaviour
         var pinchos2 = Resources.Load<GameObject>("Pinchos_2");
 
         listaTrampasSinElegir = new List<GameObject> { roca1, roca2, pinchos1, pinchos2 };
+        uiManager = GameObject.Find("ControladorUI").GetComponent<UIManager>();
+        playerInputManager = GetComponent<PlayerInputManager>();
+        
     }
 
     // Start is called before the first frame update
@@ -74,6 +79,20 @@ public class SistemaPartidas : MonoBehaviour
         InicializarValoresPresetados();
         IniciarPartida();
         AudioManager.Instance.ReproducirMusica(musicaNivelNormal);
+        spawn.Initialization();
+        //Podría ir en una función llamada "PreconfigurarControlesDeJugadores()"
+        for (int i = 0; i < JuegoManager.Instance.listaJugadoresTotales.Count; i++)
+        {
+            var jugadorActual = Instantiate(JuegoManager.Instance.listaJugadoresTotales[i], new Vector2(0,0), Quaternion.identity);
+            jugadorActual.name = "Jugador_" + (i + 1);
+            if(jugadorActual.name == "Jugador_2")
+            {
+                jugadorActual.GetComponent<PlayerInput>().SwitchCurrentControlScheme("Teclado Derecho", Keyboard.current);
+            }
+            jugadorActual.transform.position = spawn.eleccionDePosicion();
+        }
+        uiManager.InicializarTextosDePuntuacion();
+        
     }
 
     // Update is called once per frame
@@ -127,18 +146,12 @@ public class SistemaPartidas : MonoBehaviour
 
         listaPalancas = new List<GameObject> { palanca1, palanca2, palanca3, palanca4 };
 
-        //fondoNivel = Resources.Load<GameObject>("Fondo_1");
 
-        if (JuegoManager.Instance.fondoActivado)
-        {
-            ActivarFondo();
-        }
-        else
-        {
-            DesactivarFondo();
-        }
+        //Activación de fondo especial para nivel en caso de ser necesario (y otros valores útiles):
 
+        ActivarFondoEspecialDeNivelSiCorresponde();
         DesactivarMenuDePausa();
+        DesactivarSalida();
 
         //Seteo los valores tentativos de duración de partida (2 minutos de recolección y 30 segundos de escape):
 
@@ -148,19 +161,13 @@ public class SistemaPartidas : MonoBehaviour
 
         //Seteos extra para la lógica de la elección de trampas en base a palancas:
 
-        listaPalancas[0].GetComponent<PalancaController>().InicializarPalancaEnBaseASuLista();
-        listaTrampasSinElegir.RemoveAt(indiceTrampaElegida);
+        for (int i = 0; i < listaPalancas.Count; i++)
+        {
+            listaPalancas[i].GetComponent<PalancaController>().InicializarPalancaEnBaseASuLista();
+            listaTrampasSinElegir.RemoveAt(indiceTrampaElegida);
+        }
 
-        listaPalancas[1].GetComponent<PalancaController>().InicializarPalancaEnBaseASuLista();
-        listaTrampasSinElegir.RemoveAt(indiceTrampaElegida);
-
-        listaPalancas[2].GetComponent<PalancaController>().InicializarPalancaEnBaseASuLista();
-        listaTrampasSinElegir.RemoveAt(indiceTrampaElegida);
-
-        listaPalancas[3].GetComponent<PalancaController>().InicializarPalancaEnBaseASuLista();
-        listaTrampasSinElegir.RemoveAt(indiceTrampaElegida);
-    
-        //Seteo de los montículos en la escena
+        //Seteo de los montículos en la escena (agregado estético al controlador de partida)
         GameObject[] monticulosEncontrados = GameObject.FindGameObjectsWithTag("Monticulo");
         todosLosMonticulos = new List<GameObject>(monticulosEncontrados);
     }
@@ -192,9 +199,6 @@ public class SistemaPartidas : MonoBehaviour
         //Actualizo el estado de recolección del nivel a true:
         estaEnFaseDeRecoleccion = true;
 
-        //Se activa la salida para los jugadores que ya quieran salir del nivel:
-        ActivarSalida();
-
         //Seteo el contador en base al tiempo actual:
         contadorTiempoPartida.text = $"{tiempoActual}";
 
@@ -211,6 +215,10 @@ public class SistemaPartidas : MonoBehaviour
         contadorTiempoPartida.text = $"{tiempoActual}";
 
         AudioManager.Instance.ReproducirSonido(efectoSonidoDerrumbe);
+        AudioManager.Instance.DetenerMusica();
+        AudioManager.Instance.ReproducirMusica(musicaNivelSegundosFinales);
+
+        ActivarSalida();
 
         //Agregado estético, le cambio ell color de las letras a un tono rojizo:
         contadorTiempoPartida.color = Color.red;
@@ -284,13 +292,17 @@ public class SistemaPartidas : MonoBehaviour
 
     public void FinalizarPartida()
     {
+        //Setea el tiempo de partida a 0:
         Time.timeScale = 0f;
 
+        //Actualiza el booleano que chequea la condición de partida:
         yaFinalizo = true;
 
-        //salidaDelNivel.ComunicarResultadosAlGameManager(); //puede ser resultados directamente o los gameObjects y luego sus resultados.
+        //Detengo la música que se está reproduciendo en loop:
+        AudioManager.Instance.DetenerMusica();
 
-        SceneManager.LoadScene("MenuResulados");
+        //Y cambio a la escena de los resultados:
+        SceneManager.LoadScene("MenuResultados");
     }
 
     public void ActivarSalida()
@@ -305,6 +317,18 @@ public class SistemaPartidas : MonoBehaviour
 
     //Funciones para la correcta responsividad y funcionalidad de los elementos 
     //del hud y del fondo del nivel:
+
+    public void ActivarFondoEspecialDeNivelSiCorresponde()
+    {
+        if (JuegoManager.Instance.fondoActivado)
+        {
+            ActivarFondo();
+        }
+        else
+        {
+            DesactivarFondo();
+        }
+    }
 
     public void ActivarFondo()
     {

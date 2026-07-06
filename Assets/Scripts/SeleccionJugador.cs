@@ -10,7 +10,7 @@ public class SeleccionJugador : MonoBehaviour
     JuegoManager gameManager;
 
     [SerializeField] List<GameObject> SeleccionJugadores;
-    List<GameObject> listaJugadoresGM = new List<GameObject> {}; //lista de jugadores que representa la lista del GM
+    List<GameObject> listaJugadoresGM = new List<GameObject> { }; //lista de jugadores que representa la lista del GM
 
 
     // deben asignarse desde el INSPECTOR
@@ -20,39 +20,27 @@ public class SeleccionJugador : MonoBehaviour
     // -----------------------------------------------------------------------------------------------
 
 
-    List<Sprite> ImagenesPersonajesSeleccionados = new List<Sprite> {};
+    List<Sprite> ImagenesPersonajesSeleccionados = new List<Sprite> { };
+    List<PlayerInput> listaDePlayerInputs = new List<PlayerInput> { };
 
     GameObject jugadorSeleccionado; //se usa para saber que jugador de la lista fue seleccionado
 
 
 
     //se guardan los inputs preseteados en variables de tipo bool
-    bool teclaPrimerJugador;
-    bool teclaSegundoJugador;
-    bool teclaTercerJugador;
-    bool teclaCuartoJugador;
-
-
+    bool teclaPrimerJugador, teclaSegundoJugador, teclaTercerJugador, teclaCuartoJugador;
 
     //se verifica que los personajes hayan sido activados por los jugadores
-    bool primerPJActivado;
-    bool segundoPJActivado;
-    bool tercerPJActivado;
-    bool cuartoPJActivado;
-
-
+    bool primerPersonaje, segundoPersonaje, tercerPersonaje, cuartoPersonaje;
 
     //se verifica que los inputs de los jugadores ya fueron seleccionados para el personaje correspondiente
-    public bool primerInputSeleccionado;
-    public bool segundoInputSeleccionado;
-    public bool tercerInputSeleccionado;
-    public bool cuartoInputSeleccionado;
-
+    public bool primerInputSeleccionado, segundoInputSeleccionado, tercerInputSeleccionado, cuartoInputSeleccionado;
 
 
     int indice; //este índice funciona para actualizar el personaje que pueden seleccionar los jugadores
     int indiceTexto; //sirve para actualizar los textos de los jugadores una vez seleccionados
     int indiceImagen; //sirve para actualizar las imagenes de los personajes una vez seleccionados
+    int indicePlayerInput;
 
 
     void Awake()
@@ -61,7 +49,7 @@ public class SeleccionJugador : MonoBehaviour
             Resources.Load<Sprite>("pablo_seleccion_pj_greediers_selec_finalisimo"),
             Resources.Load<Sprite>("dario_seleccion_pj_greediers_corregido_selec"),
             Resources.Load<Sprite>("mustafa_seleccion_pj_greediers_corregido_selec"),
-            Resources.Load<Sprite>("miguel_seleccion_pj_greediers_corregido_selec")
+            Resources.Load<Sprite>("miguel_seleccion_pj_greediers_corregido_selec"),
         });
     }
 
@@ -74,18 +62,26 @@ public class SeleccionJugador : MonoBehaviour
         indice = 0;
         indiceTexto = 0;
         indiceImagen = 0;
+        indicePlayerInput = 0;
 
-        listaJugadoresGM = gameManager.listaPrincipalJugadores;
+        listaJugadoresGM = gameManager.listaJugadoresTotales;
         jugadorSeleccionado = listaJugadoresGM[indice];
-        primerPJActivado = false;
-        segundoPJActivado = false;
-        tercerPJActivado = false;
-        cuartoPJActivado = false;
+
+        primerPersonaje = false;
+        segundoPersonaje = false;
+        tercerPersonaje = false;
+        cuartoPersonaje = false;
 
         primerInputSeleccionado = false;
         segundoInputSeleccionado = false;
         tercerInputSeleccionado = false;
         cuartoInputSeleccionado = false;
+        for (int i = 0; i < listaJugadoresGM.Count; i++)
+        {
+            PlayerInput playerInput;
+            playerInput = listaJugadoresGM[i].GetComponent<PlayerInput>();
+            listaDePlayerInputs.Add(playerInput);
+        }
     }
 
 
@@ -100,76 +96,71 @@ public class SeleccionJugador : MonoBehaviour
     void Update()
     {
         ConfiguracionDeTeclas();
-        ActivacionDePersonaje();
+        ActivacionDePersonaje_(ref primerPersonaje);
+        ActivacionDePersonaje_(ref segundoPersonaje);
+        ActivacionDePersonaje_(ref tercerPersonaje);
+        ActivacionDePersonaje_(ref cuartoPersonaje);
     }
 
 
 
     private void ConfiguracionDeTeclas()
     {
-        //se pueden reconfigurar, las puse por poner basicamente
-        teclaPrimerJugador = Keyboard.current.zKey.wasPressedThisFrame;
-        teclaSegundoJugador = Keyboard.current.commaKey.wasPressedThisFrame;
-        teclaTercerJugador = Gamepad.current.buttonSouth.wasPressedThisFrame;
-        teclaCuartoJugador = Gamepad.current.buttonSouth.wasPressedThisFrame;
+        teclaPrimerJugador = false;
+        teclaSegundoJugador = false;
+        teclaTercerJugador = false;
+        teclaCuartoJugador = false;
+
+        if (Keyboard.current != null)
+        {
+            teclaPrimerJugador = Keyboard.current.wKey.wasPressedThisFrame;
+            teclaSegundoJugador = Keyboard.current.upArrowKey.wasPressedThisFrame;
+        }
+
+        var gamepads = Gamepad.all;
+
+        if (gamepads.Count > 0)
+        {
+            teclaTercerJugador = gamepads[0].buttonSouth.wasPressedThisFrame;
+        }
+
+        if (gamepads.Count > 1)
+        {
+            teclaCuartoJugador = gamepads[1].buttonSouth.wasPressedThisFrame;
+        }
     }
 
 
 
     //activa un personaje y determina qué jugador lo usará dependiendo el input que se activó
-    private void ActivacionDePersonaje()
+    private void ActivacionDePersonaje_(ref bool unPersonaje)
     {
-        if (!primerPJActivado)
+        if (!unPersonaje && ActivacionDeInput())
         {
-            if (ActivacionDeInput()) primerPJActivado = true;
-        }
-        else if (!segundoPJActivado)
-        {
-            if (ActivacionDeInput()) segundoPJActivado = true;
-        }
-        else if (!tercerPJActivado)
-        {
-            if (ActivacionDeInput()) tercerPJActivado = true;
-        }
-        else if (!cuartoPJActivado)
-        {
-            if (ActivacionDeInput()) cuartoPJActivado = true;
+            unPersonaje = true;
+            CambioDeImagenDePersonaje();
         }
     }
+
 
     //activa uno de los inputs disponibles para los jugadores dependiendo la tecla que fué presionada
     private bool ActivacionDeInput()
     {
-        if (teclaPrimerJugador && !primerInputSeleccionado)
+        return ActivacionDeInputParaJugador(teclaPrimerJugador, ref primerInputSeleccionado, "JP1") ||
+            ActivacionDeInputParaJugador(teclaSegundoJugador, ref segundoInputSeleccionado, "JP2") ||
+            ActivacionDeInputParaJugador(teclaTercerJugador, ref tercerInputSeleccionado, "JP3") ||
+            ActivacionDeInputParaJugador(teclaCuartoJugador, ref cuartoInputSeleccionado, "JP4");
+    }
+
+
+    //activa el input para el jugador unJugador dependiendo la tecla que fué presionada
+    private bool ActivacionDeInputParaJugador(bool teclaDeUnJugador, ref bool inputDeUnJugador, string textoUnJugador)
+    {
+        if (teclaDeUnJugador && !inputDeUnJugador)
         {
-            AgregarJugadorAListaDeSeleccion();
-            primerInputSeleccionado = true;
-            CambioDeTextoParaJugador_("JP1");
-            CambioDeImagenDePersonaje();
-            return true;
-        }
-        else if (teclaSegundoJugador && !segundoInputSeleccionado)
-        {
-            AgregarJugadorAListaDeSeleccion();
-            segundoInputSeleccionado = true;
-            CambioDeTextoParaJugador_("JP2");
-            CambioDeImagenDePersonaje();
-            return true;
-        }
-        else if (teclaTercerJugador && !tercerInputSeleccionado)
-        {
-            AgregarJugadorAListaDeSeleccion();
-            tercerInputSeleccionado = true;
-            CambioDeTextoParaJugador_("JP3");
-            CambioDeImagenDePersonaje();
-            return true;
-        }
-        else if (teclaCuartoJugador && !cuartoInputSeleccionado)
-        {
-            AgregarJugadorAListaDeSeleccion();
-            cuartoInputSeleccionado = true;
-            CambioDeTextoParaJugador_("JP4");
-            CambioDeImagenDePersonaje();
+            AgregarJugadorAListaDeSeleccion(); //se agrega para que éste NO pueda elegir a otro personaje
+            inputDeUnJugador = true; //se activa el input para que NO pueda elegir a otro personaje
+            CambioDeTextoParaJugador_(textoUnJugador); //cambia el texto arriba de la imagen del personaje
             return true;
         }
         return false;
@@ -186,30 +177,17 @@ public class SeleccionJugador : MonoBehaviour
         }
     }
 
+
     //modifica la imagen del personaje seleccionado
     private void CambioDeImagenDePersonaje()
     {
-        if (indiceImagen < ImagenesPersonajes.Count)
+        if (indiceImagen < ImagenesPersonajes.Count && indiceImagen < ImagenesPersonajesSeleccionados.Count)
         {
-            if (indiceImagen == 0)
-            {
-                ImagenesPersonajes[indiceImagen].sprite = ImagenesPersonajesSeleccionados[0];
-            }
-            else if (indiceImagen == 1)
-            {
-                ImagenesPersonajes[indiceImagen].sprite = ImagenesPersonajesSeleccionados[1];
-            }
-            else if (indiceImagen == 2)
-            {
-                ImagenesPersonajes[indiceImagen].sprite = ImagenesPersonajesSeleccionados[2];
-            }
-            else if (indiceImagen == 3)
-            {
-                ImagenesPersonajes[indiceImagen].sprite = ImagenesPersonajesSeleccionados[3];
-            }
+            ImagenesPersonajes[indiceImagen].sprite = ImagenesPersonajesSeleccionados[indiceImagen];
             indiceImagen++;
         }
     }
+
 
     //agrega un jugador de la lista de jugadores del GM a la lista de selección del menú
     private void AgregarJugadorAListaDeSeleccion()
@@ -225,6 +203,7 @@ public class SeleccionJugador : MonoBehaviour
             AgregarJugador_AListaDeSeleccionSiPuede(jugadorSeleccionado);
         }
     }
+
 
     private void AgregarJugador_AListaDeSeleccionSiPuede(GameObject player)
     {

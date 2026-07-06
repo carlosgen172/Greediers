@@ -179,11 +179,12 @@ public class BotonesManager : MonoBehaviour, IPointerDownHandler, IPointerUpHand
     {
         print("Acabo de presionar el boton para salir al menu principal.");
 
-        //En caso de que el botón y las escena sean las respectivas, detiene también la música del juego.
+        //En caso de que el botón y las escena sean las respectivas, detiene también la música y los sonidos del juego.
 
         if(nombreBoton == "BotonSalirAlMenu" && (JuegoManager.Instance.escenaActual == "Nivel" || JuegoManager.Instance.escenaActual == "MenuResultados"))
         {
             AudioManager.Instance.DetenerMusica();
+            AudioManager.Instance.DetenerSonido();
         }
 
         CambiarAEscenaCorrespondiente();
@@ -226,10 +227,10 @@ public class BotonesManager : MonoBehaviour, IPointerDownHandler, IPointerUpHand
 
         if(JuegoManager.Instance.fondoActivado)
         {
-            componenteDeTexto.text = "Desactivar";
+            componenteDeTexto.text = "Activado";
         } else
         {
-            componenteDeTexto.text = "Activar";
+            componenteDeTexto.text = "Desactivado";
         }
     }
 

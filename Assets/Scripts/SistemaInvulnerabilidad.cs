@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,7 +6,7 @@ using UnityEngine;
 public class SistemaInvulnerabilidad : MonoBehaviour
 {
     [Header("Configuración")]
-    public float duracionInvulnerabilidad = 10f;
+    public float duracionInvulnerabilidad;
     public float fuerzaDeEmpuje = 10f;
 
     public bool esInvulnerable = false;
@@ -15,7 +16,11 @@ public class SistemaInvulnerabilidad : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
     }
-
+    void Start()
+    {
+        duracionInvulnerabilidad = 3f;
+        fuerzaDeEmpuje = 5f;
+    }
     public void ActivarInvulnerabilidad(Vector2 direccionDanio)
     {
         if (esInvulnerable) return;

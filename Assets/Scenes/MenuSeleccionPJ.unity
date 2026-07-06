@@ -1829,11 +1829,7 @@ MonoBehaviour:
   - Jugador_3
   - Jugador_4
   listaJugadoresTotales: []
-  listaPrincipalJugadores:
-  - {fileID: 130150610}
-  - {fileID: 1519068034}
-  - {fileID: 544047229}
-  - {fileID: 699025260}
+  jugadoresQueLlegaron: []
   escenaActual: 
   fondoActivado: 1
   musicaDeMenu: {fileID: 0}
@@ -1910,7 +1906,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Presiona cualquier bot\xF3n para seleccionar a tu personaje"
+  m_text: "Presione el bot\xF3n/tecla de \"Salto\" para seleccionar a tu personaje
+    (control aclarado en el men\xFA \"Tutorial\")"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

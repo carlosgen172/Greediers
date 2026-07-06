@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 8899492323531590643}
   m_Layer: 7
   m_Name: Roca_1
-  m_TagString: Roca
+  m_TagString: Roca_1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

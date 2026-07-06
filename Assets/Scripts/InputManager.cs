@@ -18,28 +18,6 @@ public class InputManager : MonoBehaviour
     public InputActionReference movimiento;
     public InputActionReference interaccion;
 
-    /*
-
-    //valores de keyCode a usar:
-    public KeyCode teclaSalto = KeyCode.Space;
-    public KeyCode teclaInteraccion = KeyCode.Q;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        Movement = Input.GetAxisRaw("Horizontal");
-        JumpPressed = Input.GetKeyDown(teclaSalto);
-        InteractPressed = Input.GetKeyDown(teclaInteraccion);
-    }
-
-    */
-
 
     void Awake()
     {

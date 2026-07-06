@@ -18,14 +18,14 @@ public class TrampaRocaController : TrampaBaseController
     //Ubicación de la trampa:
     protected override void UbicarTrampa() {
         //Seteo sus potenciales ubicaciones:
-        potencialUbicacion1 = GameObject.Find("PosPotencialSpawnPinchos_1");
-        potencialUbicacion2 = GameObject.Find("PosPotencialSpawnPinchos_2");
+        potencialUbicacion1 = GameObject.Find("PosPotencialSpawnRoca_1");
+        potencialUbicacion2 = GameObject.Find("PosPotencialSpawnRoca_2");
 
         //Y lo ubico en escena:
-        if(gameObject.name == "Pinchos_1")
+        if(gameObject.tag == "Roca_1")
         {
             gameObject.transform.position = potencialUbicacion1.transform.position;
-        } else
+        } else if(gameObject.tag == "Roca_2")
         {
             gameObject.transform.position = potencialUbicacion2.transform.position;
         }
@@ -49,14 +49,15 @@ public class TrampaRocaController : TrampaBaseController
     //Función de collision para la colisión del jugador con la trampa;
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(yaColisione) return;
+        
 
-        //if(JuegoManager.Instance.elNombreDelObjeto_SeEncuentraEnLaListaDeNombresDeJugadores(collision.gameObject) || collision.gameObject.CompareTag("Plataformas"))
-        if(collision.gameObject.TryGetComponent<PuntajeJugadorController>(out PuntajeJugadorController jugadorPuntaje))
+        if(collision.gameObject.CompareTag("jugador"))
+        //if(collision.gameObject.TryGetComponent<PuntajeJugadorController>(out PuntajeJugadorController jugadorPuntaje))
         {
             yaColisione = true;
             var invulnerabilidad = collision.gameObject.GetComponent<SistemaInvulnerabilidad>();
-            //var jugadorPuntaje = collision.gameObject.GetComponent<PuntajeJugadorController>();
+            var jugadorPuntaje = collision.gameObject.GetComponent<PuntajeJugadorController>();
+            var jugadorController = collision.gameObject.GetComponent<JugadorManager>();
 
             if (invulnerabilidad != null && !invulnerabilidad.esInvulnerable)
 
@@ -64,7 +65,8 @@ public class TrampaRocaController : TrampaBaseController
                 if (jugadorPuntaje != null)
                 {
                     // comparativa para evitar los números negativos  
-                    jugadorPuntaje.puntaje = Mathf.Max(0, jugadorPuntaje.puntaje - 10);
+                    jugadorPuntaje.puntaje = Mathf.Max(0, jugadorPuntaje.puntaje - 5);
+                    AudioManager.Instance.ReproducirSonido(jugadorController.sfx_danio);
 
                     //jugadorPuntaje.puntaje -= 10;
 
@@ -88,6 +90,7 @@ public class TrampaRocaController : TrampaBaseController
 
         if(collision.gameObject.CompareTag("Plataforma"))
         {
+            if(yaColisione) return;
             yaColisione = true;
             DestruirTrampaConTiempo();
         }
