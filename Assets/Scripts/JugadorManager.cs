@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Random = UnityEngine.Random;
 
 //enumaeración de habilidades
 //fuera de la clase, lo hice así para no tener que hacer otro script
@@ -18,6 +20,7 @@ public class JugadorManager : MonoBehaviour
     public AnimationManager animacionesJugador;
 
     public bool habilidadActivada;
+    public bool esDobleTamanio;
     public bool estaSobreElTesoro;
     private Coroutine corrutinaTesoro;
     private MonticuloController monticulo;
@@ -234,6 +237,7 @@ public class JugadorManager : MonoBehaviour
     private IEnumerator CorrutinaDobleTamanio(float duracion)
     {
         habilidadActivada = true;
+        esDobleTamanio = true;
         print("duración de doble tamanio: " + duracion + "segundos");
         movementPlayer.AjustarTamanio(2.0f);
         movementPlayer.AjustarVelocidad(0.5f); //la velocidad va a ser más lenta
@@ -242,6 +246,7 @@ public class JugadorManager : MonoBehaviour
         movementPlayer.AjustarVelocidad(1.0f); //se reanuda la velocidad original
         print("doble tamanio desactivado");
         habilidadActivada = false;
+        esDobleTamanio = false;
     }
 
     public void ActivarHabilidad()
@@ -270,7 +275,7 @@ public class JugadorManager : MonoBehaviour
         }
 
         // para que no haya dos momias a la vez
-        if(tipo == TipoHabilidad.Momia && hayAlgunaMomiaEnJuego)
+        if (tipo == TipoHabilidad.Momia && hayAlgunaMomiaEnJuego)
         {
             // para que busque otra habilidad si hay momia en juego 
             ActivarHabilidad();
@@ -296,8 +301,13 @@ public class JugadorManager : MonoBehaviour
         {
             yield return new WaitForSeconds(1.5f);
             AudioManager.Instance.ReproducirSonido(sfx_minar);
-            monticulo.saludMonticulo -= 1;
-            jugadorPuntaje.puntaje += 1;
+            /* monticulo.saludMonticulo -= 1;
+            jugadorPuntaje.puntaje += 1; */
+
+            int cantidadRecolectada = esDobleTamanio ? 2 : 1;
+
+            monticulo.saludMonticulo -= cantidadRecolectada;
+            jugadorPuntaje.puntaje += cantidadRecolectada;
 
 
             if (ui != null)
