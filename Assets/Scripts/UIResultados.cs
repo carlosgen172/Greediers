@@ -7,8 +7,14 @@ using UnityEngine;
 public class UIResultados : MonoBehaviour
 {
     public TextMeshProUGUI textoResultadosFinales;
+    public AudioClip jingleVictoria;
+
     void Start()
     {
+
+        jingleVictoria = Resources.Load<AudioClip>("Victory");
+
+        AudioManager.Instance.ReproducirSonido(jingleVictoria);
 
         var listaOrdenada = JuegoManager.Instance.jugadoresQueLlegaron
                                         .OrderByDescending(j => j.puntaje)

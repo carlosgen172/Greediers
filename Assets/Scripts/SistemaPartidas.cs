@@ -80,6 +80,7 @@ public class SistemaPartidas : MonoBehaviour
         IniciarPartida();
         AudioManager.Instance.ReproducirMusica(musicaNivelNormal);
         spawn.Initialization();
+        //Podría ir en una función llamada "PreconfigurarControlesDeJugadores()"
         for (int i = 0; i < JuegoManager.Instance.listaJugadoresTotales.Count; i++)
         {
             var jugadorActual = Instantiate(JuegoManager.Instance.listaJugadoresTotales[i], new Vector2(0,0), Quaternion.identity);
@@ -146,17 +147,9 @@ public class SistemaPartidas : MonoBehaviour
         listaPalancas = new List<GameObject> { palanca1, palanca2, palanca3, palanca4 };
 
 
-        
+        //Activación de fondo especial para nivel en caso de ser necesario (y otros valores útiles):
 
-        if (JuegoManager.Instance.fondoActivado)
-        {
-            ActivarFondo();
-        }
-        else
-        {
-            DesactivarFondo();
-        }
-
+        ActivarFondoEspecialDeNivelSiCorresponde();
         DesactivarMenuDePausa();
         DesactivarSalida();
 
@@ -168,19 +161,13 @@ public class SistemaPartidas : MonoBehaviour
 
         //Seteos extra para la lógica de la elección de trampas en base a palancas:
 
-        listaPalancas[0].GetComponent<PalancaController>().InicializarPalancaEnBaseASuLista();
-        listaTrampasSinElegir.RemoveAt(indiceTrampaElegida);
+        for (int i = 0; i < listaPalancas.Count; i++)
+        {
+            listaPalancas[i].GetComponent<PalancaController>().InicializarPalancaEnBaseASuLista();
+            listaTrampasSinElegir.RemoveAt(indiceTrampaElegida);
+        }
 
-        listaPalancas[1].GetComponent<PalancaController>().InicializarPalancaEnBaseASuLista();
-        listaTrampasSinElegir.RemoveAt(indiceTrampaElegida);
-
-        listaPalancas[2].GetComponent<PalancaController>().InicializarPalancaEnBaseASuLista();
-        listaTrampasSinElegir.RemoveAt(indiceTrampaElegida);
-
-        listaPalancas[3].GetComponent<PalancaController>().InicializarPalancaEnBaseASuLista();
-        listaTrampasSinElegir.RemoveAt(indiceTrampaElegida);
-
-        //Seteo de los montículos en la escena
+        //Seteo de los montículos en la escena (agregado estético al controlador de partida)
         GameObject[] monticulosEncontrados = GameObject.FindGameObjectsWithTag("Monticulo");
         todosLosMonticulos = new List<GameObject>(monticulosEncontrados);
     }
@@ -305,12 +292,16 @@ public class SistemaPartidas : MonoBehaviour
 
     public void FinalizarPartida()
     {
+        //Setea el tiempo de partida a 0:
         Time.timeScale = 0f;
 
+        //Actualiza el booleano que chequea la condición de partida:
         yaFinalizo = true;
 
-        //salidaDelNivel.ComunicarResultadosAlGameManager(); //puede ser resultados directamente o los gameObjects y luego sus resultados.
+        //Detengo la música que se está reproduciendo en loop:
+        AudioManager.Instance.DetenerMusica();
 
+        //Y cambio a la escena de los resultados:
         SceneManager.LoadScene("MenuResultados");
     }
 
@@ -326,6 +317,18 @@ public class SistemaPartidas : MonoBehaviour
 
     //Funciones para la correcta responsividad y funcionalidad de los elementos 
     //del hud y del fondo del nivel:
+
+    public void ActivarFondoEspecialDeNivelSiCorresponde()
+    {
+        if (JuegoManager.Instance.fondoActivado)
+        {
+            ActivarFondo();
+        }
+        else
+        {
+            DesactivarFondo();
+        }
+    }
 
     public void ActivarFondo()
     {
