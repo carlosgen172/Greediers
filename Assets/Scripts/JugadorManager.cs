@@ -64,6 +64,8 @@ public class JugadorManager : MonoBehaviour
     public SpriteRenderer spriteRenderer;
     public Sprite spriteMomia;
     private Sprite spriteOriginal;
+    public float duracionMomia;
+    private SistemaInvulnerabilidad sistemaInvulnerabilidad;
 
 
     void Awake()
@@ -82,10 +84,12 @@ public class JugadorManager : MonoBehaviour
         sfx_minar = Resources.Load<AudioClip>("Excavar");
         playerInput = GetComponent<PlayerInput>();
         interactuarAction = playerInput.actions["Interaccion"];
+        sistemaInvulnerabilidad = GetComponent<SistemaInvulnerabilidad>();
     }
 
     public void RecibirInputInteraccion(InputAction.CallbackContext context)
     {
+        if(esMomia) return;
         if (context.started)
         {
             if (estaSobreElTesoro && corrutinaTesoro == null)
@@ -99,39 +103,20 @@ public class JugadorManager : MonoBehaviour
         }
     }
 
+    public void ActivarPalancaATravesDeInput(InputAction.CallbackContext context)
+    {
+        if(esMomia) return;
+        if(palancaCercana != null && context.started)
+        {
+            palancaCercana.IntentarActivarInterruptor();
+        }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
         sistemaPartidaActual = GameObject.Find("ControladorPartida").GetComponent<SistemaPartidas>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        //Interacción con la palanca:
-        if (inputPlayer.InteractPressed && palancaCercana != null)
-        {
-            palancaCercana.IntentarActivarInterruptor();
-        }
-
-        //Interacción con el tesoro:
-
-
-    }
-
-    void FixedUpdate()
-    {
-        //funciones de movilidad se ejecutarán aquí (se hace desde el fixedUpdate ya que se usa lógica de físicas):
-
-        /*
-
-        movementPlayer.MoverJugadorConVelocidadLineal(inputPlayer.Movement);
-
-        movementPlayer.GirarJugadorSiCorrespondeCon(inputPlayer.Movement);
-
-        movementPlayer.SaltarJugadorSi(inputPlayer.JumpPressed);
-
-        */
+        duracionMomia = 10f;
     }
 
 
@@ -231,7 +216,7 @@ public class JugadorManager : MonoBehaviour
     //-----------------------------------------DOBLE TAMANIO  
     public void ActivarDobleTamanio()
     {
-        StartCoroutine(CorrutinaDobleTamanio(5f));
+        StartCoroutine(CorrutinaDobleTamanio(10f));
     }
 
     private IEnumerator CorrutinaDobleTamanio(float duracion)
@@ -277,6 +262,7 @@ public class JugadorManager : MonoBehaviour
         // para que no haya dos momias a la vez
         if (tipo == TipoHabilidad.Momia && hayAlgunaMomiaEnJuego)
         {
+            print("Ya hay una momia en juego");
             // para que busque otra habilidad si hay momia en juego 
             ActivarHabilidad();
             return;
@@ -343,6 +329,7 @@ public class JugadorManager : MonoBehaviour
 
         movementPlayer.AjustarTamanio(2.0f);
         movementPlayer.AjustarVelocidad(0.5f);
+        StartCoroutine(sistemaInvulnerabilidad.CorrutinaInvulnerabilidadMomia(duracionMomia));
 
         yield return new WaitForSeconds(duracionMomia);
 
@@ -359,7 +346,7 @@ public class JugadorManager : MonoBehaviour
 
     public void ActivarHabilidadMomia()
     {
-        StartCoroutine(CorrutinaMomia(5f));
+        StartCoroutine(CorrutinaMomia(duracionMomia));
     }
 }
 

@@ -28,18 +28,13 @@ public class SistemaInvulnerabilidad : MonoBehaviour
 
     public void ActivarInvulnerabilidad(Vector2 direccionDanio)
     {
-
-        // probar cuando es momia
-        if (jugadorManager != null && jugadorManager.esMomia)
-        {
-            print("MOMIA INVULNERABLE");
-            return;
-        }
-
+        if(jugadorManager == null) return; // No hace nada :v
         if (esInvulnerable) return;
-
         StartCoroutine(CorrutinaInvulnerabilidad());
         AplicarFuerzaDeEmpuje(direccionDanio);
+
+
+        
     }
 
     private IEnumerator CorrutinaInvulnerabilidad()
@@ -58,6 +53,15 @@ public class SistemaInvulnerabilidad : MonoBehaviour
         }
 
         sprite.enabled = true; // que sea visible cuando termime
+        esInvulnerable = false;
+        print("invulnerabilidad DESACTIVADA");
+    }
+
+    public IEnumerator CorrutinaInvulnerabilidadMomia(float duracion)
+    {
+        esInvulnerable = true;
+        print("invulnerabilidad de momia ACTIVADA");
+        yield return new WaitForSeconds(duracion);
         esInvulnerable = false;
         print("invulnerabilidad DESACTIVADA");
     }

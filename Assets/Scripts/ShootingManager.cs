@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class ShootingManager : MonoBehaviour
 {
@@ -14,12 +15,20 @@ public class ShootingManager : MonoBehaviour
     public float cooldownDisparo; 
     public float tiempoActual;
     public bool seActivoElCooldown;
+    bool puedeDisparar;
+    [SerializeField] private Transform shootPoint;
 
     void Awake()
     {
         jugador = GetComponent<JugadorManager>();
 
         prefabVendasPlayer = Resources.Load<GameObject>("Venda_Momia");
+    }
+
+    void Start()
+    {
+        cooldownDisparo = 2f;
+        puedeDisparar = true;
     }
 
     void Update()
@@ -34,12 +43,10 @@ public class ShootingManager : MonoBehaviour
         return tiempoActual <= 0;
     }
 
-    public void DispararSi_(bool InputDisparoPresionado)
+    public void DispararATravesDeInput(InputAction.CallbackContext context)
     {
-        //En caso de que el jugador no sea una momia, no hará nada a pesar de tener el manager/componente "activo":
         if(!jugador.esMomia) return;
-
-        if(InputDisparoPresionado)
+        if (context.started)
         {
             Disparar();
         }
@@ -49,6 +56,11 @@ public class ShootingManager : MonoBehaviour
     private void Disparar()
     {
         if(prefabVendasPlayer == null) return;
+        if(!puedeDisparar) return;
+        var vendaActual = Instantiate(prefabVendasPlayer, shootPoint.position, Quaternion.identity);
+        var vendaActualFuncional = vendaActual.GetComponent<Venda>();
+        vendaActualFuncional.RecibirDireccionDeDisparoEnBaseA_(gameObject);
+        puedeDisparar = true;
 
         IniciarTimerDeCooldownDeDisparo();
 
@@ -59,6 +71,7 @@ public class ShootingManager : MonoBehaviour
         tiempoActual = cooldownDisparo;
         
         seActivoElCooldown = true;
+        puedeDisparar = false;
     }
 
     private void ActualizarTimerDeCooldownDeDisparo()
@@ -69,9 +82,8 @@ public class ShootingManager : MonoBehaviour
 
         if(haConcluidoElCooldownDeDisparo())
         {
-            var vendaActual = Instantiate(prefabVendasPlayer, jugador.shootPoint.transform.position, jugador.shootPoint.transform.rotation);
-            var vendaActualFuncional = vendaActual.GetComponent<Venda>();
-            vendaActualFuncional.RecibirDireccionDeDisparoEnBaseA_(jugador.gameObject);
+            puedeDisparar = true;
+            tiempoActual = cooldownDisparo;
         }
     }
 

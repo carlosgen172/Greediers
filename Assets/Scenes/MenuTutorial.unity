@@ -794,13 +794,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bbf504ed90db914bbeccb3cbbd75af6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  listaTagsDeJugadores:
+  listaNombresDeJugadores:
   - Jugador_1
   - Jugador_2
   - Jugador_3
   - Jugador_4
+  listaJugadoresTotales: []
+  jugadoresQueLlegaron: []
   escenaActual: 
   fondoActivado: 1
+  musicaDeMenu: {fileID: 0}
 --- !u!4 &812648165
 Transform:
   m_ObjectHideFlags: 0
@@ -1028,7 +1031,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Movimiento: Teclas \"A\" y \"D\".\nSalto: Tecla \"Z\".\nInteracci\xF3n
+  m_text: "Movimiento: Teclas \"A\" y \"D\".\nSalto: Tecla \"W\".\nInteracci\xF3n
     y Disparo de Vendas: Tecla \"Q\"."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1707,7 +1710,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Movimiento: Flechas \"Izq.\" y \"Der.\".\nSalto: Tecla \"Coma\" (,).\nInteracci\xF3n
+  m_text: "Movimiento: Flechas \"Izq.\" y \"Der.\".\nSalto: Flecha \"Arriba\".\nInteracci\xF3n
     y Disparo de Vendas: Tecla \"Punto\" (.)."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

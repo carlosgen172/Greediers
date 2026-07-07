@@ -81,7 +81,7 @@ public class Venda : MonoBehaviour
 
     public void MoverConstantementeHaciaDireccionIndicada()
     {
-        rbBala.AddForce(new Vector2(0, velocidadDisparo * impulsoDisparo), ForceMode2D.Impulse);
+        rbBala.AddForce(new Vector2(velocidadDisparo * impulsoDisparo, 0), ForceMode2D.Impulse);
     }
 
     public void OnTriggerEnter2D(Collider2D collision) //probar con oncollision si falla
