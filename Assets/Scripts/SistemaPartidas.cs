@@ -70,7 +70,7 @@ public class SistemaPartidas : MonoBehaviour
         listaTrampasSinElegir = new List<GameObject> { roca1, roca2, pinchos1, pinchos2 };
         uiManager = GameObject.Find("ControladorUI").GetComponent<UIManager>();
         playerInputManager = GetComponent<PlayerInputManager>();
-        
+
     }
 
     // Start is called before the first frame update
@@ -80,19 +80,9 @@ public class SistemaPartidas : MonoBehaviour
         IniciarPartida();
         AudioManager.Instance.ReproducirMusica(musicaNivelNormal);
         spawn.Initialization();
-        //Podría ir en una función llamada "PreconfigurarControlesDeJugadores()"
-        for (int i = 0; i < JuegoManager.Instance.listaJugadoresTotales.Count; i++)
-        {
-            var jugadorActual = Instantiate(JuegoManager.Instance.listaJugadoresTotales[i], new Vector2(0,0), Quaternion.identity);
-            jugadorActual.name = "Jugador_" + (i + 1);
-            if(jugadorActual.name == "Jugador_2")
-            {
-                jugadorActual.GetComponent<PlayerInput>().SwitchCurrentControlScheme("Teclado Derecho", Keyboard.current);
-            }
-            jugadorActual.transform.position = spawn.eleccionDePosicion();
-        }
+        PreconfigurarJugadores(); //se usó este nombre porque no solo preconfigura controles sino que tambien los instancia, by: charl
         uiManager.InicializarTextosDePuntuacion();
-        
+
     }
 
     // Update is called once per frame
@@ -125,6 +115,20 @@ public class SistemaPartidas : MonoBehaviour
     }
 
     //Funciones para la preconfiguración e incio de partida:
+
+    private void PreconfigurarJugadores()
+    {
+        for (int i = 0; i < JuegoManager.Instance.listaJugadoresTotales.Count; i++)
+        {
+            var jugadorActual = Instantiate(JuegoManager.Instance.listaJugadoresTotales[i], new Vector2(0, 0), Quaternion.identity);
+            jugadorActual.name = "Jugador_" + (i + 1);
+            if (jugadorActual.name == "Jugador_2")
+            {
+                jugadorActual.GetComponent<PlayerInput>().SwitchCurrentControlScheme("Teclado Derecho", Keyboard.current);
+            }
+            jugadorActual.transform.position = spawn.eleccionDePosicion();
+        }
+    }
 
     public void InicializarValoresPresetados()
     {

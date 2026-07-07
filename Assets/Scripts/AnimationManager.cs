@@ -16,19 +16,7 @@ public class AnimationManager : MonoBehaviour
  
     void Update()
     {
-        //Metodo de prueba para la funcion ChangeAnimation, ésto será usado con funciones como isJumping, isRuning...
-        if (Input.GetKeyDown(KeyCode.J))
-        {
-            ChangeAnimation("Jump");
-        }
-        else if (Input.GetKeyDown(KeyCode.K))
-        {
-            ChangeAnimation("Run");
-        }
-        else if (Input.GetKeyDown(KeyCode.L))
-        {
-            ChangeAnimation("Idle");
-        }
+        
     }
 
     public void ChangeAnimation(string animationName)

@@ -8,7 +8,7 @@ public class JuegoManager : MonoBehaviour
 {
     public static JuegoManager Instance;
 
-    GameObject objetoSeleccionJugador;
+    GameObject objetoSeleccionPersonaje;
 
     [Header("Lista de jugadores pre-seteados (actualmente strings, cambiarlos a prefabs):")]
 
@@ -16,9 +16,6 @@ public class JuegoManager : MonoBehaviour
     
     //Vincular a todos los objetos de tipo jugador dentro de la lista, esta sera la misma que los va a presetear en el escenario y los comparará para saber si todos lograron escapar.
     public List<GameObject> listaJugadoresTotales; 
-
-    
-
 
 
     // lista para usar en la tabla de puntuaciones
@@ -51,10 +48,10 @@ public class JuegoManager : MonoBehaviour
 
         //Preseteo de jugadores en lista general (son los prefabs):
 
-        var jugador_1 = Resources.Load<GameObject>("Jugador_1");
-        var jugador_2 = Resources.Load<GameObject>("Jugador_2");
-        var jugador_3 = Resources.Load<GameObject>("Jugador_3");
-        var jugador_4 = Resources.Load<GameObject>("Jugador_4");
+        var jugador_1 = Resources.Load<GameObject>("Jugadores/Jugador_1");
+        var jugador_2 = Resources.Load<GameObject>("Jugadores/Jugador_2");
+        var jugador_3 = Resources.Load<GameObject>("Jugadores/Jugador_3");
+        var jugador_4 = Resources.Load<GameObject>("Jugadores/Jugador_4");
 
         listaJugadoresTotales = new List<GameObject> {jugador_1, jugador_2, jugador_3, jugador_4};
     
@@ -67,19 +64,19 @@ public class JuegoManager : MonoBehaviour
 
         //¿No debería consultar si es que se encuentra en la escena de 
         // "Seleccion de Jugador" antes de tratar de realizar la función de la misma?
-        objetoSeleccionJugador = GameObject.Find("ControladorSeleccionJugador");
+        objetoSeleccionPersonaje = GameObject.Find("ControladorSeleccionPersonaje");
 
-        InicializarSeleccionJugador();
+        InicializarSeleccionPersonaje();
     }
 
-    bool InicializarSeleccionJugador()
+    bool InicializarSeleccionPersonaje()
     {
-        if (objetoSeleccionJugador == null)
+        if (objetoSeleccionPersonaje == null)
         {
             return false;
         }
 
-        objetoSeleccionJugador.GetComponent<SeleccionJugador>().Initialization();
+        objetoSeleccionPersonaje.GetComponent<SeleccionPersonajes>().Initialization();
         return true;
     }
 

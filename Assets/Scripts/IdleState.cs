@@ -18,18 +18,6 @@ public class IdleState : FSM_Base
 
     public override void Update()
     {
-        //Ejemplos de uso:
-        //
-        // if(Input.GetAxisRaw("Horizontal") != 0)
-        // {
-        //     fsm.ChangeState(fsm.RunState);
-        // }
-        //
-        // if(playerMovement.isMoving)
-        // {
-        //     fsm.ChangeState(fsm.RunState);
-        // }
-
         if(fsm.jugadorActual.inputPlayer.seEstaMoviendo)
         {
             fsm.ChangeState(fsm.RunState);
@@ -44,7 +32,6 @@ public class IdleState : FSM_Base
         {
             fsm.ChangeState(fsm.JumpState);
         }
-
     }
 
     public override void Exit()
