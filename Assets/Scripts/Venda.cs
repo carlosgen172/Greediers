@@ -56,7 +56,7 @@ public class Venda : MonoBehaviour
         if (collision == null) return;
 
 
-        if (elObjetoAlQueColisioneEsUnJugador(collision.gameObject))
+        if (elObjetoAlQueColisioneEsUnJugador(collision.gameObject) && !elObjetoAlQueColisioneSoyYo(collision.gameObject))
         {
             Debug.Log("ha colisionado con el jugador: " + collision.gameObject.name);
             var puntajeJugador = collision.gameObject.GetComponent<PuntajeJugadorController>();

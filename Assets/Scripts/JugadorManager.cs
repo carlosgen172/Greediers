@@ -8,7 +8,7 @@ using Random = UnityEngine.Random;
 //enumaeración de habilidades
 //fuera de la clase, lo hice así para no tener que hacer otro script
 //y porque así puede ser accesible para otras necesidades
-public enum TipoHabilidad { Momia }
+public enum TipoHabilidad { Momia, SuperSalto, DobleVelocidad, DobleTamanio}
 
 public class JugadorManager : MonoBehaviour
 {
@@ -37,15 +37,7 @@ public class JugadorManager : MonoBehaviour
     public string tagJugador;
 
     [Header("Prefabs/GameObjects necesarios para lógicas complementarias")]
-    public GameObject shootPoint; //Setearla como prefab
-
-    [Header("Provisorios:")]
-    public string jugadorSeleccionado; //String que le podría llegar a pasar el sistema de seleccion y spawn de pjs al jugador.
-    //Potencial forma de guardar los spritesheets posibles del pj:
-    //public spriteSheets spritesheetsProvisorio_1;
-    //public spriteSheet spritesheetProvisorio_2;
-    //public spriteSheets spritesheetsProvisorio_3;
-    //public spriteSheet spritesheetProvisorio_4;
+    public GameObject shootPoint;
 
     [Header("SFX del pj:")]
     public AudioClip sfx_salto;
@@ -254,23 +246,23 @@ public class JugadorManager : MonoBehaviour
 
     public void ActivarHabilidad()
     {
-        TipoHabilidad tipo = 0;//(TipoHabilidad)Random.Range(0, 4);
+        TipoHabilidad tipo = (TipoHabilidad)Random.Range(0, 4);
         // si hay habilidad activada, evita tomar otras habilidades
         if (habilidadActivada) return;
         // usar switch para intercambiar entre los tipo de habilidades
         switch (tipo)
         {
-            // case TipoHabilidad.SuperSalto:
-            //     ActivarSuperSalto();
-            //     break;
+            case TipoHabilidad.SuperSalto:
+                ActivarSuperSalto();
+                break;
 
-            // case TipoHabilidad.DobleVelocidad:
-            //     ActivarDobleVelocidad();
-            //     break;
+            case TipoHabilidad.DobleVelocidad:
+                ActivarDobleVelocidad();
+                break;
 
-            // case TipoHabilidad.DobleTamanio:
-            //     ActivarDobleTamanio();
-            //     break;
+            case TipoHabilidad.DobleTamanio:
+                ActivarDobleTamanio();
+                break;
 
             case TipoHabilidad.Momia:
                 ActivarHabilidadMomia();

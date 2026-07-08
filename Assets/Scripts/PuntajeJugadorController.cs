@@ -32,7 +32,7 @@ public class PuntajeJugadorController : MonoBehaviour
     public void PerderTesoro(int unaCantidadDeTesoro)
     {
         puntaje = Mathf.Max(0, puntaje - unaCantidadDeTesoro);
-        UIManager ui = FindObjectOfType<UIManager>();
+        UIManager ui = GameObject.Find("ControladorUI").GetComponent<UIManager>();
 
         if (ui != null)
         {
