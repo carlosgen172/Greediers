@@ -7,18 +7,19 @@ public class Venda : MonoBehaviour
     //valores de la venda:
     [Header("Valores generales del disparo de la momia:")]
     public float tiempoVida = 3.0f;
-    public float velocidadDisparo = 10.0f;
+    public float velocidadDisparo;
     private Rigidbody2D rbBala;
     private float impulsoDisparo;
     private GameObject disparador;
     private int tesoroAQuitar;
-    private List<string> listaTagsObjetosColisionables = new List<string> {"Plataforma", "Roca", "Pinchos", "Jugador"};
+    private List<string> listaTagsObjetosColisionables = new List<string> { "Plataforma", "Roca_1", "Roca_2", "Pinchos_1", "Pinchos_2", "Limite", "jugador" };
 
     void Awake()
     {
         rbBala = GetComponent<Rigidbody2D>();
 
-        tesoroAQuitar = 10;
+        tesoroAQuitar = 5;
+        velocidadDisparo = 2.5f;
     }
     void Start()
     {
@@ -32,9 +33,9 @@ public class Venda : MonoBehaviour
 
     public void DestruirLuegoDeTiempoDeterminado()
     {
-        if(this == null) return;
-        
-        Destroy(this.gameObject, tiempoVida);
+        if (this == null) return;
+
+        Destroy(gameObject, tiempoVida);
     }
 
     public void RecibirDireccionDeDisparoEnBaseA_(GameObject unDisparador)
@@ -52,17 +53,18 @@ public class Venda : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision == null) return;
+        if (collision == null) return;
 
-        if (elObjetoAlQueColisioneEsUnObstaculoColisionable(collision.gameObject))
+
+        if (elObjetoAlQueColisioneEsUnJugador(collision.gameObject))
         {
-            if(collision.gameObject.TryGetComponent<PuntajeJugadorController>(out PuntajeJugadorController _puntaje) && !elObjetoAlQueColisioneSoyYo(collision.gameObject))
-            {
-                _puntaje.PerderTesoro(tesoroAQuitar);
-            }
-
-            Destroy(gameObject);
+            Debug.Log("ha colisionado con el jugador: " + collision.gameObject.name);
+            var puntajeJugador = collision.gameObject.GetComponent<PuntajeJugadorController>();
+            puntajeJugador.PerderTesoro(tesoroAQuitar);
+            Debug.Log("el puntaje es: " + puntajeJugador.puntaje);
         }
+
+        Destroy(gameObject);
     }
 
     public bool elObjetoAlQueColisioneSoyYo(GameObject objetoColisionado)

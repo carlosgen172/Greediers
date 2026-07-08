@@ -8,16 +8,19 @@ public class FSM_Jugador : MonoBehaviour
     [Header("Estado actual del jugador:")]
     [SerializeField] private FSM_Base currentState;
 
+
     // Posibles estados de un jugador
     public IdleState IdleState { get; private set; }
     public RunState RunState { get; private set; }
     public JumpState JumpState { get; private set; }
     public MineState MineState { get; private set; }
-    //public MomiaState MomiaState { get; private set; }
+    public MomiaState MomiaState { get; private set; }
+
 
     // Otros componentes
     public Rigidbody2D rb { get; private set; }
     public Animator animator { get; private set; }
+
 
     public JugadorManager jugadorActual { get; private set; }
 
@@ -55,7 +58,7 @@ public class FSM_Jugador : MonoBehaviour
         RunState = new RunState(this);
         JumpState = new JumpState(this);
         MineState = new MineState(this);
-        //MomiaState = new MomiaState(this);
+        MomiaState = new MomiaState(this);
     }
 
     void SetearComponentes()

@@ -30,7 +30,6 @@ public class AnimationManager : MonoBehaviour
     public void ChangeAnimation(string animationName, Animator animatorJugador)
     {
         if (currentAnimation == animationName) return;
-        Debug.Log(currentAnimation + " -> " + animationName);
         currentAnimation = animationName;
         animatorJugador.Play(animationName, 0, 0f);
     }

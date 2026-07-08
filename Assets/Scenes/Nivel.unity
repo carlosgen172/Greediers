@@ -593,7 +593,7 @@ GameObject:
   - component: {fileID: 117035193}
   m_Layer: 6
   m_Name: PlataformaTrianguloIzquierda (4)
-  m_TagString: Untagged
+  m_TagString: Plataforma
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -795,7 +795,7 @@ GameObject:
   - component: {fileID: 136780431}
   m_Layer: 6
   m_Name: PlataformaTrianguloDerecho (1)
-  m_TagString: Untagged
+  m_TagString: Plataforma
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3102,7 +3102,7 @@ GameObject:
   - component: {fileID: 387688859}
   m_Layer: 6
   m_Name: PlataformaTrianguloIzquierda (2)
-  m_TagString: Untagged
+  m_TagString: Plataforma
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3908,7 +3908,7 @@ GameObject:
   - component: {fileID: 463148822}
   m_Layer: 6
   m_Name: PlataformaTrianguloIzquierda
-  m_TagString: Untagged
+  m_TagString: Plataforma
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5352,7 +5352,7 @@ GameObject:
   - component: {fileID: 552520102}
   m_Layer: 6
   m_Name: PlataformaTrianguloDerecho
-  m_TagString: Untagged
+  m_TagString: Plataforma
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7365,7 +7365,7 @@ GameObject:
   - component: {fileID: 722532919}
   m_Layer: 6
   m_Name: PlataformaTrianguloDerecho (3)
-  m_TagString: Untagged
+  m_TagString: Plataforma
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8725,7 +8725,7 @@ GameObject:
   - component: {fileID: 874300832}
   m_Layer: 6
   m_Name: PlataformaTrianguloIzquierda (5)
-  m_TagString: Untagged
+  m_TagString: Plataforma
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8991,7 +8991,7 @@ GameObject:
   - component: {fileID: 887065739}
   m_Layer: 6
   m_Name: PlataformaTrianguloDerecho (5)
-  m_TagString: Untagged
+  m_TagString: Plataforma
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10985,7 +10985,7 @@ GameObject:
   - component: {fileID: 1087665621}
   m_Layer: 6
   m_Name: PlataformaTrianguloDerecho (2)
-  m_TagString: Untagged
+  m_TagString: Plataforma
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -67709,7 +67709,7 @@ GameObject:
   - component: {fileID: 1175263781}
   m_Layer: 6
   m_Name: PlataformaTrianguloDerecho (7)
-  m_TagString: Untagged
+  m_TagString: Plataforma
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -67842,7 +67842,7 @@ GameObject:
   - component: {fileID: 1183807447}
   m_Layer: 6
   m_Name: PlataformaTrianguloDerecho
-  m_TagString: Untagged
+  m_TagString: Plataforma
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -72927,7 +72927,7 @@ GameObject:
   - component: {fileID: 1621592730}
   m_Layer: 6
   m_Name: PlataformaTrianguloIzquierda (1)
-  m_TagString: Untagged
+  m_TagString: Plataforma
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -74693,7 +74693,7 @@ GameObject:
   - component: {fileID: 1760582585}
   m_Layer: 6
   m_Name: PlataformaTrianguloDerecho (4)
-  m_TagString: Untagged
+  m_TagString: Plataforma
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -76518,7 +76518,7 @@ GameObject:
   - component: {fileID: 1947350471}
   m_Layer: 6
   m_Name: PlataformaTrianguloIzquierda (3)
-  m_TagString: Untagged
+  m_TagString: Plataforma
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -79173,7 +79173,7 @@ GameObject:
   - component: {fileID: 2118303156}
   m_Layer: 6
   m_Name: PlataformaTrianguloDerecho (6)
-  m_TagString: Untagged
+  m_TagString: Plataforma
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

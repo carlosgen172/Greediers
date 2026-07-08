@@ -20,19 +20,24 @@ public class IdleState : FSM_Base
 
     public override void Update()
     {
-        if (fsm.jugadorActual.inputPlayer.seEstaMoviendo && !fsm.jugadorActual.estaMinando && fsm.jugadorActual.movementPlayer.estaEnElSuelo)
+        if (fsm.jugadorActual.inputPlayer.seEstaMoviendo && !fsm.jugadorActual.estaMinando && fsm.jugadorActual.movementPlayer.estaEnElSuelo && !fsm.jugadorActual.esMomia)
         {
             fsm.ChangeState(fsm.RunState);
         }
 
-        if (fsm.jugadorActual.movementPlayer.estaEnElSuelo && fsm.jugadorActual.estaMinando && fsm.jugadorActual.inputPlayer.estaQuieto)
+        if (fsm.jugadorActual.movementPlayer.estaEnElSuelo && fsm.jugadorActual.estaMinando && fsm.jugadorActual.inputPlayer.estaQuieto && !fsm.jugadorActual.esMomia)
         {
             fsm.ChangeState(fsm.MineState);
         }
 
-        if (!fsm.jugadorActual.movementPlayer.estaEnElSuelo && !fsm.jugadorActual.estaMinando)
+        if (!fsm.jugadorActual.movementPlayer.estaEnElSuelo && !fsm.jugadorActual.estaMinando && !fsm.jugadorActual.esMomia)
         {
             fsm.ChangeState(fsm.JumpState);
+        }
+
+        if(fsm.jugadorActual.esMomia)
+        {
+            fsm.ChangeState(fsm.MomiaState);
         }
     }
 

@@ -35,6 +35,32 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    public void ActualizarTextoDelJugador(GameObject unJugador)
+    {
+        var puntajeDeJugadorAModificar = unJugador.GetComponent<PuntajeJugadorController>();
+        if (unJugador.name == "Jugador_1")
+        {
+            textoJugador1.text = unJugador.name + ": " + puntajeDeJugadorAModificar.puntaje;
+        }
+        if (unJugador.name == "Jugador_2")
+        {
+            textoJugador1.text = unJugador.name + ": " + puntajeDeJugadorAModificar.puntaje;
+        }
+        if (unJugador.name == "Jugador_3")
+        {
+            textoJugador1.text = unJugador.name + ": " + puntajeDeJugadorAModificar.puntaje;
+        }
+        if (unJugador.name == "Jugador_4")
+        {
+            textoJugador1.text = unJugador.name + ": " + puntajeDeJugadorAModificar.puntaje;
+        }
+    }
+
+    // public void ActualizarPuntajeEnBaseAunEntero(int unInt)
+    // {
+    //     if()
+    // }
+
     public void InicializarTextosDePuntuacion()
     {
         textoJugador1 = GameObject.Find("textoPuntuacion1").GetComponent<TextMeshProUGUI>();

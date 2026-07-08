@@ -40,8 +40,6 @@ public class MovementJugador : MonoBehaviour
 
         rbPlayer.drag = 0;
 
-        longitudLineaColision = transform.localScale.x / 0.9f;
-
         speed = 3f;
         escalaOriginal = transform.localScale;
 
@@ -52,6 +50,7 @@ public class MovementJugador : MonoBehaviour
     void Update()
     {
         //Se actualizan los valores de colisión con el suelo al dibujar una línea hacia abajo del jugador, que, en caso de colisionar con una capa pasada por parámetro (vincular la capa desde el inspector), indicará que ya se encuentra en el suelo (si su valor es nulo, significa que aún sigue en el aire:
+        longitudLineaColision = transform.localScale.x / 0.9f;
         RaycastHit2D hit2D = Physics2D.Raycast(transform.position, Vector2.down, longitudLineaColision, capaPlataformas);
         estaEnElSuelo = hit2D.collider != null;
         GirarJugadorSiCorresponde();

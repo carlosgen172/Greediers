@@ -8,7 +8,7 @@ using Random = UnityEngine.Random;
 //enumaeración de habilidades
 //fuera de la clase, lo hice así para no tener que hacer otro script
 //y porque así puede ser accesible para otras necesidades
-public enum TipoHabilidad { SuperSalto, DobleVelocidad, DobleTamanio, Momia }
+public enum TipoHabilidad { Momia }
 
 public class JugadorManager : MonoBehaviour
 {
@@ -254,23 +254,23 @@ public class JugadorManager : MonoBehaviour
 
     public void ActivarHabilidad()
     {
-        TipoHabilidad tipo = (TipoHabilidad)Random.Range(0, 4);
+        TipoHabilidad tipo = 0;//(TipoHabilidad)Random.Range(0, 4);
         // si hay habilidad activada, evita tomar otras habilidades
         if (habilidadActivada) return;
         // usar switch para intercambiar entre los tipo de habilidades
         switch (tipo)
         {
-            case TipoHabilidad.SuperSalto:
-                ActivarSuperSalto();
-                break;
+            // case TipoHabilidad.SuperSalto:
+            //     ActivarSuperSalto();
+            //     break;
 
-            case TipoHabilidad.DobleVelocidad:
-                ActivarDobleVelocidad();
-                break;
+            // case TipoHabilidad.DobleVelocidad:
+            //     ActivarDobleVelocidad();
+            //     break;
 
-            case TipoHabilidad.DobleTamanio:
-                ActivarDobleTamanio();
-                break;
+            // case TipoHabilidad.DobleTamanio:
+            //     ActivarDobleTamanio();
+            //     break;
 
             case TipoHabilidad.Momia:
                 ActivarHabilidadMomia();
@@ -332,9 +332,6 @@ public class JugadorManager : MonoBehaviour
         // de prueba
         spriteMomia = Resources.Load<Sprite>("MomiaPrueba");
 
-        spriteOriginal = spriteRenderer.sprite; // Modificar cuando ya se tengan los spritesheets implementados
-        spriteRenderer.color = Color.red;
-        spriteRenderer.sprite = spriteMomia;
 
         AudioManager.Instance.ReproducirSonido(sfx_habilidad_momia, 1);
 
@@ -350,8 +347,6 @@ public class JugadorManager : MonoBehaviour
 
         yield return new WaitForSeconds(duracionMomia);
 
-        spriteRenderer.sprite = spriteOriginal;
-        spriteRenderer.color = colorOriginal;
 
         movementPlayer.AjustarTamanio(1.0f);
         movementPlayer.AjustarVelocidad(1.0f);

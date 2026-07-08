@@ -10,7 +10,7 @@ public class UIResultados : MonoBehaviour
 {
     [Header("Variables para la lógica de seteo de resultados")]
     public TextMeshProUGUI textoResultadosFinales;
-    private List<PuntajeJugadorController> listaOrdenada;
+    private List<PuntajeJugadorController> listaOrdenada = new List<PuntajeJugadorController>();
     private AudioClip jingleVictoria;
     private AudioClip jingleEmpate;
 
