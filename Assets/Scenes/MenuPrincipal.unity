@@ -2166,11 +2166,6 @@ MonoBehaviour:
   - Jugador_3
   - Jugador_4
   listaJugadoresTotales: []
-  listaPrincipalJugadores:
-  - {fileID: 5990345328960404068, guid: e14f5804e9d1a014cbfade68a3a54a57, type: 3}
-  - {fileID: 5990345328960404068, guid: 5c7bc800f4ac20c4a980a752e27e5685, type: 3}
-  - {fileID: 5990345328960404068, guid: 5eb3cf65bf89af54382b48727e6d9f8e, type: 3}
-  - {fileID: 5990345328960404068, guid: 95098a648d90893449edec6f3f1630b8, type: 3}
   jugadoresQueLlegaron: []
   escenaActual: 
   fondoActivado: 1

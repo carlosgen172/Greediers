@@ -3168,10 +3168,10 @@ MonoBehaviour:
   - {fileID: 2054611545}
   - {fileID: 795947622}
   - {fileID: 1213034359}
-  primerInputSeleccionado: 0
-  segundoInputSeleccionado: 0
-  tercerInputSeleccionado: 0
-  cuartoInputSeleccionado: 0
+  primerInput: 0
+  segundoInput: 0
+  tercerInput: 0
+  cuartoInput: 0
 --- !u!4 &2110241714
 Transform:
   m_ObjectHideFlags: 0

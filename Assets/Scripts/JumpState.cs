@@ -13,7 +13,9 @@ public class JumpState : FSM_Base
     }
     public override void Enter()
     {
-        Debug.Log("Estoy en Jump");
+        if (fsm.animator == null) return;
+        AnimationManager.Instance.ChangeAnimation("Jump", fsm.animator);
+        Debug.Log("jugador saltando");
     }
 
     public override void Update()
@@ -26,6 +28,7 @@ public class JumpState : FSM_Base
 
     public override void Exit()
     {
-
+        if (fsm.animator != null)
+            fsm.animator.StopPlayback();
     }
 }

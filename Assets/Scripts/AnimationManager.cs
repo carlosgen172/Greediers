@@ -2,28 +2,36 @@ using UnityEngine;
 
 public class AnimationManager : MonoBehaviour
 {
-    Animator animator;
+    public static AnimationManager Instance;
     string currentAnimation;
 
     void Awake()
     {
-        animator = GetComponent<Animator>();
+        if (Instance != null)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            Instance = this;
+            DontDestroyOnLoad(Instance);
+        }
     }
     void Start()
     {
 
     }
- 
+
     void Update()
     {
-        
+
     }
 
-    public void ChangeAnimation(string animationName)
+    public void ChangeAnimation(string animationName, Animator animatorJugador)
     {
         if (currentAnimation == animationName) return;
 
         currentAnimation = animationName;
-        animator.Play(currentAnimation);
+        animatorJugador.Play(animationName, 0, 0f);
     }
 }
