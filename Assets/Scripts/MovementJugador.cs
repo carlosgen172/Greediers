@@ -137,13 +137,13 @@ public class MovementJugador : MonoBehaviour
         transform.localScale = escala;
     }
 
-    private void GirarALaIzquierda()
+    public void GirarALaIzquierda()
     {
         Vector3 escala = transform.localScale;
         escala.x = -Mathf.Abs(escala.x);
         transform.localScale = escala;
     }
-    private void GirarALaDerecha()
+    public void GirarALaDerecha()
     {
         Vector3 escala = transform.localScale;
         escala.x = Mathf.Abs(escala.x);

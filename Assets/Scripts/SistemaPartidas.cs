@@ -127,6 +127,7 @@ public class SistemaPartidas : MonoBehaviour
                 jugadorActual.GetComponent<PlayerInput>().SwitchCurrentControlScheme("Teclado Derecho", Keyboard.current);
             }
             jugadorActual.transform.position = spawn.eleccionDePosicion();
+            jugadorActual.GetComponent<JugadorManager>().VoltearSpritesheet();
         }
     }
 

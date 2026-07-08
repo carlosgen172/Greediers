@@ -29,7 +29,7 @@ public class MineState : FSM_Base
             fsm.ChangeState(fsm.RunState);
         }
 
-        if (fsm.jugadorActual.inputPlayer.JumpPressed)
+        if (fsm.jugadorActual.inputPlayer.estaSaltando)
         {
             fsm.ChangeState(fsm.JumpState);
             Debug.Log("jugador saltando");

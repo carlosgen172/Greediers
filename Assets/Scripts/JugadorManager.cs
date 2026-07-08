@@ -12,7 +12,6 @@ public enum TipoHabilidad { SuperSalto, DobleVelocidad, DobleTamanio, Momia }
 
 public class JugadorManager : MonoBehaviour
 {
-
     //Componentes
     [Header("Subsistemas del jugador:")]
     public MovementJugador movementPlayer;
@@ -299,7 +298,12 @@ public class JugadorManager : MonoBehaviour
 
         while (monticulo != null && monticulo.saludMonticulo > 0)
         {
+            inputPlayer.estaMinando = true;
+
             yield return new WaitForSeconds(1.5f);
+
+            //inputPlayer.estaMinando = false;
+
             AudioManager.Instance.ReproducirSonido(sfx_minar);
             /* monticulo.saludMonticulo -= 1;
             jugadorPuntaje.puntaje += 1; */
@@ -360,6 +364,11 @@ public class JugadorManager : MonoBehaviour
     public void ActivarHabilidadMomia()
     {
         StartCoroutine(CorrutinaMomia(5f));
+    }
+
+    public void VoltearSpritesheet()
+    {
+        spriteRenderer.flipX = true;
     }
 }
 

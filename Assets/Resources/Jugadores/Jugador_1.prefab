@@ -131,7 +131,6 @@ GameObject:
   - component: {fileID: 5990345328960404073}
   - component: {fileID: 5990345328960404072}
   - component: {fileID: 5990345328960404071}
-  - component: {fileID: 5990345328960404070}
   - component: {fileID: 5990345328960404069}
   - component: {fileID: 5990345328960404078}
   - component: {fileID: 8459664146934093291}
@@ -326,20 +325,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   seEstaMoviendo: 0
   estaQuieto: 0
+  estaMinando: 0
+  estaSaltando: 0
   movimiento: {fileID: -7341827773077115694, guid: 39ee64ab27c65004e9e7479e5e2cb832, type: 3}
   interaccion: {fileID: 6677082379896660183, guid: 39ee64ab27c65004e9e7479e5e2cb832, type: 3}
---- !u!114 &5990345328960404070
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5990345328960404068}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f1839dc9472f4047b737623132ce8d6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &5990345328960404069
 MonoBehaviour:
   m_ObjectHideFlags: 0

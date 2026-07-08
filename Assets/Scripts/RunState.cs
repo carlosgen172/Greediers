@@ -23,13 +23,13 @@ public class RunState : FSM_Base
             fsm.ChangeState(fsm.IdleState);
         }
 
-        if (fsm.jugadorActual.inputPlayer.InteractPressed)
+        if (fsm.jugadorActual.inputPlayer.estaMinando)
         {
             fsm.ChangeState(fsm.MineState);
             Debug.Log("jugador minando");
         }
 
-        if (fsm.jugadorActual.inputPlayer.JumpPressed)
+        if (fsm.jugadorActual.inputPlayer.estaSaltando)
         {
             fsm.ChangeState(fsm.JumpState);
             Debug.Log("jugador saltando");
