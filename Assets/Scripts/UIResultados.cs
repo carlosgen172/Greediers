@@ -25,12 +25,12 @@ public class UIResultados : MonoBehaviour
 
         if (listaOrdenada.Count == 0)
         {
-            AudioManager.Instance.ReproducirSonido(jingleEmpate);
+            AudioManager.Instance.ReproducirSonido(jingleEmpate, 1);
             textoResultadosFinales.text += "TODOS MANCOS";
         }
         else
         {
-            AudioManager.Instance.ReproducirSonido(jingleVictoria);
+            AudioManager.Instance.ReproducirSonido(jingleVictoria, 1);
         }
     }
 

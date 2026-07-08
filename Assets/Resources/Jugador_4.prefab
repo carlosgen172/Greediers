@@ -126,7 +126,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5990345328960404077}
   - component: {fileID: 5990345328960404076}
-  - component: {fileID: 3845963944543707030}
   - component: {fileID: 5990345328960404074}
   - component: {fileID: 5990345328960404073}
   - component: {fileID: 5990345328960404072}
@@ -137,6 +136,7 @@ GameObject:
   - component: {fileID: 5058382718068504796}
   - component: {fileID: 7798441109112693162}
   - component: {fileID: -5830734115576944343}
+  - component: {fileID: -6667449384423929783}
   m_Layer: 3
   m_Name: Jugador_4
   m_TagString: jugador
@@ -153,7 +153,7 @@ Transform:
   m_GameObject: {fileID: 5990345328960404068}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 8, y: -4, z: 0}
-  m_LocalScale: {x: 0.22378322, y: 0.22854997, z: 1}
+  m_LocalScale: {x: 0.34, y: 0.34724236, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5990345330203583605}
@@ -213,32 +213,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &3845963944543707030
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5990345328960404068}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -0.08281243, y: -0.063456535}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2, y: 2}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.76866233, y: 1.3936458}
-  m_EdgeRadius: 0
 --- !u!50 &5990345328960404074
 Rigidbody2D:
   serializedVersion: 4
@@ -279,6 +253,7 @@ MonoBehaviour:
   esDobleTamanio: 0
   estaSobreElTesoro: 0
   esMomia: 0
+  estaMinando: 0
   tagJugador: 
   shootPoint: {fileID: 0}
   jugadorSeleccionado: 
@@ -456,6 +431,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 5990345328960404073}
+        m_TargetAssemblyTypeName: JugadorManager, Assembly-CSharp
+        m_MethodName: EstaSaltando
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: e703bdf1-3ccb-475f-8f22-a8fa4e615d3e
     m_ActionName: Jugador/Saltar[/Keyboard/z,/Keyboard/comma,/XInputControllerWindows/buttonSouth]
   - m_PersistentCalls:
@@ -496,6 +483,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 5990345328960404073}
+        m_TargetAssemblyTypeName: JugadorManager, Assembly-CSharp
+        m_MethodName: EstaMinando
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: fc8f1dd1-14e3-4ef1-9df9-41482e227d9a
     m_ActionName: Jugador/Interaccion[/Keyboard/q,/Keyboard/period,/XInputControllerWindows/buttonWest]
   m_NeverAutoSwitchControlSchemes: 0
@@ -524,6 +523,22 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!70 &-6667449384423929783
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5990345328960404068}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.006759961, y: -0.020480867}
+  m_Size: {x: 0.68171304, y: 1.3733178}
+  m_Direction: 0
 --- !u!1 &5990345330203583604
 GameObject:
   m_ObjectHideFlags: 0

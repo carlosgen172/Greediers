@@ -63,7 +63,7 @@ public class TrampaRocaController : TrampaBaseController
                 {
                     // comparativa para evitar los números negativos  
                     jugadorPuntaje.puntaje = Mathf.Max(0, jugadorPuntaje.puntaje - 5);
-                    AudioManager.Instance.ReproducirSonido(jugadorController.sfx_danio);
+                    AudioManager.Instance.ReproducirSonido(jugadorController.sfx_danio, 1);
 
                     // actualizacion de la ui (resta de punto si recibe daño)
                     UIManager ui = FindObjectOfType<UIManager>();

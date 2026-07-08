@@ -93,14 +93,14 @@ public class BotonesManager : MonoBehaviour, IPointerDownHandler, IPointerUpHand
     //Función ejecutable cuando el boton es presionado:
     public void OnPointerDown(PointerEventData eventData) //pointerEventData: instancia de elemento referido a los eventos de interfaz, que se genera cada que se cumple esta acción, guardando toda la información relevante al botón.
     {
-        AudioManager.Instance.ReproducirSonido(SonidoBotonAbajo);
+        AudioManager.Instance.ReproducirSonido(SonidoBotonAbajo, 1);
         
     }
 
     //Función ejecutable cuando el boton es soltado:
     public void OnPointerUp(PointerEventData eventData)
     {
-        AudioManager.Instance.ReproducirSonido(SonidoBotonArriba);
+        AudioManager.Instance.ReproducirSonido(SonidoBotonArriba, 1);
         
         accionAlSoltar?.Invoke();
     }

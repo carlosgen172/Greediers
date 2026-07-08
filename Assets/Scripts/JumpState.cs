@@ -15,20 +15,23 @@ public class JumpState : FSM_Base
     {
         if (fsm.animator == null) return;
         AnimationManager.Instance.ChangeAnimation("Jump", fsm.animator);
-        Debug.Log("jugador saltando");
+        Debug.Log("saltando");
     }
 
     public override void Update()
     {
-        if (fsm.jugadorActual.movementPlayer.estaEnElSuelo)
+        if (fsm.jugadorActual.movementPlayer.estaEnElSuelo && !fsm.jugadorActual.estaMinando && fsm.jugadorActual.inputPlayer.estaQuieto)
         {
             fsm.ChangeState(fsm.IdleState);
+        }
+        if(fsm.jugadorActual.movementPlayer.estaEnElSuelo && !fsm.jugadorActual.estaMinando && !fsm.jugadorActual.inputPlayer.estaQuieto) 
+        {
+            fsm.ChangeState(fsm.RunState);
         }
     }
 
     public override void Exit()
     {
-        if (fsm.animator != null)
-            fsm.animator.StopPlayback();
+        
     }
 }

@@ -40,7 +40,7 @@ public class MovementJugador : MonoBehaviour
 
         rbPlayer.drag = 0;
 
-        longitudLineaColision = transform.localScale.x / 1.5f;
+        longitudLineaColision = transform.localScale.x / 0.9f;
 
         speed = 3f;
         escalaOriginal = transform.localScale;
@@ -86,9 +86,9 @@ public class MovementJugador : MonoBehaviour
     {
         if (context.started && estaEnElSuelo)
         {
-
+            
             rbPlayer.velocity = new Vector2(rbPlayer.velocity.x, fuerzaSalto);
-            AudioManager.Instance.ReproducirSonido(jugadorManager.sfx_salto);
+            AudioManager.Instance.ReproducirSonido(jugadorManager.sfx_salto, 1);
         }
     }
 

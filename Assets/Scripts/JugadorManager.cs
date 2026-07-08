@@ -18,13 +18,15 @@ public class JugadorManager : MonoBehaviour
     public MovementJugador movementPlayer;
     public InputManager inputPlayer;
     public AnimationManager animacionesJugador;
+    FSM_Jugador fsm;
 
-    [Header ("Booleanos para logicas del jugador:")]
+    [Header("Booleanos para logicas del jugador:")]
     public bool habilidadActivada;
     public bool esDobleTamanio;
     public bool estaSobreElTesoro;
     public static bool hayAlgunaMomiaEnJuego = false;
     public bool esMomia = false;
+    public bool estaMinando;
 
     // Componentes para la recoleccion de tesoros y activacion de trampas
     private Coroutine corrutinaTesoro;
@@ -79,6 +81,7 @@ public class JugadorManager : MonoBehaviour
         inputPlayer = GetComponent<InputManager>();
         animacionesJugador = GetComponent<AnimationManager>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        fsm = GetComponent<FSM_Jugador>();
 
         tagJugador = gameObject.tag;
         sfx_salto = Resources.Load<AudioClip>("salto-cartoon");
@@ -100,11 +103,13 @@ public class JugadorManager : MonoBehaviour
         duracionHablidadAgrandamiento = 10f;
         duracionHablidadSuperSalto = 5f;
         duracionHablidadVelocidad = 5f;
+
+        estaMinando = false;
     }
 
     public void RecibirInputInteraccion(InputAction.CallbackContext context)
     {
-        if(esMomia) return;
+        if (esMomia) return;
         if (context.started)
         {
             if (estaSobreElTesoro && corrutinaTesoro == null)
@@ -120,15 +125,15 @@ public class JugadorManager : MonoBehaviour
 
     public void ActivarPalancaATravesDeInput(InputAction.CallbackContext context)
     {
-        if(esMomia) return;
-        if(palancaCercana != null && context.started)
+        if (esMomia) return;
+        if (palancaCercana != null && context.started)
         {
             palancaCercana.IntentarActivarInterruptor();
         }
     }
 
     // Start is called before the first frame update
-    
+
 
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -198,7 +203,7 @@ public class JugadorManager : MonoBehaviour
     private IEnumerator CorrutinaSuperSalto(float duracion)
     {
         habilidadActivada = true;
-        AudioManager.Instance.ReproducirSonido(sfx_habilidad_simple);
+        AudioManager.Instance.ReproducirSonido(sfx_habilidad_simple, 1);
         spriteRenderer.color = Color.green;
         movementPlayer.AjustarSalto(true);
         yield return new WaitForSeconds(duracion);
@@ -216,7 +221,7 @@ public class JugadorManager : MonoBehaviour
     private IEnumerator CorrutinaDobleVelocidad(float duracion)
     {
         habilidadActivada = true;
-        AudioManager.Instance.ReproducirSonido(sfx_habilidad_simple);
+        AudioManager.Instance.ReproducirSonido(sfx_habilidad_simple, 1);
         spriteRenderer.color = Color.blue;
         movementPlayer.AjustarVelocidad(2.0f);
         yield return new WaitForSeconds(duracion);
@@ -235,7 +240,7 @@ public class JugadorManager : MonoBehaviour
     {
         habilidadActivada = true;
         esDobleTamanio = true;
-        AudioManager.Instance.ReproducirSonido(sfx_habilidad_simple);
+        AudioManager.Instance.ReproducirSonido(sfx_habilidad_simple, 1);
         spriteRenderer.color = Color.yellow;
         movementPlayer.AjustarTamanio(2.0f);
         movementPlayer.AjustarVelocidad(0.5f); //la velocidad va a ser más lenta
@@ -289,9 +294,9 @@ public class JugadorManager : MonoBehaviour
 
         while (monticulo != null && monticulo.saludMonticulo > 0)
         {
-            yield return new WaitForSeconds(1.5f);
+            yield return new WaitForSeconds(1.1f);
 
-            AudioManager.Instance.ReproducirSonido(sfx_minar);
+            AudioManager.Instance.ReproducirSonido(sfx_minar, 1.5f);
 
             int cantidadRecolectada = esDobleTamanio ? 2 : 1;
 
@@ -331,23 +336,23 @@ public class JugadorManager : MonoBehaviour
         spriteRenderer.color = Color.red;
         spriteRenderer.sprite = spriteMomia;
 
-        AudioManager.Instance.ReproducirSonido(sfx_habilidad_momia);
-        
+        AudioManager.Instance.ReproducirSonido(sfx_habilidad_momia, 1);
+
         movementPlayer.AjustarTamanio(2.0f);
         movementPlayer.AjustarVelocidad(0.5f);
-        
+
         if (movementPlayer.estoyMirandoALaIzquierda())
         {
             spriteRenderer.flipX = true;
         }
-        
+
         StartCoroutine(sistemaInvulnerabilidad.CorrutinaInvulnerabilidadMomia(duracionMomia));
 
         yield return new WaitForSeconds(duracionMomia);
 
         spriteRenderer.sprite = spriteOriginal;
         spriteRenderer.color = colorOriginal;
-        
+
         movementPlayer.AjustarTamanio(1.0f);
         movementPlayer.AjustarVelocidad(1.0f);
 
@@ -359,5 +364,31 @@ public class JugadorManager : MonoBehaviour
     public void ActivarHabilidadMomia()
     {
         StartCoroutine(CorrutinaMomia(duracionMomia));
+    }
+
+    public void VoltearSpritesheet()
+    {
+        spriteRenderer.flipX = true;
+    }
+
+    public void EstaSaltando(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            fsm.ChangeState(fsm.JumpState);
+        }
+    }
+
+    public void EstaMinando(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            estaMinando = true;
+            fsm.ChangeState(fsm.MineState);
+        }
+        else if (context.canceled)
+        {
+            estaMinando = false;
+        }
     }
 }

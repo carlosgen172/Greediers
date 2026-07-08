@@ -58,7 +58,7 @@ public class AudioManager : MonoBehaviour
         audioFondo.Stop();
     }
 
-    public void ReproducirSonido(AudioClip sonidoAReproducir)
+    public void ReproducirSonido(AudioClip sonidoAReproducir, float unPitch)
     {
         if(sonidoAReproducir == null)
         {
@@ -68,6 +68,7 @@ public class AudioManager : MonoBehaviour
 
         audioSFX.PlayOneShot(sonidoAReproducir);
         audioSFX.volume = volumenSFX;
+        audioSFX.pitch = unPitch;
     }
 
     public void DetenerSonido()

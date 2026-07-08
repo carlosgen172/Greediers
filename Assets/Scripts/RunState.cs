@@ -18,27 +18,24 @@ public class RunState : FSM_Base
 
     public override void Update()
     {
-        if (fsm.jugadorActual.inputPlayer.estaQuieto)
+        if (fsm.jugadorActual.movementPlayer.estaEnElSuelo && !fsm.jugadorActual.estaMinando && fsm.jugadorActual.inputPlayer.estaQuieto)
         {
             fsm.ChangeState(fsm.IdleState);
         }
 
-        if (fsm.jugadorActual.inputPlayer.InteractPressed)
+        if (fsm.jugadorActual.movementPlayer.estaEnElSuelo && fsm.jugadorActual.estaMinando && fsm.jugadorActual.inputPlayer.estaQuieto)
         {
             fsm.ChangeState(fsm.MineState);
-            Debug.Log("jugador minando");
         }
 
-        if (fsm.jugadorActual.inputPlayer.JumpPressed)
+        if (!fsm.jugadorActual.movementPlayer.estaEnElSuelo && !fsm.jugadorActual.estaMinando)
         {
             fsm.ChangeState(fsm.JumpState);
-            Debug.Log("jugador saltando");
         }
     }
 
     public override void Exit()
     {
-        if (fsm.animator != null)
-            fsm.animator.StopPlayback();
+        
     }
 }

@@ -133,6 +133,8 @@ public class SistemaPartidas : MonoBehaviour
             }
 
             jugadorActual.transform.position = spawn.eleccionDePosicion();
+
+            jugadorActual.GetComponent<JugadorManager>().VoltearSpritesheet();
         }
 
         uiManager.InicializarTextosDePuntuacion();
@@ -223,7 +225,7 @@ public class SistemaPartidas : MonoBehaviour
 
         contadorTiempoPartida.text = $"{tiempoActual}";
 
-        AudioManager.Instance.ReproducirSonido(efectoSonidoDerrumbe);
+        AudioManager.Instance.ReproducirSonido(efectoSonidoDerrumbe, 1);
         AudioManager.Instance.DetenerMusica();
         AudioManager.Instance.ReproducirMusica(musicaNivelSegundosFinales);
 

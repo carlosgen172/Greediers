@@ -14,31 +14,30 @@ public class MineState : FSM_Base
     public override void Enter()
     {
         if (fsm.animator == null) return;
-        AnimationManager.Instance.ChangeAnimation("Idle", fsm.animator);
+        AnimationManager.Instance.ChangeAnimation("Picar", fsm.animator);
+        Debug.Log("EL JUGADOR ESTA MINANDO");
     }
 
     public override void Update()
     {
-        if (fsm.jugadorActual.inputPlayer.estaQuieto)
+        if (fsm.jugadorActual.inputPlayer.estaQuieto && !fsm.jugadorActual.estaMinando && fsm.jugadorActual.movementPlayer.estaEnElSuelo)
         {
             fsm.ChangeState(fsm.IdleState);
         }
 
-        if (fsm.jugadorActual.inputPlayer.seEstaMoviendo)
+        if (fsm.jugadorActual.inputPlayer.seEstaMoviendo && !fsm.jugadorActual.estaMinando && fsm.jugadorActual.movementPlayer.estaEnElSuelo)
         {
             fsm.ChangeState(fsm.RunState);
         }
 
-        if (fsm.jugadorActual.inputPlayer.JumpPressed)
+        if(!fsm.jugadorActual.movementPlayer.estaEnElSuelo && !fsm.jugadorActual.estaMinando)
         {
             fsm.ChangeState(fsm.JumpState);
-            Debug.Log("jugador saltando");
         }
     }
 
     public override void Exit()
     {
-        if (fsm.animator != null)
-            fsm.animator.StopPlayback();
+        
     }
 }
