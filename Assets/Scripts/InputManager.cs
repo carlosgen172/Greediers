@@ -12,20 +12,20 @@ public class InputManager : MonoBehaviour
 
     public bool InteractPressed {get; private set;}
 
-    // Booleanos para lógica de fsm
     public bool seEstaMoviendo = false;
     public bool estaQuieto = false;
+    public bool estaMinando = false;
+    public bool estaSaltando = false;
 
-    // Otros componentes
-    private Rigidbody2D rbPlayer;
+    Rigidbody2D rbPlayer;
     public InputActionReference movimiento;
     public InputActionReference interaccion;
-
 
     void Awake()
     {
         rbPlayer = GetComponent<Rigidbody2D>();
     }
+
     void Update()
     {
         estaQuieto = rbPlayer.velocity == new Vector2(0,0);
@@ -33,6 +33,7 @@ public class InputManager : MonoBehaviour
 
         JumpPressed = movimiento.action.triggered;
         InteractPressed = interaccion.action.triggered;
+
     }
 
 }

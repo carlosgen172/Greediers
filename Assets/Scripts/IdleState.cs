@@ -4,11 +4,8 @@ using UnityEngine;
 
 public class IdleState : FSM_Base
 {
-    // Referencia al componente fsm del jugador
     private FSM_Jugador fsm;
 
-
-    // Setea la variable fsm en base al componente del jugador
     public IdleState(FSM_Jugador fsm)
     {
         this.fsm = fsm;
@@ -16,30 +13,33 @@ public class IdleState : FSM_Base
 
     public override void Enter()
     {
-        Debug.Log("Estoy en Idle");
+        if (fsm.animator == null) return;
+        AnimationManager.Instance.ChangeAnimation("Idle", fsm.animator);
     }
 
     public override void Update()
     {
-        if(fsm.jugadorActual.inputPlayer.seEstaMoviendo)
+        if (fsm.jugadorActual.inputPlayer.seEstaMoviendo)
         {
             fsm.ChangeState(fsm.RunState);
         }
 
-        if(fsm.jugadorActual.inputPlayer.InteractPressed)
+        if (fsm.jugadorActual.inputPlayer.InteractPressed)
         {
             fsm.ChangeState(fsm.MineState);
+            Debug.Log("jugador minando");
         }
 
-        if(fsm.jugadorActual.inputPlayer.JumpPressed)
+        if (fsm.jugadorActual.inputPlayer.JumpPressed)
         {
             fsm.ChangeState(fsm.JumpState);
+            Debug.Log("jugador saltando");
         }
-
     }
 
     public override void Exit()
     {
-
+        if (fsm.animator != null)
+            fsm.animator.StopPlayback();
     }
 }

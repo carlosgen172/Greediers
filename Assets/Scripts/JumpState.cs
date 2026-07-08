@@ -5,18 +5,17 @@ using UnityEngine;
 public class JumpState : FSM_Base
 {
 
-    // Referencia a su fsm
     private FSM_Jugador fsm;
 
-    // Setea su estado en base al fsm del jugador
     public JumpState(FSM_Jugador fsm)
     {
         this.fsm = fsm;
     }
-    
     public override void Enter()
     {
-        Debug.Log("Estoy en Jump");
+        if (fsm.animator == null) return;
+        AnimationManager.Instance.ChangeAnimation("Jump", fsm.animator);
+        Debug.Log("jugador saltando");
     }
 
     public override void Update()
@@ -29,6 +28,7 @@ public class JumpState : FSM_Base
 
     public override void Exit()
     {
-
+        if (fsm.animator != null)
+            fsm.animator.StopPlayback();
     }
 }
