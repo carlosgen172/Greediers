@@ -40,12 +40,6 @@ public class BotonesManager : MonoBehaviour, IPointerDownHandler, IPointerUpHand
         InicializarBoton();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     //Funciones generales de cualquier botón:
 
 
@@ -101,15 +95,12 @@ public class BotonesManager : MonoBehaviour, IPointerDownHandler, IPointerUpHand
     {
         AudioManager.Instance.ReproducirSonido(SonidoBotonAbajo);
         
-        print("se presionó el botón e hizo un sonido");
     }
 
     //Función ejecutable cuando el boton es soltado:
     public void OnPointerUp(PointerEventData eventData)
     {
         AudioManager.Instance.ReproducirSonido(SonidoBotonArriba);
-
-        print("Se soltó el botón e hizo un sonido");
         
         accionAlSoltar?.Invoke();
     }
@@ -118,24 +109,21 @@ public class BotonesManager : MonoBehaviour, IPointerDownHandler, IPointerUpHand
 
     public void IrAlMenuDeSeleccion()
     {
-        print("Acabo de presionar el boton de play");
         CambiarAEscenaCorrespondiente();
     }
 
     public void IrAOpciones()
     {
-        print("Acabo de presionar el botón de Options");
         CambiarAEscenaCorrespondiente();
     }
 
-    public void IrAlTutorial() {
-        print("Acabo de presionar el boton de Tutorial");
+    public void IrAlTutorial() 
+    {
         CambiarAEscenaCorrespondiente();
     }
 
     public void SalirDelJuego()
     {
-        print("He salido del juego");
         Application.Quit();
     }
 
@@ -143,7 +131,6 @@ public class BotonesManager : MonoBehaviour, IPointerDownHandler, IPointerUpHand
 
     public void IrAlNivel()
     {
-        print("Acabo de presionar el boton de juegar");
         CambiarAEscenaCorrespondiente();
     }
 
@@ -152,8 +139,6 @@ public class BotonesManager : MonoBehaviour, IPointerDownHandler, IPointerUpHand
     public void PausarJuego()
     {
         if(JuegoManager.Instance.escenaActual != "Nivel") return;
-        
-        print("Acabo de presionar el boton de pausa");
         
         var sistemaDePartidas = GameObject.Find("ControladorPartida");
         var sistemaDePartidasFuncional = sistemaDePartidas.GetComponent<SistemaPartidas>();
@@ -166,8 +151,6 @@ public class BotonesManager : MonoBehaviour, IPointerDownHandler, IPointerUpHand
     public void ReanudarJuego()
     {
         if(JuegoManager.Instance.escenaActual != "Nivel") return;
-
-        print("Acabo de reanudar el juego");
         
         var sistemaDePartidas = GameObject.Find("ControladorPartida");
         var sistemaDePartidasFuncional = sistemaDePartidas.GetComponent<SistemaPartidas>();
@@ -177,7 +160,6 @@ public class BotonesManager : MonoBehaviour, IPointerDownHandler, IPointerUpHand
 
     public void SalirAlMenuPrincipal()
     {
-        print("Acabo de presionar el boton para salir al menu principal.");
 
         //En caso de que el botón y las escena sean las respectivas, detiene también la música y los sonidos del juego.
 
@@ -197,8 +179,7 @@ public class BotonesManager : MonoBehaviour, IPointerDownHandler, IPointerUpHand
         //Función que alterna los gráficos del nivel, activándolos o 
         //desactivándolos desde el sistema de partidas en base a su 
         //estado de verdad en el JuegoManager.
-
-        print("He presionado el botón para alternar los gráficos");
+        
         JuegoManager.Instance.AlternarGraficosDeFondo();
         CambiarTextoDeBoton();
     }
@@ -228,6 +209,7 @@ public class BotonesManager : MonoBehaviour, IPointerDownHandler, IPointerUpHand
         if(JuegoManager.Instance.fondoActivado)
         {
             componenteDeTexto.text = "Activado";
+            
         } else
         {
             componenteDeTexto.text = "Desactivado";

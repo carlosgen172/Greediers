@@ -19,27 +19,25 @@ public class JugadorManager : MonoBehaviour
     public InputManager inputPlayer;
     public AnimationManager animacionesJugador;
 
+    [Header ("Booleanos para logicas del jugador:")]
     public bool habilidadActivada;
     public bool esDobleTamanio;
     public bool estaSobreElTesoro;
+    public static bool hayAlgunaMomiaEnJuego = false;
+    public bool esMomia = false;
+
+    // Componentes para la recoleccion de tesoros y activacion de trampas
     private Coroutine corrutinaTesoro;
     private MonticuloController monticulo;
+    private PalancaController palancaCercana;
 
     [Header("Tag de jugador:")]
     public string tagJugador;
-
-    private PalancaController palancaCercana;
-
-    public static bool hayAlgunaMomiaEnJuego = false;
-
-    [Header("Booleano para la lógica de la momia:")]
-    public bool esMomia = false;
 
     [Header("Prefabs/GameObjects necesarios para lógicas complementarias")]
     public GameObject shootPoint; //Setearla como prefab
 
     [Header("Provisorios:")]
-    public bool estaEnJuego = false; //Por si el jugador se crea antes de su seteo de controles.
     public string jugadorSeleccionado; //String que le podría llegar a pasar el sistema de seleccion y spawn de pjs al jugador.
     //Potencial forma de guardar los spritesheets posibles del pj:
     //public spriteSheets spritesheetsProvisorio_1;
@@ -60,12 +58,19 @@ public class JugadorManager : MonoBehaviour
     private InputAction interactuarAction;
     [SerializeField] SistemaPartidas sistemaPartidaActual;
 
-    //para el cambio de sprite de la momia
+    //Para el cambio de sprite de la momia
     public SpriteRenderer spriteRenderer;
+    private Color colorOriginal;
     public Sprite spriteMomia;
     private Sprite spriteOriginal;
     public float duracionMomia;
     private SistemaInvulnerabilidad sistemaInvulnerabilidad;
+
+    // 😊🐀
+
+    [SerializeField] private float duracionHablidadVelocidad;
+    [SerializeField] private float duracionHablidadAgrandamiento;
+    [SerializeField] private float duracionHablidadSuperSalto;
 
 
     void Awake()
@@ -85,6 +90,16 @@ public class JugadorManager : MonoBehaviour
         playerInput = GetComponent<PlayerInput>();
         interactuarAction = playerInput.actions["Interaccion"];
         sistemaInvulnerabilidad = GetComponent<SistemaInvulnerabilidad>();
+    }
+
+    void Start()
+    {
+        sistemaPartidaActual = GameObject.Find("ControladorPartida").GetComponent<SistemaPartidas>();
+        duracionMomia = 10f;
+        colorOriginal = spriteRenderer.color;
+        duracionHablidadAgrandamiento = 10f;
+        duracionHablidadSuperSalto = 5f;
+        duracionHablidadVelocidad = 5f;
     }
 
     public void RecibirInputInteraccion(InputAction.CallbackContext context)
@@ -113,11 +128,7 @@ public class JugadorManager : MonoBehaviour
     }
 
     // Start is called before the first frame update
-    void Start()
-    {
-        sistemaPartidaActual = GameObject.Find("ControladorPartida").GetComponent<SistemaPartidas>();
-        duracionMomia = 10f;
-    }
+    
 
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -151,7 +162,6 @@ public class JugadorManager : MonoBehaviour
         {
             monticulo = other.GetComponent<MonticuloController>();
             estaSobreElTesoro = true;
-            print("el monticulo fue detectado: " + monticulo.name);
         }
     }
 
@@ -182,54 +192,57 @@ public class JugadorManager : MonoBehaviour
 
     public void ActivarSuperSalto()
     {
-        StartCoroutine(CorrutinaSuperSalto(5f));
+        StartCoroutine(CorrutinaSuperSalto(duracionHablidadSuperSalto));
     }
 
     private IEnumerator CorrutinaSuperSalto(float duracion)
     {
         habilidadActivada = true;
-        print("duración de supersalto: " + duracion + "segundos");
+        AudioManager.Instance.ReproducirSonido(sfx_habilidad_simple);
+        spriteRenderer.color = Color.green;
         movementPlayer.AjustarSalto(true);
         yield return new WaitForSeconds(duracion);
         movementPlayer.AjustarSalto(false);
-        print("super salto desactivado");
+        spriteRenderer.color = colorOriginal;
         habilidadActivada = false;
     }
 
     //-----------------------------------------DOBLE VELOCIDAD 
     public void ActivarDobleVelocidad()
     {
-        StartCoroutine(CorrutinaDobleVelocidad(5f));
+        StartCoroutine(CorrutinaDobleVelocidad(duracionHablidadVelocidad));
     }
 
     private IEnumerator CorrutinaDobleVelocidad(float duracion)
     {
         habilidadActivada = true;
-        print("duración de doble velocidad: " + duracion + "segundos");
+        AudioManager.Instance.ReproducirSonido(sfx_habilidad_simple);
+        spriteRenderer.color = Color.blue;
         movementPlayer.AjustarVelocidad(2.0f);
         yield return new WaitForSeconds(duracion);
         movementPlayer.AjustarVelocidad(1.0f);
-        print("doble velocidad desactivado");
+        spriteRenderer.color = colorOriginal;
         habilidadActivada = false;
     }
 
     //-----------------------------------------DOBLE TAMANIO  
     public void ActivarDobleTamanio()
     {
-        StartCoroutine(CorrutinaDobleTamanio(10f));
+        StartCoroutine(CorrutinaDobleTamanio(duracionHablidadAgrandamiento));
     }
 
     private IEnumerator CorrutinaDobleTamanio(float duracion)
     {
         habilidadActivada = true;
         esDobleTamanio = true;
-        print("duración de doble tamanio: " + duracion + "segundos");
+        AudioManager.Instance.ReproducirSonido(sfx_habilidad_simple);
+        spriteRenderer.color = Color.yellow;
         movementPlayer.AjustarTamanio(2.0f);
         movementPlayer.AjustarVelocidad(0.5f); //la velocidad va a ser más lenta
         yield return new WaitForSeconds(duracion);
         movementPlayer.AjustarTamanio(1.0f);
         movementPlayer.AjustarVelocidad(1.0f); //se reanuda la velocidad original
-        print("doble tamanio desactivado");
+        spriteRenderer.color = colorOriginal;
         habilidadActivada = false;
         esDobleTamanio = false;
     }
@@ -237,9 +250,9 @@ public class JugadorManager : MonoBehaviour
     public void ActivarHabilidad()
     {
         TipoHabilidad tipo = (TipoHabilidad)Random.Range(0, 4);
-        // si hya habilidad activada, evita tomar otras habilidades
+        // si hay habilidad activada, evita tomar otras habilidades
         if (habilidadActivada) return;
-        // usar switrch para intercambiar entre los tipo de habilidades
+        // usar switch para intercambiar entre los tipo de habilidades
         switch (tipo)
         {
             case TipoHabilidad.SuperSalto:
@@ -257,15 +270,6 @@ public class JugadorManager : MonoBehaviour
             case TipoHabilidad.Momia:
                 ActivarHabilidadMomia();
                 break;
-        }
-
-        // para que no haya dos momias a la vez
-        if (tipo == TipoHabilidad.Momia && hayAlgunaMomiaEnJuego)
-        {
-            print("Ya hay una momia en juego");
-            // para que busque otra habilidad si hay momia en juego 
-            ActivarHabilidad();
-            return;
         }
     }
 
@@ -286,9 +290,8 @@ public class JugadorManager : MonoBehaviour
         while (monticulo != null && monticulo.saludMonticulo > 0)
         {
             yield return new WaitForSeconds(1.5f);
+
             AudioManager.Instance.ReproducirSonido(sfx_minar);
-            /* monticulo.saludMonticulo -= 1;
-            jugadorPuntaje.puntaje += 1; */
 
             int cantidadRecolectada = esDobleTamanio ? 2 : 1;
 
@@ -304,10 +307,12 @@ public class JugadorManager : MonoBehaviour
             if (monticulo.saludMonticulo <= 0)
             {
                 int otorgarHabilidad = Random.Range(0, 2);
+
                 if (otorgarHabilidad == 1 && !habilidadActivada)
                 {
                     ActivarHabilidad();
                 }
+
                 monticulo.DestruirMonticulo();
             }
         }
@@ -319,29 +324,36 @@ public class JugadorManager : MonoBehaviour
         habilidadActivada = true;
         hayAlgunaMomiaEnJuego = true;
 
-        print("soy una momia");
-
         // de prueba
         spriteMomia = Resources.Load<Sprite>("MomiaPrueba");
 
-        spriteOriginal = spriteRenderer.sprite;
+        spriteOriginal = spriteRenderer.sprite; // Modificar cuando ya se tengan los spritesheets implementados
+        spriteRenderer.color = Color.red;
         spriteRenderer.sprite = spriteMomia;
 
+        AudioManager.Instance.ReproducirSonido(sfx_habilidad_momia);
+        
         movementPlayer.AjustarTamanio(2.0f);
         movementPlayer.AjustarVelocidad(0.5f);
+        
+        if (movementPlayer.estoyMirandoALaIzquierda())
+        {
+            spriteRenderer.flipX = true;
+        }
+        
         StartCoroutine(sistemaInvulnerabilidad.CorrutinaInvulnerabilidadMomia(duracionMomia));
 
         yield return new WaitForSeconds(duracionMomia);
 
         spriteRenderer.sprite = spriteOriginal;
+        spriteRenderer.color = colorOriginal;
+        
         movementPlayer.AjustarTamanio(1.0f);
         movementPlayer.AjustarVelocidad(1.0f);
 
         esMomia = false;
         habilidadActivada = false;
         hayAlgunaMomiaEnJuego = false;
-
-        print("ya no soy una momia");
     }
 
     public void ActivarHabilidadMomia()
@@ -349,4 +361,3 @@ public class JugadorManager : MonoBehaviour
         StartCoroutine(CorrutinaMomia(duracionMomia));
     }
 }
-

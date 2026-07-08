@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class MineState : FSM_Base
 {
+
+    // Referencia a su fsm
     private FSM_Jugador fsm;
 
+    // Seteo el fsm en base al fsm del jugador
     public MineState(FSM_Jugador fsm)
     {
         this.fsm = fsm;

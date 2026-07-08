@@ -266,6 +266,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Monticulo_4 (9)
       objectReference: {fileID: 0}
+    - target: {fileID: 2352531455086281677, guid: 61e780cabb8a2774698c320cf8be8bf7, type: 3}
+      propertyPath: m_SortingOrder
+      value: -1
+      objectReference: {fileID: 0}
     - target: {fileID: 2352531455086281678, guid: 61e780cabb8a2774698c320cf8be8bf7, type: 3}
       propertyPath: m_RootOrder
       value: 18
@@ -378,6 +382,10 @@ PrefabInstance:
     - target: {fileID: 2352531455086281672, guid: 61e780cabb8a2774698c320cf8be8bf7, type: 3}
       propertyPath: m_Name
       value: Monticulo_4 (10)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2352531455086281677, guid: 61e780cabb8a2774698c320cf8be8bf7, type: 3}
+      propertyPath: m_SortingOrder
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 2352531455086281678, guid: 61e780cabb8a2774698c320cf8be8bf7, type: 3}
       propertyPath: m_RootOrder
@@ -767,6 +775,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4702443475441421238, guid: 353f7d97c533dd34590b4b699c6df335, type: 3}
+      propertyPath: m_SortingOrder
+      value: -1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 353f7d97c533dd34590b4b699c6df335, type: 3}
 --- !u!1 &136780428
@@ -912,6 +924,10 @@ PrefabInstance:
     - target: {fileID: 7172567034747248873, guid: 5eb4a0e46afef374f85b7b63b25ec841, type: 3}
       propertyPath: m_Name
       value: Monticulo_3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7172567034747248876, guid: 5eb4a0e46afef374f85b7b63b25ec841, type: 3}
+      propertyPath: m_SortingOrder
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 7172567034747248879, guid: 5eb4a0e46afef374f85b7b63b25ec841, type: 3}
       propertyPath: m_RootOrder
@@ -1317,6 +1333,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4702443475441421238, guid: 353f7d97c533dd34590b4b699c6df335, type: 3}
+      propertyPath: m_SortingOrder
+      value: -1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 353f7d97c533dd34590b4b699c6df335, type: 3}
 --- !u!4 &155973090 stripped
@@ -1334,6 +1354,10 @@ PrefabInstance:
     - target: {fileID: 2352531455086281672, guid: 61e780cabb8a2774698c320cf8be8bf7, type: 3}
       propertyPath: m_Name
       value: Monticulo_4 (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2352531455086281677, guid: 61e780cabb8a2774698c320cf8be8bf7, type: 3}
+      propertyPath: m_SortingOrder
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 2352531455086281678, guid: 61e780cabb8a2774698c320cf8be8bf7, type: 3}
       propertyPath: m_RootOrder
@@ -1533,6 +1557,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Monticulo_3 (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 7172567034747248876, guid: 5eb4a0e46afef374f85b7b63b25ec841, type: 3}
+      propertyPath: m_SortingOrder
+      value: -1
+      objectReference: {fileID: 0}
     - target: {fileID: 7172567034747248879, guid: 5eb4a0e46afef374f85b7b63b25ec841, type: 3}
       propertyPath: m_RootOrder
       value: 32
@@ -1731,6 +1759,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Monticulo_2 (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 3658795257075864164, guid: 0ea40669a347aff46bbe7a5561ccb74d, type: 3}
+      propertyPath: m_SortingOrder
+      value: -1
+      objectReference: {fileID: 0}
     - target: {fileID: 3658795257075864167, guid: 0ea40669a347aff46bbe7a5561ccb74d, type: 3}
       propertyPath: m_RootOrder
       value: 37
@@ -1848,6 +1880,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4702443475441421238, guid: 353f7d97c533dd34590b4b699c6df335, type: 3}
+      propertyPath: m_SortingOrder
+      value: -1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 353f7d97c533dd34590b4b699c6df335, type: 3}
 --- !u!4 &210135954 stripped
@@ -1865,6 +1901,10 @@ PrefabInstance:
     - target: {fileID: 2352531455086281672, guid: 61e780cabb8a2774698c320cf8be8bf7, type: 3}
       propertyPath: m_Name
       value: Monticulo_4 (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2352531455086281677, guid: 61e780cabb8a2774698c320cf8be8bf7, type: 3}
+      propertyPath: m_SortingOrder
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 2352531455086281678, guid: 61e780cabb8a2774698c320cf8be8bf7, type: 3}
       propertyPath: m_RootOrder
@@ -2553,6 +2593,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4702443475441421238, guid: 353f7d97c533dd34590b4b699c6df335, type: 3}
+      propertyPath: m_SortingOrder
+      value: -1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 353f7d97c533dd34590b4b699c6df335, type: 3}
 --- !u!1 &339346680
@@ -2771,6 +2815,10 @@ PrefabInstance:
     - target: {fileID: 4702443475441421237, guid: 353f7d97c533dd34590b4b699c6df335, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4702443475441421238, guid: 353f7d97c533dd34590b4b699c6df335, type: 3}
+      propertyPath: m_SortingOrder
+      value: -1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 353f7d97c533dd34590b4b699c6df335, type: 3}
@@ -4056,7 +4104,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 467060247}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.24, y: -2.77, z: 0}
+  m_LocalPosition: {x: -2.24, y: -2.86, z: 0}
   m_LocalScale: {x: 0.7395081, y: 0.7416307, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4073,6 +4121,10 @@ PrefabInstance:
     - target: {fileID: 2352531455086281672, guid: 61e780cabb8a2774698c320cf8be8bf7, type: 3}
       propertyPath: m_Name
       value: Monticulo_4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2352531455086281677, guid: 61e780cabb8a2774698c320cf8be8bf7, type: 3}
+      propertyPath: m_SortingOrder
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 2352531455086281678, guid: 61e780cabb8a2774698c320cf8be8bf7, type: 3}
       propertyPath: m_RootOrder
@@ -4138,6 +4190,10 @@ PrefabInstance:
     - target: {fileID: 3658795257075864161, guid: 0ea40669a347aff46bbe7a5561ccb74d, type: 3}
       propertyPath: m_Name
       value: Monticulo_2 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3658795257075864164, guid: 0ea40669a347aff46bbe7a5561ccb74d, type: 3}
+      propertyPath: m_SortingOrder
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 3658795257075864167, guid: 0ea40669a347aff46bbe7a5561ccb74d, type: 3}
       propertyPath: m_RootOrder
@@ -4208,6 +4264,10 @@ PrefabInstance:
     - target: {fileID: 2352531455086281672, guid: 61e780cabb8a2774698c320cf8be8bf7, type: 3}
       propertyPath: m_Name
       value: Monticulo_4 (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2352531455086281677, guid: 61e780cabb8a2774698c320cf8be8bf7, type: 3}
+      propertyPath: m_SortingOrder
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 2352531455086281678, guid: 61e780cabb8a2774698c320cf8be8bf7, type: 3}
       propertyPath: m_RootOrder
@@ -4678,6 +4738,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Monticulo_3
       objectReference: {fileID: 0}
+    - target: {fileID: 7172567034747248876, guid: 5eb4a0e46afef374f85b7b63b25ec841, type: 3}
+      propertyPath: m_SortingOrder
+      value: -1
+      objectReference: {fileID: 0}
     - target: {fileID: 7172567034747248879, guid: 5eb4a0e46afef374f85b7b63b25ec841, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -4748,6 +4812,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Monticulo_2
       objectReference: {fileID: 0}
+    - target: {fileID: 3658795257075864164, guid: 0ea40669a347aff46bbe7a5561ccb74d, type: 3}
+      propertyPath: m_SortingOrder
+      value: -1
+      objectReference: {fileID: 0}
     - target: {fileID: 3658795257075864167, guid: 0ea40669a347aff46bbe7a5561ccb74d, type: 3}
       propertyPath: m_RootOrder
       value: 40
@@ -4812,6 +4880,10 @@ PrefabInstance:
     - target: {fileID: 2352531455086281672, guid: 61e780cabb8a2774698c320cf8be8bf7, type: 3}
       propertyPath: m_Name
       value: Monticulo_4 (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2352531455086281677, guid: 61e780cabb8a2774698c320cf8be8bf7, type: 3}
+      propertyPath: m_SortingOrder
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 2352531455086281678, guid: 61e780cabb8a2774698c320cf8be8bf7, type: 3}
       propertyPath: m_RootOrder
@@ -5611,6 +5683,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Monticulo_2 (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 3658795257075864164, guid: 0ea40669a347aff46bbe7a5561ccb74d, type: 3}
+      propertyPath: m_SortingOrder
+      value: -1
+      objectReference: {fileID: 0}
     - target: {fileID: 3658795257075864167, guid: 0ea40669a347aff46bbe7a5561ccb74d, type: 3}
       propertyPath: m_RootOrder
       value: 16
@@ -5876,7 +5952,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.001946509, y: 0.0074476}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -5887,7 +5963,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.6223274, y: 0.6438801}
   m_EdgeRadius: 0
 --- !u!212 &596584887
 SpriteRenderer:
@@ -5929,9 +6005,9 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_Sprite: {fileID: 21300000, guid: c680fa82670ecef4aaba8be32d02e498, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -5966,6 +6042,10 @@ PrefabInstance:
     - target: {fileID: 3658795257075864161, guid: 0ea40669a347aff46bbe7a5561ccb74d, type: 3}
       propertyPath: m_Name
       value: Monticulo_2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3658795257075864164, guid: 0ea40669a347aff46bbe7a5561ccb74d, type: 3}
+      propertyPath: m_SortingOrder
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 3658795257075864167, guid: 0ea40669a347aff46bbe7a5561ccb74d, type: 3}
       propertyPath: m_RootOrder
@@ -6036,6 +6116,10 @@ PrefabInstance:
     - target: {fileID: 3658795257075864161, guid: 0ea40669a347aff46bbe7a5561ccb74d, type: 3}
       propertyPath: m_Name
       value: Monticulo_2 (8)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3658795257075864164, guid: 0ea40669a347aff46bbe7a5561ccb74d, type: 3}
+      propertyPath: m_SortingOrder
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 3658795257075864167, guid: 0ea40669a347aff46bbe7a5561ccb74d, type: 3}
       propertyPath: m_RootOrder
@@ -7690,6 +7774,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4702443475441421238, guid: 353f7d97c533dd34590b4b699c6df335, type: 3}
+      propertyPath: m_SortingOrder
+      value: -1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 353f7d97c533dd34590b4b699c6df335, type: 3}
 --- !u!4 &754778152 stripped
@@ -8040,7 +8128,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 774811308}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.84, y: -4.37, z: 0}
+  m_LocalPosition: {x: 6.62, y: -4.444, z: 0}
   m_LocalScale: {x: 0.7395081, y: 0.7416307, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -9121,6 +9209,10 @@ PrefabInstance:
     - target: {fileID: 3658795257075864161, guid: 0ea40669a347aff46bbe7a5561ccb74d, type: 3}
       propertyPath: m_Name
       value: Monticulo_2 (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3658795257075864164, guid: 0ea40669a347aff46bbe7a5561ccb74d, type: 3}
+      propertyPath: m_SortingOrder
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 3658795257075864167, guid: 0ea40669a347aff46bbe7a5561ccb74d, type: 3}
       propertyPath: m_RootOrder
@@ -67015,6 +67107,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Monticulo_4 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2352531455086281677, guid: 61e780cabb8a2774698c320cf8be8bf7, type: 3}
+      propertyPath: m_SortingOrder
+      value: -1
+      objectReference: {fileID: 0}
     - target: {fileID: 2352531455086281678, guid: 61e780cabb8a2774698c320cf8be8bf7, type: 3}
       propertyPath: m_RootOrder
       value: 42
@@ -67212,6 +67308,10 @@ PrefabInstance:
     - target: {fileID: 7172567034747248873, guid: 5eb4a0e46afef374f85b7b63b25ec841, type: 3}
       propertyPath: m_Name
       value: Monticulo_3 (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7172567034747248876, guid: 5eb4a0e46afef374f85b7b63b25ec841, type: 3}
+      propertyPath: m_SortingOrder
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 7172567034747248879, guid: 5eb4a0e46afef374f85b7b63b25ec841, type: 3}
       propertyPath: m_RootOrder
@@ -68097,6 +68197,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Monticulo_4 (11)
       objectReference: {fileID: 0}
+    - target: {fileID: 2352531455086281677, guid: 61e780cabb8a2774698c320cf8be8bf7, type: 3}
+      propertyPath: m_SortingOrder
+      value: -1
+      objectReference: {fileID: 0}
     - target: {fileID: 2352531455086281678, guid: 61e780cabb8a2774698c320cf8be8bf7, type: 3}
       propertyPath: m_RootOrder
       value: 11
@@ -68165,6 +68269,10 @@ PrefabInstance:
     - target: {fileID: 2352531455086281672, guid: 61e780cabb8a2774698c320cf8be8bf7, type: 3}
       propertyPath: m_Name
       value: Monticulo_4 (8)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2352531455086281677, guid: 61e780cabb8a2774698c320cf8be8bf7, type: 3}
+      propertyPath: m_SortingOrder
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 2352531455086281678, guid: 61e780cabb8a2774698c320cf8be8bf7, type: 3}
       propertyPath: m_RootOrder
@@ -68369,6 +68477,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Monticulo_4 (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 2352531455086281677, guid: 61e780cabb8a2774698c320cf8be8bf7, type: 3}
+      propertyPath: m_SortingOrder
+      value: -1
+      objectReference: {fileID: 0}
     - target: {fileID: 2352531455086281678, guid: 61e780cabb8a2774698c320cf8be8bf7, type: 3}
       propertyPath: m_RootOrder
       value: 29
@@ -68433,6 +68545,10 @@ PrefabInstance:
     - target: {fileID: 3658795257075864161, guid: 0ea40669a347aff46bbe7a5561ccb74d, type: 3}
       propertyPath: m_Name
       value: Monticulo_2 (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3658795257075864164, guid: 0ea40669a347aff46bbe7a5561ccb74d, type: 3}
+      propertyPath: m_SortingOrder
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 3658795257075864167, guid: 0ea40669a347aff46bbe7a5561ccb74d, type: 3}
       propertyPath: m_RootOrder
@@ -69189,6 +69305,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Monticulo_3 (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 7172567034747248876, guid: 5eb4a0e46afef374f85b7b63b25ec841, type: 3}
+      propertyPath: m_SortingOrder
+      value: -1
+      objectReference: {fileID: 0}
     - target: {fileID: 7172567034747248879, guid: 5eb4a0e46afef374f85b7b63b25ec841, type: 3}
       propertyPath: m_RootOrder
       value: 17
@@ -69520,6 +69640,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Monticulo_3 (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 7172567034747248876, guid: 5eb4a0e46afef374f85b7b63b25ec841, type: 3}
+      propertyPath: m_SortingOrder
+      value: -1
+      objectReference: {fileID: 0}
     - target: {fileID: 7172567034747248879, guid: 5eb4a0e46afef374f85b7b63b25ec841, type: 3}
       propertyPath: m_RootOrder
       value: 22
@@ -69595,6 +69719,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Monticulo_2 (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 3658795257075864164, guid: 0ea40669a347aff46bbe7a5561ccb74d, type: 3}
+      propertyPath: m_SortingOrder
+      value: -1
+      objectReference: {fileID: 0}
     - target: {fileID: 3658795257075864167, guid: 0ea40669a347aff46bbe7a5561ccb74d, type: 3}
       propertyPath: m_RootOrder
       value: 24
@@ -69664,6 +69792,10 @@ PrefabInstance:
     - target: {fileID: 3658795257075864161, guid: 0ea40669a347aff46bbe7a5561ccb74d, type: 3}
       propertyPath: m_Name
       value: Monticulo_2 (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3658795257075864164, guid: 0ea40669a347aff46bbe7a5561ccb74d, type: 3}
+      propertyPath: m_SortingOrder
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 3658795257075864167, guid: 0ea40669a347aff46bbe7a5561ccb74d, type: 3}
       propertyPath: m_RootOrder
@@ -70815,6 +70947,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Monticulo_2 (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 3658795257075864164, guid: 0ea40669a347aff46bbe7a5561ccb74d, type: 3}
+      propertyPath: m_SortingOrder
+      value: -1
+      objectReference: {fileID: 0}
     - target: {fileID: 3658795257075864167, guid: 0ea40669a347aff46bbe7a5561ccb74d, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -71016,6 +71152,10 @@ PrefabInstance:
     - target: {fileID: 4702443475441421237, guid: 353f7d97c533dd34590b4b699c6df335, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 27.843
+      objectReference: {fileID: 0}
+    - target: {fileID: 4702443475441421238, guid: 353f7d97c533dd34590b4b699c6df335, type: 3}
+      propertyPath: m_SortingOrder
+      value: -1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 353f7d97c533dd34590b4b699c6df335, type: 3}
@@ -72264,6 +72404,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Monticulo_4
       objectReference: {fileID: 0}
+    - target: {fileID: 2352531455086281677, guid: 61e780cabb8a2774698c320cf8be8bf7, type: 3}
+      propertyPath: m_SortingOrder
+      value: -1
+      objectReference: {fileID: 0}
     - target: {fileID: 2352531455086281678, guid: 61e780cabb8a2774698c320cf8be8bf7, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -72559,7 +72703,7 @@ Canvas:
   m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -2
   m_TargetDisplay: 0
 --- !u!224 &1577108467
 RectTransform:
@@ -73625,6 +73769,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Monticulo_3 (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 7172567034747248876, guid: 5eb4a0e46afef374f85b7b63b25ec841, type: 3}
+      propertyPath: m_SortingOrder
+      value: -1
+      objectReference: {fileID: 0}
     - target: {fileID: 7172567034747248879, guid: 5eb4a0e46afef374f85b7b63b25ec841, type: 3}
       propertyPath: m_RootOrder
       value: 26
@@ -73689,6 +73837,10 @@ PrefabInstance:
     - target: {fileID: 3658795257075864161, guid: 0ea40669a347aff46bbe7a5561ccb74d, type: 3}
       propertyPath: m_Name
       value: Monticulo_2 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3658795257075864164, guid: 0ea40669a347aff46bbe7a5561ccb74d, type: 3}
+      propertyPath: m_SortingOrder
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 3658795257075864167, guid: 0ea40669a347aff46bbe7a5561ccb74d, type: 3}
       propertyPath: m_RootOrder
@@ -74154,6 +74306,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Monticulo_2 (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 3658795257075864164, guid: 0ea40669a347aff46bbe7a5561ccb74d, type: 3}
+      propertyPath: m_SortingOrder
+      value: -1
+      objectReference: {fileID: 0}
     - target: {fileID: 3658795257075864167, guid: 0ea40669a347aff46bbe7a5561ccb74d, type: 3}
       propertyPath: m_RootOrder
       value: 20
@@ -74339,6 +74495,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Monticulo_4 (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 2352531455086281677, guid: 61e780cabb8a2774698c320cf8be8bf7, type: 3}
+      propertyPath: m_SortingOrder
+      value: -1
+      objectReference: {fileID: 0}
     - target: {fileID: 2352531455086281678, guid: 61e780cabb8a2774698c320cf8be8bf7, type: 3}
       propertyPath: m_RootOrder
       value: 33
@@ -74464,6 +74624,10 @@ PrefabInstance:
     - target: {fileID: 4702443475441421237, guid: 353f7d97c533dd34590b4b699c6df335, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4702443475441421238, guid: 353f7d97c533dd34590b4b699c6df335, type: 3}
+      propertyPath: m_SortingOrder
+      value: -1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 353f7d97c533dd34590b4b699c6df335, type: 3}
@@ -75973,6 +76137,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Monticulo_3 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 7172567034747248876, guid: 5eb4a0e46afef374f85b7b63b25ec841, type: 3}
+      propertyPath: m_SortingOrder
+      value: -1
+      objectReference: {fileID: 0}
     - target: {fileID: 7172567034747248879, guid: 5eb4a0e46afef374f85b7b63b25ec841, type: 3}
       propertyPath: m_RootOrder
       value: 36
@@ -76888,6 +77056,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4702443475441421238, guid: 353f7d97c533dd34590b4b699c6df335, type: 3}
+      propertyPath: m_SortingOrder
+      value: -1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 353f7d97c533dd34590b4b699c6df335, type: 3}
 --- !u!4 &1967965123 stripped
@@ -77367,7 +77539,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.0019465089, y: 0.0074476004}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -77378,7 +77550,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.62232745, y: 0.6438801}
   m_EdgeRadius: 0
 --- !u!212 &1999474347
 SpriteRenderer:
@@ -77420,9 +77592,9 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_Sprite: {fileID: 21300000, guid: c680fa82670ecef4aaba8be32d02e498, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -77520,7 +77692,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.001946509, y: 0.0074476}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -77531,7 +77703,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.6223274, y: 0.6438801}
   m_EdgeRadius: 0
 --- !u!212 &1999796180
 SpriteRenderer:
@@ -77573,9 +77745,9 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_Sprite: {fileID: 21300000, guid: c680fa82670ecef4aaba8be32d02e498, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -78737,7 +78909,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.001946509, y: 0.0074476}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -78748,7 +78920,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.6223274, y: 0.6438801}
   m_EdgeRadius: 0
 --- !u!212 &2093373042
 SpriteRenderer:
@@ -78790,9 +78962,9 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_Sprite: {fileID: 21300000, guid: c680fa82670ecef4aaba8be32d02e498, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -79304,6 +79476,10 @@ PrefabInstance:
     - target: {fileID: 4702443475441421237, guid: 353f7d97c533dd34590b4b699c6df335, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4702443475441421238, guid: 353f7d97c533dd34590b4b699c6df335, type: 3}
+      propertyPath: m_SortingOrder
+      value: -1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 353f7d97c533dd34590b4b699c6df335, type: 3}

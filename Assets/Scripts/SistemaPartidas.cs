@@ -21,7 +21,7 @@ public class SistemaPartidas : MonoBehaviour
 
     [Header("Objetos desactivables de la escena (Lógica de funcionalidad de menú de pausa):")]
 
-    //Fondo Desactivabe:
+    //Fondo Desactivable:
     [SerializeField] private GameObject fondoNivel;
 
     //Grupo de objetos del menú de pausa:
@@ -43,7 +43,6 @@ public class SistemaPartidas : MonoBehaviour
 
     [Header("Músicas del nivel:")]
 
-    //[SerializeField] private AudioClip musicaFondo; //descartable, es la misma que "musicaNivelNormal".
     [SerializeField] private AudioClip musicaNivelNormal;
     [SerializeField] private AudioClip musicaNivelSegundosFinales;
 
@@ -57,45 +56,19 @@ public class SistemaPartidas : MonoBehaviour
 
     void Awake()
     {
-        musicaNivelNormal = Resources.Load<AudioClip>("MusicaJuego"); //cambiar por la que corresponda.
-        musicaNivelSegundosFinales = Resources.Load<AudioClip>("30Seconds");
-        efectoSonidoDerrumbe = Resources.Load<AudioClip>("sfx_terremoto");
-        spawn = GetComponent<Spawn>();
-
-        var roca1 = Resources.Load<GameObject>("Roca_1");
-        var roca2 = Resources.Load<GameObject>("Roca_2");
-        var pinchos1 = Resources.Load<GameObject>("Pinchos_1");
-        var pinchos2 = Resources.Load<GameObject>("Pinchos_2");
-
-        listaTrampasSinElegir = new List<GameObject> { roca1, roca2, pinchos1, pinchos2 };
-        uiManager = GameObject.Find("ControladorUI").GetComponent<UIManager>();
-        playerInputManager = GetComponent<PlayerInputManager>();
-        
+        PreconfigurarPartida();
     }
 
-    // Start is called before the first frame update
     void Start()
     {
         InicializarValoresPresetados();
         IniciarPartida();
-        AudioManager.Instance.ReproducirMusica(musicaNivelNormal);
-        spawn.Initialization();
-        //Podría ir en una función llamada "PreconfigurarControlesDeJugadores()"
-        for (int i = 0; i < JuegoManager.Instance.listaJugadoresTotales.Count; i++)
-        {
-            var jugadorActual = Instantiate(JuegoManager.Instance.listaJugadoresTotales[i], new Vector2(0,0), Quaternion.identity);
-            jugadorActual.name = "Jugador_" + (i + 1);
-            if(jugadorActual.name == "Jugador_2")
-            {
-                jugadorActual.GetComponent<PlayerInput>().SwitchCurrentControlScheme("Teclado Derecho", Keyboard.current);
-            }
-            jugadorActual.transform.position = spawn.eleccionDePosicion();
-        }
-        uiManager.InicializarTextosDePuntuacion();
+
+        PosicionarJugadoresEnPartida();
         
+        AudioManager.Instance.ReproducirMusica(musicaNivelNormal);
     }
 
-    // Update is called once per frame
     void Update()
     {
         //Si ya inició/ya finalizó la partida, no hara nada más este código.
@@ -125,6 +98,45 @@ public class SistemaPartidas : MonoBehaviour
     }
 
     //Funciones para la preconfiguración e incio de partida:
+
+    private void PreconfigurarPartida()
+    {
+        musicaNivelNormal = Resources.Load<AudioClip>("MusicaJuego");
+        musicaNivelSegundosFinales = Resources.Load<AudioClip>("30Seconds");
+        efectoSonidoDerrumbe = Resources.Load<AudioClip>("sfx_terremoto");
+
+        spawn = GetComponent<Spawn>();
+
+        var roca1 = Resources.Load<GameObject>("Roca_1");
+        var roca2 = Resources.Load<GameObject>("Roca_2");
+        var pinchos1 = Resources.Load<GameObject>("Pinchos_1");
+        var pinchos2 = Resources.Load<GameObject>("Pinchos_2");
+
+        listaTrampasSinElegir = new List<GameObject> { roca1, roca2, pinchos1, pinchos2 };
+        uiManager = GameObject.Find("ControladorUI").GetComponent<UIManager>();
+        playerInputManager = GetComponent<PlayerInputManager>();
+    }
+
+    private void PosicionarJugadoresEnPartida()
+    {
+        spawn.Initialization();
+
+        //Podría ir en una función llamada "PreconfigurarControlesDeJugadores()"
+        for (int i = 0; i < JuegoManager.Instance.listaJugadoresTotales.Count; i++)
+        {
+            var jugadorActual = Instantiate(JuegoManager.Instance.listaJugadoresTotales[i], new Vector2(0,0), Quaternion.identity);
+            jugadorActual.name = "Jugador_" + (i + 1);
+
+            if(jugadorActual.name == "Jugador_2")
+            {
+                jugadorActual.GetComponent<PlayerInput>().SwitchCurrentControlScheme("Teclado Derecho", Keyboard.current);
+            }
+
+            jugadorActual.transform.position = spawn.eleccionDePosicion();
+        }
+
+        uiManager.InicializarTextosDePuntuacion();
+    }
 
     public void InicializarValoresPresetados()
     {
@@ -201,9 +213,6 @@ public class SistemaPartidas : MonoBehaviour
 
         //Seteo el contador en base al tiempo actual:
         contadorTiempoPartida.text = $"{tiempoActual}";
-
-        //Y envío un mensaje por cosola:
-        print("Ha iniciado el tiempo de recolección");
     }
 
     public void IniciarTimerDePartidaEscape()
@@ -220,10 +229,8 @@ public class SistemaPartidas : MonoBehaviour
 
         ActivarSalida();
 
-        //Agregado estético, le cambio ell color de las letras a un tono rojizo:
+        //Agregado estético, le cambio el color de las letras a un tono rojizo:
         contadorTiempoPartida.color = Color.red;
-
-        print("Ha iniciado el tiempo de escape");
     }
 
     //Actualización de timer y realización de acción correspondiente:
@@ -253,7 +260,6 @@ public class SistemaPartidas : MonoBehaviour
 
         if (SeTerminoElTiempo())
         {
-            print("Se terminó el tiempo de recolección, hora de escapar!");
             estaEnFaseDeRecoleccion = false;
 
             IniciarTimerDePartidaEscape();
@@ -266,8 +272,8 @@ public class SistemaPartidas : MonoBehaviour
 
         if (SeTerminoElTiempo())
         {
-            print("Se acaba de terminar el tiempo de escape.");
             estaEnFaseDeEscape = false;
+
             FinalizarPartida();
         }
     }
@@ -371,5 +377,4 @@ public class SistemaPartidas : MonoBehaviour
 
         DesactivarMenuDePausa();
     }
-
 }

@@ -11,18 +11,13 @@ public abstract class TrampaBaseController : MonoBehaviour
         rbTrampa = GetComponent<Rigidbody2D>();
     }
 
-    // Start is called before the first frame update
     protected void Start()
     {
         Inicializar();
-        UbicarTrampa();
-        ActivarTrampa();
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        UbicarTrampa();
+
+        ActivarTrampa();
     }
 
     protected void Inicializar()
@@ -37,5 +32,4 @@ public abstract class TrampaBaseController : MonoBehaviour
     protected abstract void ActivarTrampa();
 
     protected abstract void DestruirTrampa();
-
 }

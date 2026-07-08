@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class ControladorOpciones : MonoBehaviour
 {
+    [Header("Sliders de escena:")]
     Slider sliderMusica;
     Slider sliderSFX;
 
@@ -16,13 +17,18 @@ public class ControladorOpciones : MonoBehaviour
 
     void Start()
     {
-        sliderMusica.value = AudioManager.Instance.volumenCancion;
-        sliderSFX.value = AudioManager.Instance.volumenSFX;
+        InicializarSliders();
     }
 
     void Update()
     {
         AsignarVolumen();
+    }
+
+    void InicializarSliders()
+    {
+        sliderMusica.value = AudioManager.Instance.volumenCancion;
+        sliderSFX.value = AudioManager.Instance.volumenSFX;
     }
 
     void AsignarVolumen()

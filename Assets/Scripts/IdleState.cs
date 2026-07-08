@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class IdleState : FSM_Base
 {
+    // Referencia al componente fsm del jugador
     private FSM_Jugador fsm;
 
+
+    // Setea la variable fsm en base al componente del jugador
     public IdleState(FSM_Jugador fsm)
     {
         this.fsm = fsm;
@@ -18,18 +21,6 @@ public class IdleState : FSM_Base
 
     public override void Update()
     {
-        //Ejemplos de uso:
-        //
-        // if(Input.GetAxisRaw("Horizontal") != 0)
-        // {
-        //     fsm.ChangeState(fsm.RunState);
-        // }
-        //
-        // if(playerMovement.isMoving)
-        // {
-        //     fsm.ChangeState(fsm.RunState);
-        // }
-
         if(fsm.jugadorActual.inputPlayer.seEstaMoviendo)
         {
             fsm.ChangeState(fsm.RunState);

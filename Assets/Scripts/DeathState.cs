@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class DeathState : FSM_Base
 {
+    // No sirve
     private FSM_Jugador fsm;
 
     public DeathState(FSM_Jugador fsm)

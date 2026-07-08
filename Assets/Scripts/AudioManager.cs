@@ -40,10 +40,12 @@ public class AudioManager : MonoBehaviour
             print ("No se encontró la música");
             return;
         }
+        
         if(audioFondo.isPlaying && audioFondo.clip == cancionAReproducir)
         {
             return;
         }
+
         audioFondo.clip = cancionAReproducir;
         audioFondo.volume = volumenCancion;
         audioFondo.loop = true;
@@ -53,7 +55,6 @@ public class AudioManager : MonoBehaviour
     public void DetenerMusica()
     {
         audioFondo.loop = false;
-        audioFondo.volume = 100;
         audioFondo.Stop();
     }
 
@@ -64,6 +65,7 @@ public class AudioManager : MonoBehaviour
             print("Sonido no encontrado");
             return;
         }
+
         audioSFX.PlayOneShot(sonidoAReproducir);
         audioSFX.volume = volumenSFX;
     }

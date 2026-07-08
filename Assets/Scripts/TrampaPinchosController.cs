@@ -4,24 +4,17 @@ using UnityEngine;
 
 public class TrampaPinchosController : TrampaBaseController
 {
-    //Variables del objeto:
-
-    //[Header("Posicion a mover el objeto en y:")]
-    //[SerializeField] private float posicionASumarEnY;
-
     [Header("Lógica para el tiempo de vida de la trampa:")]
     private float tiempoActualTrampa;
     [SerializeField] float tiempoVidaTrampa;
     public bool seActivoLaTrampaPorPinchos = false;
 
-    //Prefabs de ubicaciones:
+    [Header ("Prefabs de ubicaciones potenciales")]
     public GameObject potencialUbicacion1;
     public GameObject potencialUbicacion2;
 
-    // Update is called once per frame
     void Update()
     {
-        //Si no se activo la trampa, no se actualiza su timer.
         if (!seActivoLaTrampaPorPinchos) return;
 
         ActualizarTimerDeDesactivacionDeTrampa();
@@ -49,6 +42,7 @@ public class TrampaPinchosController : TrampaBaseController
         if(gameObject.tag == "Pinchos_1")
         {
             gameObject.transform.position = potencialUbicacion1.transform.position;
+
         } else if(gameObject.tag == "Pinchos_2")
         {
             gameObject.transform.position = potencialUbicacion2.transform.position;
@@ -60,10 +54,7 @@ public class TrampaPinchosController : TrampaBaseController
 
     protected override void ActivarTrampa()
     {
-        //gameObject.transform.position = new Vector3(transform.position.x, this.gameObject.transform.position.y + posicionASumarEnY, this.transform.position.z); //DESCARTADO.
-
         IniciarTimerDeDesactivacionDeTrampa();
-
     }
 
     //Destrucción:
@@ -91,10 +82,6 @@ public class TrampaPinchosController : TrampaBaseController
 
         if(haConcluidoElTiempoDeVidaDeLaTrampa())
         {
-            //rbTrampaPinchos.AddForce(new Vector2(0, -fuerzaAparicionPinchos), ForceMode2D.Force);
-            //gameObject.transform.Translate(new Vector2(0, this.gameObject.transform.position.y - fuerzaAparicionPinchos));
-            //gameObject.transform.position = new Vector3(transform.position.x, this.gameObject.transform.position.y - posicionASumarEnY, this.transform.position.z); //DESCARTADO
-
             DestruirTrampa();
         }
     }
@@ -105,7 +92,6 @@ public class TrampaPinchosController : TrampaBaseController
     {
         if(collision.gameObject.CompareTag("jugador"))
         {
-            print($"Acabo de hacer daño al jugador: {collision.gameObject.tag}");
 
             var invulnerabilidad = collision.gameObject.GetComponent<SistemaInvulnerabilidad>();
             var jugadorPuntaje = collision.gameObject.GetComponent<PuntajeJugadorController>();
@@ -120,8 +106,6 @@ public class TrampaPinchosController : TrampaBaseController
                     jugadorPuntaje.puntaje = Mathf.Max(0, jugadorPuntaje.puntaje - 5);
                     AudioManager.Instance.ReproducirSonido(jugadorController.sfx_danio);
 
-                    //jugadorPuntaje.puntaje -= 10;
-
                     // actualizacion de la ui (resta de punto si recibe daño)
                     UIManager ui = FindObjectOfType<UIManager>();
 
@@ -133,12 +117,7 @@ public class TrampaPinchosController : TrampaBaseController
                     // dirección del empuje 
                     Vector2 direccionDeEmpuje = (collision.transform.position - transform.position).normalized;
                     invulnerabilidad.ActivarInvulnerabilidad(direccionDeEmpuje);
-
-                    print("el jugador es invulnerable");
                 }
-
         }
-
     }
-
 }

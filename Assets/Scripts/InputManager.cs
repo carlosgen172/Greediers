@@ -12,9 +12,12 @@ public class InputManager : MonoBehaviour
 
     public bool InteractPressed {get; private set;}
 
+    // Booleanos para lógica de fsm
     public bool seEstaMoviendo = false;
     public bool estaQuieto = false;
-    Rigidbody2D rbPlayer;
+
+    // Otros componentes
+    private Rigidbody2D rbPlayer;
     public InputActionReference movimiento;
     public InputActionReference interaccion;
 

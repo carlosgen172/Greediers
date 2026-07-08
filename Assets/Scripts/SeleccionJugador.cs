@@ -40,7 +40,6 @@ public class SeleccionJugador : MonoBehaviour
     int indice; //este índice funciona para actualizar el personaje que pueden seleccionar los jugadores
     int indiceTexto; //sirve para actualizar los textos de los jugadores una vez seleccionados
     int indiceImagen; //sirve para actualizar las imagenes de los personajes una vez seleccionados
-    int indicePlayerInput;
 
 
     void Awake()
@@ -62,7 +61,6 @@ public class SeleccionJugador : MonoBehaviour
         indice = 0;
         indiceTexto = 0;
         indiceImagen = 0;
-        indicePlayerInput = 0;
 
         listaJugadoresGM = gameManager.listaJugadoresTotales;
         jugadorSeleccionado = listaJugadoresGM[indice];
@@ -76,6 +74,7 @@ public class SeleccionJugador : MonoBehaviour
         segundoInputSeleccionado = false;
         tercerInputSeleccionado = false;
         cuartoInputSeleccionado = false;
+
         for (int i = 0; i < listaJugadoresGM.Count; i++)
         {
             PlayerInput playerInput;
@@ -83,15 +82,6 @@ public class SeleccionJugador : MonoBehaviour
             listaDePlayerInputs.Add(playerInput);
         }
     }
-
-
-
-    void Start()
-    {
-
-    }
-
-
 
     void Update()
     {
@@ -101,8 +91,6 @@ public class SeleccionJugador : MonoBehaviour
         ActivacionDePersonaje_(ref tercerPersonaje);
         ActivacionDePersonaje_(ref cuartoPersonaje);
     }
-
-
 
     private void ConfiguracionDeTeclas()
     {
@@ -130,8 +118,6 @@ public class SeleccionJugador : MonoBehaviour
         }
     }
 
-
-
     //activa un personaje y determina qué jugador lo usará dependiendo el input que se activó
     private void ActivacionDePersonaje_(ref bool unPersonaje)
     {
@@ -142,7 +128,6 @@ public class SeleccionJugador : MonoBehaviour
         }
     }
 
-
     //activa uno de los inputs disponibles para los jugadores dependiendo la tecla que fué presionada
     private bool ActivacionDeInput()
     {
@@ -151,7 +136,6 @@ public class SeleccionJugador : MonoBehaviour
             ActivacionDeInputParaJugador(teclaTercerJugador, ref tercerInputSeleccionado, "JP3") ||
             ActivacionDeInputParaJugador(teclaCuartoJugador, ref cuartoInputSeleccionado, "JP4");
     }
-
 
     //activa el input para el jugador unJugador dependiendo la tecla que fué presionada
     private bool ActivacionDeInputParaJugador(bool teclaDeUnJugador, ref bool inputDeUnJugador, string textoUnJugador)
@@ -166,7 +150,6 @@ public class SeleccionJugador : MonoBehaviour
         return false;
     }
 
-
     //modifica el texto encima de los personajes dependiendo el input del jugador
     private void CambioDeTextoParaJugador_(string nroJugador)
     {
@@ -177,7 +160,6 @@ public class SeleccionJugador : MonoBehaviour
         }
     }
 
-
     //modifica la imagen del personaje seleccionado
     private void CambioDeImagenDePersonaje()
     {
@@ -187,7 +169,6 @@ public class SeleccionJugador : MonoBehaviour
             indiceImagen++;
         }
     }
-
 
     //agrega un jugador de la lista de jugadores del GM a la lista de selección del menú
     private void AgregarJugadorAListaDeSeleccion()
@@ -204,7 +185,6 @@ public class SeleccionJugador : MonoBehaviour
         }
     }
 
-
     private void AgregarJugador_AListaDeSeleccionSiPuede(GameObject player)
     {
         if (SeleccionJugadores.Count < listaJugadoresGM.Count)
@@ -212,5 +192,4 @@ public class SeleccionJugador : MonoBehaviour
             SeleccionJugadores.Add(player);
         }
     }
-
 }

@@ -6,7 +6,9 @@ using UnityEngine.UI;
 
 public class JuegoManager : MonoBehaviour
 {
+    [Header ("Instancia del propio script (Singleton):")]
     public static JuegoManager Instance;
+
 
     GameObject objetoSeleccionJugador;
 
@@ -69,7 +71,7 @@ public class JuegoManager : MonoBehaviour
         // "Seleccion de Jugador" antes de tratar de realizar la función de la misma?
         objetoSeleccionJugador = GameObject.Find("ControladorSeleccionJugador");
 
-        InicializarSeleccionJugador();
+        // InicializarSeleccionJugador();
     }
 
     bool InicializarSeleccionJugador()
@@ -88,11 +90,10 @@ public class JuegoManager : MonoBehaviour
     {
         //actualiza su nombre a la escena que corresponda:
         ActualizarNombreDeEscenaActual();
-        if(escenaActual == "MenuPrincipal" && !AudioManager.Instance.audioFondo.isPlaying)
-        {
-            AudioManager.Instance.ReproducirMusica(musicaDeMenu);
-        }
+        ReproducirMusicaDeMenuPrincipal();
     }
+
+    
 
     //Booleanos:
 
@@ -116,6 +117,15 @@ public class JuegoManager : MonoBehaviour
     //Funciones generales:
 
     //Función para la actualización de variable de nombre de escena actual.
+
+    void ReproducirMusicaDeMenuPrincipal()
+    {
+        if(escenaActual == "MenuPrincipal" && !AudioManager.Instance.audioFondo.isPlaying)
+        {
+            AudioManager.Instance.ReproducirMusica(musicaDeMenu);
+        }
+    }
+    
     public void ActualizarNombreDeEscenaActual()
     {
         escenaActual = SceneManager.GetActiveScene().name;

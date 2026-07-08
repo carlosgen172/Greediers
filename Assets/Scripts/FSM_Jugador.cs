@@ -1,17 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class FSM_Jugador : MonoBehaviour
 {
-    private FSM_Base currentState;
+    [Header("Estado actual del jugador:")]
+    [SerializeField] private FSM_Base currentState;
 
+    // Posibles estados de un jugador
     public IdleState IdleState { get; private set; }
     public RunState RunState { get; private set; }
     public JumpState JumpState { get; private set; }
     public MineState MineState { get; private set; }
     public DeathState DeathState { get; private set; }
 
+    // Otros componentes
     public Rigidbody2D rb { get; private set; }
     public Animator animator { get; private set; }
 
@@ -19,18 +23,9 @@ public class FSM_Jugador : MonoBehaviour
 
     void Awake()
     {
-        IdleState = new IdleState(this);
-        RunState = new RunState(this);
-        JumpState = new JumpState(this);
-        MineState = new MineState(this);
-        DeathState = new DeathState(this);
-
-        //se ubican los componentes DIRECTAMENTE en la fsm_jugador
-        // para NO tener que ponerlos en CADA estado existente
-        rb = GetComponent<Rigidbody2D>();
-        animator = GetComponent<Animator>();
-        jugadorActual = gameObject.GetComponent<JugadorManager>();
-        //poner los componentes necesarios... (si es que me olvidé de alguno)
+        
+        SetearEstadosDeJugador();
+        SetearComponentes();
     }
 
     void Start()
@@ -52,6 +47,25 @@ public class FSM_Jugador : MonoBehaviour
         currentState = newState;
 
         currentState.Enter();
+    }
+
+    void SetearEstadosDeJugador()
+    {
+        IdleState = new IdleState(this);
+        RunState = new RunState(this);
+        JumpState = new JumpState(this);
+        MineState = new MineState(this);
+        DeathState = new DeathState(this);
+    }
+
+    void SetearComponentes()
+    {
+        //se ubican los componentes DIRECTAMENTE en la fsm_jugador
+        // para NO tener que ponerlos en CADA estado existente
+        rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
+        jugadorActual = gameObject.GetComponent<JugadorManager>();
+        //poner los componentes necesarios... (si es que me olvidé de alguno)
     }
 
     

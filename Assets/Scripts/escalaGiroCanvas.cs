@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class escalaGiroCanvas : MonoBehaviour
 {
+    [Header ("Valor de escala inicial:")]
     private Vector3 escalaInicial;
 
     void Start()
@@ -14,15 +15,16 @@ public class escalaGiroCanvas : MonoBehaviour
 
     void LateUpdate()
     {
-        // Revisamos hacia dónde está mirando el padre (el jugador)
+        AjustarTextoDelCanvas();
+    }
+    void AjustarTextoDelCanvas()
+    {
         if (transform.parent.localScale.x < 0)
         {
-            // Si el padre es negativo, hacemos el canvas negativo para contrarrestar
             transform.localScale = new Vector3(-escalaInicial.x, escalaInicial.y, escalaInicial.z);
         }
         else
         {
-            // Si el padre es positivo, mantenemos el canvas normal
             transform.localScale = escalaInicial;
         }
     }

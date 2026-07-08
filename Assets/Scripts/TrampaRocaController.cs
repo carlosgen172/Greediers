@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class TrampaRocaController : TrampaBaseController
 {
-
-    //Prefabs de ubicaciones:
+    [Header ("Prefabs de ubicaciones")]
     public GameObject potencialUbicacion1;
     public GameObject potencialUbicacion2;
 
@@ -25,6 +24,7 @@ public class TrampaRocaController : TrampaBaseController
         if(gameObject.tag == "Roca_1")
         {
             gameObject.transform.position = potencialUbicacion1.transform.position;
+
         } else if(gameObject.tag == "Roca_2")
         {
             gameObject.transform.position = potencialUbicacion2.transform.position;
@@ -49,10 +49,7 @@ public class TrampaRocaController : TrampaBaseController
     //Función de collision para la colisión del jugador con la trampa;
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        
-
         if(collision.gameObject.CompareTag("jugador"))
-        //if(collision.gameObject.TryGetComponent<PuntajeJugadorController>(out PuntajeJugadorController jugadorPuntaje))
         {
             yaColisione = true;
             var invulnerabilidad = collision.gameObject.GetComponent<SistemaInvulnerabilidad>();
@@ -68,8 +65,6 @@ public class TrampaRocaController : TrampaBaseController
                     jugadorPuntaje.puntaje = Mathf.Max(0, jugadorPuntaje.puntaje - 5);
                     AudioManager.Instance.ReproducirSonido(jugadorController.sfx_danio);
 
-                    //jugadorPuntaje.puntaje -= 10;
-
                     // actualizacion de la ui (resta de punto si recibe daño)
                     UIManager ui = FindObjectOfType<UIManager>();
 
@@ -81,10 +76,7 @@ public class TrampaRocaController : TrampaBaseController
                     // dirección del empuje 
                     Vector2 direccionDeEmpuje = (collision.transform.position - transform.position).normalized;
                     invulnerabilidad.ActivarInvulnerabilidad(direccionDeEmpuje);
-
-                    print("el jugador es invulnerable");
                 }
-            
             DestruirTrampa();
         }
 
@@ -94,12 +86,10 @@ public class TrampaRocaController : TrampaBaseController
             yaColisione = true;
             DestruirTrampaConTiempo();
         }
-
     }
 
     public void DestruirTrampaConTiempo()
     {
         Destroy(gameObject, tiempoVida);
     }
-
 }

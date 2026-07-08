@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class FSM_Base
 {
+    // Sirve, aunque no tenga "Nada"
     public virtual void Enter()
     {
         

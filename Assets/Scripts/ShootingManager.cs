@@ -16,6 +16,8 @@ public class ShootingManager : MonoBehaviour
     public float tiempoActual;
     public bool seActivoElCooldown;
     bool puedeDisparar;
+
+    [Header("Punto de aparicion de las balas:")]
     [SerializeField] private Transform shootPoint;
 
     void Awake()
@@ -46,20 +48,25 @@ public class ShootingManager : MonoBehaviour
     public void DispararATravesDeInput(InputAction.CallbackContext context)
     {
         if(!jugador.esMomia) return;
+
         if (context.started)
         {
             Disparar();
+
         }
     }
-
 
     private void Disparar()
     {
         if(prefabVendasPlayer == null) return;
+        
         if(!puedeDisparar) return;
+
         var vendaActual = Instantiate(prefabVendasPlayer, shootPoint.position, Quaternion.identity);
         var vendaActualFuncional = vendaActual.GetComponent<Venda>();
+
         vendaActualFuncional.RecibirDireccionDeDisparoEnBaseA_(gameObject);
+
         puedeDisparar = true;
 
         IniciarTimerDeCooldownDeDisparo();
@@ -86,5 +93,4 @@ public class ShootingManager : MonoBehaviour
             tiempoActual = cooldownDisparo;
         }
     }
-
 }

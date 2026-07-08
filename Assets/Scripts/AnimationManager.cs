@@ -9,10 +9,6 @@ public class AnimationManager : MonoBehaviour
     {
         animator = GetComponent<Animator>();
     }
-    void Start()
-    {
-
-    }
  
     void Update()
     {

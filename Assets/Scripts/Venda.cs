@@ -8,14 +8,11 @@ public class Venda : MonoBehaviour
     [Header("Valores generales del disparo de la momia:")]
     public float tiempoVida = 3.0f;
     public float velocidadDisparo = 10.0f;
-    //public GameObject direccionDisparo;
     private Rigidbody2D rbBala;
     private float impulsoDisparo;
     private GameObject disparador;
-    private List<string> listaTagsObjetosColisionables = new List<string> {"Plataforma", "Roca", "Pinchos", "Jugador"};
-
-    //Valor de tesoro a quitar:
     private int tesoroAQuitar;
+    private List<string> listaTagsObjetosColisionables = new List<string> {"Plataforma", "Roca", "Pinchos", "Jugador"};
 
     void Awake()
     {
@@ -23,16 +20,9 @@ public class Venda : MonoBehaviour
 
         tesoroAQuitar = 10;
     }
-    // Start is called before the first frame update
     void Start()
     {
         DestruirLuegoDeTiempoDeterminado();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     void FixedUpdate()
@@ -47,30 +37,6 @@ public class Venda : MonoBehaviour
         Destroy(this.gameObject, tiempoVida);
     }
 
-    /*
-
-    public void RecibirDireccionDeDisparoEnBaseA_(GameObject unaDireccion)
-    {
-        Vector3 escala = transform.localScale;
-
-        if(unaDireccion.transform.localScale.x == 1)
-        {
-            escala.x = 1;
-        } else if (unaDireccion.transform.localScale.x == -1)
-        {
-            escala.x = -1;
-        }
-
-        transform.localScale = escala;
-    }
-
-    public void MoverConstantementeHaciaDireccionIndicada()
-    {
-        transform.Translate(Vector2.right * velocidadDisparo * Time.deltaTime);
-    }
-
-    */
-
     public void RecibirDireccionDeDisparoEnBaseA_(GameObject unDisparador)
     {
         //Recibe al objeto que efectuó el disparo, lo iguala al valor privado:
@@ -84,7 +50,7 @@ public class Venda : MonoBehaviour
         rbBala.AddForce(new Vector2(velocidadDisparo * impulsoDisparo, 0), ForceMode2D.Impulse);
     }
 
-    public void OnTriggerEnter2D(Collider2D collision) //probar con oncollision si falla
+    public void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision == null) return;
 
@@ -111,7 +77,6 @@ public class Venda : MonoBehaviour
 
     public bool elObjetoAlQueColisioneEsUnObstaculoColisionable(GameObject unObjetoColisionado)
     {
-        //return unObjetoColisionado.CompareTag("Plataformas") || unObjetoColisionado.CompareTag("Pinchos") || unObjetoColisionado.CompareTag("Roca");
         return JuegoManager.Instance.elElemento_SeEncuentraEnLaListaDeElementos_(unObjetoColisionado.tag, listaTagsObjetosColisionables);
     }
 }

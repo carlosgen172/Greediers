@@ -13,7 +13,7 @@ public class PuntajeJugadorController : MonoBehaviour
 
     void Start()
     {
-        //Se inicializa el puntaje
+        //Se inicializa el puntaje.
         puntaje = 0;
 
         //El nombre del jugador se iguala al nombre de su gameObject.

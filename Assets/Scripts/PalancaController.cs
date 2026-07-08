@@ -24,14 +24,14 @@ public class PalancaController : MonoBehaviour
 
     [SerializeField] SistemaPartidas sistemaPartidaActual;
 
-    // Start is called before the first frame update
+    // Otros componentes
+    private SpriteRenderer spriteRenderer;
+
     void Start()
     {
-        //Seteo el sistema de partidas en base al actual (en caso de que no funcione, poner esta función en el awake):
-        sistemaPartidaActual = GameObject.Find("ControladorPartida").GetComponent<SistemaPartidas>();
+        InicializarCaracteristicasPrincipales();
     }
 
-    // Update is called once per frame
     void Update()
     {
         actualizarTimerCooldownInterruptor();
@@ -39,9 +39,16 @@ public class PalancaController : MonoBehaviour
 
     //Booleanos:
 
-    bool seConcretoElTiempoDeCooldown()
+    private bool seConcretoElTiempoDeCooldown()
     {
         return tiempoActual <= 0;
+    }
+
+    private void InicializarCaracteristicasPrincipales()
+    {
+        //Seteo el sistema de partidas en base al actual (en caso de que no funcione, poner esta función en el awake):
+        sistemaPartidaActual = GameObject.Find("ControladorPartida").GetComponent<SistemaPartidas>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     //Funciones para el seteo y preconfiguración de la trampa que activará el interruptor:
@@ -70,9 +77,6 @@ public class PalancaController : MonoBehaviour
         //Cambio el valor de indice de trampa del sistema de partidas por el que se eligió aquí:
         sistemaPartidaActual.indiceTrampaElegida = indexAleatorio;
 
-        //Debug para saber si se eligió corectamente:
-        print($"la trampa elegida es la siguiente: {trampaActual.name}");
-
         //Y seteamos su posición a una preliminar:
         posicionSpawnTrampa = gameObject.transform.position;
 
@@ -85,7 +89,6 @@ public class PalancaController : MonoBehaviour
         if (other.gameObject.CompareTag("jugador"))
         {
             hayUnJugadorCerca = true;
-            print("Hay un jugador que puede activar la trampa");
         }
     }
 
@@ -94,7 +97,6 @@ public class PalancaController : MonoBehaviour
         if (other.gameObject.CompareTag("jugador"))
         {
             hayUnJugadorCerca = false;
-            print("El jugador ya no se encuentra cerca del interruptor.");
         }
     }
 
@@ -103,11 +105,11 @@ public class PalancaController : MonoBehaviour
     {
         if (activeUnaTrampa || !hayUnJugadorCerca) return;
 
-        print("Acabo de activar la trampa de forma segura");
-
         activeUnaTrampa = true;
 
         Instantiate(trampaActual, posicionSpawnTrampa, Quaternion.identity);
+        
+        spriteRenderer.flipX = true;
 
         iniciarTimerCooldownInterruptor();
     }
@@ -132,6 +134,7 @@ public class PalancaController : MonoBehaviour
         if (seConcretoElTiempoDeCooldown())
         {
             activeUnaTrampa = false;
+            spriteRenderer.flipX = false;
         }
     }
 

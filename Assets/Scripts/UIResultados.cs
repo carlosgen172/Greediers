@@ -1,34 +1,50 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class UIResultados : MonoBehaviour
 {
+    [Header("Variables para la lógica de seteo de resultados")]
     public TextMeshProUGUI textoResultadosFinales;
-    public AudioClip jingleVictoria;
+    private List<PuntajeJugadorController> listaOrdenada;
+    private AudioClip jingleVictoria;
+    private AudioClip jingleEmpate;
 
     void Start()
     {
+        InicializarResultados();
 
-        jingleVictoria = Resources.Load<AudioClip>("Victory");
-
-        AudioManager.Instance.ReproducirSonido(jingleVictoria);
-
-        var listaOrdenada = JuegoManager.Instance.jugadoresQueLlegaron
-                                        .OrderByDescending(j => j.puntaje)
-                                        .ToList();
-                                        
-        textoResultadosFinales.text = "Tabla de posiciones: \n";
-
-        //print(JuegoManager.Instance.jugadoresQueLlegaron.Count);
         foreach (var jugador in JuegoManager.Instance.jugadoresQueLlegaron)
         {
             textoResultadosFinales.text += jugador.nombreJugador + ": " + jugador.puntaje + " puntos\n";
         }
 
+        if (listaOrdenada.Count == 0)
+        {
+            AudioManager.Instance.ReproducirSonido(jingleEmpate);
+            textoResultadosFinales.text += "TODOS MANCOS";
+        }
+        else
+        {
+            AudioManager.Instance.ReproducirSonido(jingleVictoria);
+        }
     }
 
+    private void InicializarResultados()
+    {
+        jingleVictoria = Resources.Load<AudioClip>("Victory");
+        jingleEmpate = Resources.Load<AudioClip>("Draw");
 
+
+
+        listaOrdenada = JuegoManager.Instance.jugadoresQueLlegaron
+                                        .OrderBy(j => j.puntaje)
+                                        .ToList();
+
+        textoResultadosFinales.text = "Tabla de posiciones: \n";
+    }
 }

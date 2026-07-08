@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class RunState : FSM_Base
 {
+    // Referencia a su FSM
     private FSM_Jugador fsm;
 
+    // Setea su estado en base al fsm del jugador
     public RunState(FSM_Jugador fsm)
     {
         this.fsm = fsm;

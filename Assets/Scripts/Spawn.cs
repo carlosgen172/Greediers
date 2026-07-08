@@ -22,7 +22,7 @@ public class Spawn : MonoBehaviour
 
     int indice;
 
-    //El spawneo del sprite del personaje dependerá de donde spawnee 
+    //El spawneo del sprite del personaje dependerá de donde spawnee.
     // (ejemplo: No será la misma dirección de vista del pj que spawneo a la izq 
     // que el que spawneo a la izq, ver de usar función de giro de pj incluido 
     // en el movementJugador comparándolo quizás con los prefabs de las posiciones, 
@@ -44,20 +44,6 @@ public class Spawn : MonoBehaviour
 
         indice = 0;
     }
-    
-
-
-    void Start()
-    {
-        
-    }
-    
-    void Update()
-    {
-        
-    }
-
-
 
     //setea las posiciones de los prefabs en variables de tipo vector2 para un mejor manejo
     private void seteoPosiciones()
@@ -73,15 +59,11 @@ public class Spawn : MonoBehaviour
         //el indice de la lista elegido de forma random. Éste usa enteros, incluye el valor min pero no el valor max
         indice = Random.Range(0, posDisponibles.Count);
 
-        Debug.Log("indice actual: " + indice);
-
         //posicion elegida segun el índice en la lista de posiciones disponibles
         Vector2 posSeleccionada = posDisponibles[indice];
 
         //remueve la posición seleccionada para poder elegir una de las restantes
         posDisponibles.RemoveAt(indice);
-
-        Debug.Log("posicion elegida: " + posSeleccionada);
 
         return posSeleccionada;
     }
