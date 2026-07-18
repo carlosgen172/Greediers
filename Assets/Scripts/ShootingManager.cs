@@ -9,16 +9,18 @@ public class ShootingManager : MonoBehaviour
 
     [Header("Disparo y encargado de otorgar el spawn de disparo:")]
     public GameObject prefabVendasPlayer;
-    public JugadorManager jugador;
+    JugadorManager jugador;
 
     [Header("Lógica de timers:")]
-    public float cooldownDisparo; 
+    public float cooldownDisparo;
     public float tiempoActual;
     public bool seActivoElCooldown;
     bool puedeDisparar;
 
     [Header("Punto de aparicion de las balas:")]
     [SerializeField] private Transform shootPoint;
+    public float distanciaDeAparicion;
+
 
     void Awake()
     {
@@ -29,6 +31,7 @@ public class ShootingManager : MonoBehaviour
 
     void Start()
     {
+        distanciaDeAparicion = 2f;
         cooldownDisparo = 2f;
         puedeDisparar = true;
     }
@@ -36,6 +39,7 @@ public class ShootingManager : MonoBehaviour
     void Update()
     {
         ActualizarTimerDeCooldownDeDisparo();
+        ActualizarShootPoint();
     }
 
     //BOOLEANOS:
@@ -47,7 +51,7 @@ public class ShootingManager : MonoBehaviour
 
     public void DispararATravesDeInput(InputAction.CallbackContext context)
     {
-        if(!jugador.esMomia) return;
+        if (!jugador.esMomia) return;
 
         if (context.started)
         {
@@ -58,9 +62,9 @@ public class ShootingManager : MonoBehaviour
 
     private void Disparar()
     {
-        if(prefabVendasPlayer == null) return;
-        
-        if(!puedeDisparar) return;
+        if (prefabVendasPlayer == null) return;
+
+        if (!puedeDisparar) return;
 
         var vendaActual = Instantiate(prefabVendasPlayer, shootPoint.position, Quaternion.identity);
         var vendaActualFuncional = vendaActual.GetComponent<Venda>();
@@ -76,21 +80,33 @@ public class ShootingManager : MonoBehaviour
     private void IniciarTimerDeCooldownDeDisparo()
     {
         tiempoActual = cooldownDisparo;
-        
+
         seActivoElCooldown = true;
         puedeDisparar = false;
     }
 
     private void ActualizarTimerDeCooldownDeDisparo()
     {
-        if(!seActivoElCooldown) return;
+        if (!seActivoElCooldown) return;
 
         tiempoActual -= Time.deltaTime;
 
-        if(haConcluidoElCooldownDeDisparo())
+        if (haConcluidoElCooldownDeDisparo())
         {
             puedeDisparar = true;
             tiempoActual = cooldownDisparo;
+        }
+    }
+
+    private void ActualizarShootPoint()
+    {
+        if (!jugador.spriteRenderer.flipX)
+        {
+            shootPoint.position = jugador.transform.position + Vector3.left / distanciaDeAparicion;
+        }
+        else
+        {
+            shootPoint.position = jugador.transform.position + Vector3.right / distanciaDeAparicion;
         }
     }
 }

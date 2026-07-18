@@ -19,7 +19,7 @@ public class JumpState : FSM_Base
 
     public override void Update()
     {
-        if (fsm.jugadorActual.movementPlayer.estaEnElSuelo && !fsm.jugadorActual.estaMinando && fsm.jugadorActual.inputPlayer.estaQuieto && !fsm.jugadorActual.esMomia)
+        if (fsm.jugadorActual.inputPlayer.estaQuieto && fsm.jugadorActual.movementPlayer.estaEnElSuelo && !fsm.jugadorActual.estaMinando && !fsm.jugadorActual.esMomia)
         {
             fsm.ChangeState(fsm.IdleState);
         }

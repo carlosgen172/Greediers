@@ -42,8 +42,18 @@ public class Venda : MonoBehaviour
     {
         //Recibe al objeto que efectuó el disparo, lo iguala al valor privado:
         disparador = unDisparador;
-        //E iguala el impulso de disparo en base a la escala local de x del disparador(que puede ser 1 o -1)
-        impulsoDisparo = disparador.transform.localScale.x;
+
+        SpriteRenderer spriteRendererDisparador = disparador.GetComponent<JugadorManager>().spriteRenderer;
+
+        //Iguala el impulso de disparo en base al flip del SpriteRenderer del disparador
+        if (!spriteRendererDisparador.flipX)
+        {
+            impulsoDisparo = -1;
+        }
+        else
+        {
+            impulsoDisparo = 1;
+        }
     }
 
     public void MoverConstantementeHaciaDireccionIndicada()

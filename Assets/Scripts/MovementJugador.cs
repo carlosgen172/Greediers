@@ -15,6 +15,8 @@ public class MovementJugador : MonoBehaviour
     private Vector2 direccionDeMovimiento;
     private Vector3 escalaOriginal;
 
+    private SpriteRenderer spriteRenderer;
+
     [Header("Valores de lógica de colision con el suelo:")]
     public LayerMask capaPlataformas;
     public float longitudLineaColision;
@@ -70,6 +72,7 @@ public class MovementJugador : MonoBehaviour
     {
         rbPlayer = GetComponent<Rigidbody2D>();
         jugadorManager = GetComponent<JugadorManager>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
 
         speedInicial = speed;
         tamanioInicial = transform.localScale;
@@ -107,15 +110,11 @@ public class MovementJugador : MonoBehaviour
 
     private void GirarALaIzquierda()
     {
-        Vector3 escala = transform.localScale;
-        escala.x = -Mathf.Abs(escala.x);
-        transform.localScale = escala;
+        spriteRenderer.flipX = false;
     }
     private void GirarALaDerecha()
     {
-        Vector3 escala = transform.localScale;
-        escala.x = Mathf.Abs(escala.x);
-        transform.localScale = escala;
+        spriteRenderer.flipX = true;
     }
 
     //Función para dibujar la línea raycast para determinar visualmente el tamaño de la misma:
