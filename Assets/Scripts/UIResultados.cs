@@ -18,11 +18,6 @@ public class UIResultados : MonoBehaviour
     {
         InicializarResultados();
 
-        foreach (var jugador in JuegoManager.Instance.jugadoresQueLlegaron)
-        {
-            textoResultadosFinales.text += jugador.nombreJugador + ": " + jugador.puntaje + " puntos\n";
-        }
-
         if (listaOrdenada.Count == 0)
         {
             AudioManager.Instance.ReproducirSonido(jingleEmpate, 1);
@@ -30,6 +25,10 @@ public class UIResultados : MonoBehaviour
         }
         else
         {
+            foreach (var jugador in JuegoManager.Instance.jugadoresQueLlegaron)
+            {
+                textoResultadosFinales.text += jugador.nombreJugador + ": " + jugador.puntaje + " puntos\n";
+            }
             AudioManager.Instance.ReproducirSonido(jingleVictoria, 1);
         }
     }
